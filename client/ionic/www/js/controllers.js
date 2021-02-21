@@ -193,6 +193,12 @@ angular.module('starter.controllers', [])
             $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
             $http.post(DjangoURL+"/account/delete","username="+$scope.username+"&password="+$scope.password)
             loggedin = false
+            document.cookie = "username=;"
+            document.cookie = "password=;"
+            document.cookie = "phonenumber=;"
+            document.cookie = "tel_id=;"
+            document.cookie = "address=;"
+            document.cookie = "post_code=;"
             $window.location.href = '#/signin'
             $window.location.reload()
           }
