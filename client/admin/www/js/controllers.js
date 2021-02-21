@@ -7,7 +7,7 @@ angular.module('starter.controllers', [])
     if ($scope.selected == "پارچه مریم"){
         $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $http.post(DjangoURL+"/kala/parcheh/add",
-                "name="+$scope.name+"&text="+$scope.text+"&img="+$scope.img+"&amount="+$scope.amount)
+                "name="+$scope.name+"&text="+$scope.text+"&img="+$scope.img+"&amount="+$scope.amount+"&num="+$scope.num)
                 .success(function(data){
                     console.log(data)
                     $ionicLoading.show({ template: '<ion-icon class="ion-icon ion-looping" animation="fade-in"></ion-icon> <p dir="rtl">محصول با موفقیت اضافه شد.</p>', noBackdrop: true, duration: 2200 });
@@ -18,7 +18,7 @@ angular.module('starter.controllers', [])
     if ($scope.selected == "پوشاک مریم"){
         $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $http.post(DjangoURL+"/kala/pooshak/add",
-                "name="+$scope.name+"&text="+$scope.text+"&img="+$scope.img+"&amount="+$scope.amount)
+                "name="+$scope.name+"&text="+$scope.text+"&img="+$scope.img+"&amount="+$scope.amount+"&num="+$scope.num)
                 .success(function(data){
                     console.log(data)
                     $ionicLoading.show({ template: '<ion-icon class="ion-icon ion-looping" animation="fade-in"></ion-icon> <p dir="rtl">محصول با موفقیت اضافه شد.</p>', noBackdrop: true, duration: 2200 });
@@ -30,7 +30,7 @@ angular.module('starter.controllers', [])
     if ($scope.selected == "خرازی مریم"){
         $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $http.post(DjangoURL+"/kala/kharazi/add",
-                "name="+$scope.name+"&text="+$scope.text+"&img="+$scope.img+"&amount="+$scope.amount)
+                "name="+$scope.name+"&text="+$scope.text+"&img="+$scope.img+"&amount="+$scope.amount+"&num="+$scope.num)
                 .success(function(data){
                     console.log(data)
                     $ionicLoading.show({ template: '<ion-icon class="ion-icon ion-looping" animation="fade-in"></ion-icon> <p dir="rtl">محصول با موفقیت اضافه شد.</p>', noBackdrop: true, duration: 2200 });
@@ -41,7 +41,7 @@ angular.module('starter.controllers', [])
     if ($scope.selected == "حجاب مریم"){
         $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $http.post(DjangoURL+"/kala/hejab/add",
-                "name="+$scope.name+"&text="+$scope.text+"&img="+$scope.img+"&amount="+$scope.amount)
+                "name="+$scope.name+"&text="+$scope.text+"&img="+$scope.img+"&amount="+$scope.amount+"&num="+$scope.num)
                 .success(function(data){
                     console.log(data)
                     $ionicLoading.show({ template: '<ion-icon class="ion-icon ion-looping" animation="fade-in"></ion-icon> <p dir="rtl">محصول با موفقیت اضافه شد.</p>', noBackdrop: true, duration: 2200 });
@@ -132,7 +132,7 @@ angular.module('starter.controllers', [])
       
         // An elaborate, custom popup
         $scope.myPopup = $ionicPopup.show({
-          template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
+          template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
           title: 'ویرایش',
           subTitle: '',
           scope: $scope,
@@ -154,8 +154,11 @@ angular.module('starter.controllers', [])
                 if ($scope.data.amount == undefined){
                   $scope.data.amount = item.amount
                 }
+                if ($scope.data.num == undefined){
+                  $scope.data.num = item.num
+                }
                 $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-                $http.post(DjangoURL+"/kala/pooshak/edit","id="+String(item.id)+"&name="+$scope.data.name+"&text="+$scope.data.text+"&img="+$scope.data.img+"&amount="+$scope.data.amount)
+                $http.post(DjangoURL+"/kala/pooshak/edit","id="+String(item.id)+"&name="+$scope.data.name+"&text="+$scope.data.text+"&img="+$scope.data.img+"&amount="+$scope.data.amount+"&num="+$scope.data.num)
                 
 		  /*
 		.success(function(data){
@@ -248,7 +251,7 @@ angular.module('starter.controllers', [])
       
         // An elaborate, custom popup
         $scope.myPopup = $ionicPopup.show({
-          template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
+          template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
           title: 'ویرایش',
           subTitle: '',
           scope: $scope,
@@ -270,8 +273,11 @@ angular.module('starter.controllers', [])
                 if ($scope.data.amount == undefined){
                   $scope.data.amount = item.amount
                 }
+                if ($scope.data.num == undefined){
+                  $scope.data.num = item.num
+                }
                 $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-                $http.post(DjangoURL+"/kala/parcheh/edit","id="+String(item.id)+"&name="+$scope.data.name+"&text="+$scope.data.text+"&img="+$scope.data.img+"&amount="+$scope.data.amount)
+                $http.post(DjangoURL+"/kala/parcheh/edit","id="+String(item.id)+"&name="+$scope.data.name+"&text="+$scope.data.text+"&img="+$scope.data.img+"&amount="+$scope.data.amount+"&num="+$scope.data.num)
                 /*
 		.success(function(data){
                   console.log(data)
@@ -353,7 +359,7 @@ angular.module('starter.controllers', [])
       
         // An elaborate, custom popup
         $scope.myPopup = $ionicPopup.show({
-          template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
+          template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
           title: 'ویرایش',
           subTitle: '',
           scope: $scope,
@@ -375,8 +381,11 @@ angular.module('starter.controllers', [])
                 if ($scope.data.amount == undefined){
                   $scope.data.amount = item.amount
                 }
+                if ($scope.data.num == undefined){
+                  $scope.data.num = item.num
+                }
                 $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-                $http.post(DjangoURL+"/kala/kharazi/edit","id="+String(item.id)+"&name="+$scope.data.name+"&text="+$scope.data.text+"&img="+$scope.data.img+"&amount="+$scope.data.amount)
+                $http.post(DjangoURL+"/kala/kharazi/edit","id="+String(item.id)+"&name="+$scope.data.name+"&text="+$scope.data.text+"&img="+$scope.data.img+"&amount="+$scope.data.amount+"&num="+$scope.data.num)
                 
 		/*.success(function(data){
                   console.log(data)
@@ -471,7 +480,7 @@ angular.module('starter.controllers', [])
       
         // An elaborate, custom popup
         $scope.myPopup = $ionicPopup.show({
-          template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
+          template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
           title: 'ویرایش',
           subTitle: '',
           scope: $scope,
@@ -493,8 +502,11 @@ angular.module('starter.controllers', [])
                 if ($scope.data.amount == undefined){
                   $scope.data.amount = item.amount
                 }
+                if ($scope.data.num == undefined){
+                  $scope.data.num = item.num
+                }
                 $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-                $http.post(DjangoURL+"/kala/hejab/edit","id="+String(item.id)+"&name="+$scope.data.name+"&text="+$scope.data.text+"&img="+$scope.data.img+"&amount="+$scope.data.amount)
+                $http.post(DjangoURL+"/kala/hejab/edit","id="+String(item.id)+"&name="+$scope.data.name+"&text="+$scope.data.text+"&img="+$scope.data.img+"&amount="+$scope.data.amount+"&num="+$scope.data.num)
                 /*
 		.success(function(data){
                   console.log(data)
@@ -545,6 +557,7 @@ angular.module('starter.controllers', [])
   };
 });
 
-var DjangoURL = "http://193.176.243.61:8080"
+// var DjangoURL = "http://193.176.243.61:8080"
+var DjangoURL = "http://localhost:8000"
 // var DjangoURL = "https://sarayemaryam-saraye-maryam.fandogh.cloud"
 var LocalURL =  "http://193.176.243.61"

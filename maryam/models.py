@@ -15,6 +15,7 @@ class Pooshak(models.Model):
     text = models.TextField(max_length=250,default='', null=True, help_text="توضیحات کالا را وارد کنید")
     img = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
     amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
+    num = models.CharField(max_length=255,default="")
     def __str__(self):
         return self.name
 
@@ -23,6 +24,7 @@ class Parcheh(models.Model):
     text = models.TextField(max_length=250,default='', null=True, help_text="توضیحات کالا را وارد کنید")
     img = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
     amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
+    num = models.CharField(max_length=255,default="")
     def __str__(self):
         return self.name
 class Hejab(models.Model):
@@ -30,6 +32,7 @@ class Hejab(models.Model):
     text = models.TextField(max_length=250,default='', null=True, help_text="توضیحات کالا را وارد کنید")
     img = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
     amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
+    num = models.CharField(max_length=255,default="")
     def __str__(self):
         return self.name
 class Kharazi(models.Model):
@@ -37,15 +40,18 @@ class Kharazi(models.Model):
     text = models.TextField(max_length=250,default='', null=True, help_text="توضیحات کالا را وارد کنید")
     img = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
     amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
+    num = models.CharField(max_length=255,default="")
     def __str__(self):
         return self.name
 
 class Cart(models.Model):
+    this_id = models.CharField(max_length=255,default="")
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     name = models.CharField(max_length=255,default="")
     amount = models.CharField(max_length=255,default="")
     kala_address = models.CharField(max_length=255,default="")
     img = models.CharField(max_length=255,default="")
     num = models.CharField(max_length=255,default="")
+    group = models.CharField(max_length=255,default="")
     def __str__(self):
         return str(self.user)+" ____ "+str(self.name)+" ____ "+str(self.amount)

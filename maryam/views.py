@@ -45,7 +45,7 @@ def get_all_pooshak(request):
     count = 0
     for pooshak in Pooshak.objects.all():
         count += 1
-        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';all.append(this_kala{0})".format(count,pooshak.name,pooshak.text,pooshak.amount,pooshak.img,pooshak.id))
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';all.append(this_kala{0})".format(count,pooshak.name,pooshak.text,pooshak.amount,pooshak.img,pooshak.id,pooshak.num))
 
     return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
 @csrf_exempt
@@ -54,7 +54,7 @@ def get_all_parcheh(request):
     count = 0
     for parcheh in Parcheh.objects.all():
         count += 1
-        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';all.append(this_kala{0})".format(count,parcheh.name,parcheh.text,parcheh.amount,parcheh.img,parcheh.id))
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';all.append(this_kala{0})".format(count,parcheh.name,parcheh.text,parcheh.amount,parcheh.img,parcheh.id,parcheh.num))
 
     return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
 @csrf_exempt
@@ -63,7 +63,7 @@ def get_all_hejab(request):
     count = 0
     for hejab in Hejab.objects.all():
         count += 1
-        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';all.append(this_kala{0})".format(count,hejab.name,hejab.text,hejab.amount,hejab.img,hejab.id))
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';all.append(this_kala{0})".format(count,hejab.name,hejab.text,hejab.amount,hejab.img,hejab.id,hejab.num))
 
     return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
 @csrf_exempt
@@ -72,15 +72,27 @@ def get_all_kharazi(request):
     count = 0
     for kharazi in Kharazi.objects.all():
         count += 1
-        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';all.append(this_kala{0})".format(count,kharazi.name,kharazi.text,kharazi.amount,kharazi.img,kharazi.id))
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';all.append(this_kala{0})".format(count,kharazi.name,kharazi.text,kharazi.amount,kharazi.img,kharazi.id,kharazi.num))
 
     return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
+
+
+
+
+
+
+
+
+
+
+
+
 
 @csrf_exempt
 def add_new_parcheh(request):
     try:
         data = request.POST
-        Parcheh.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'])
+        Parcheh.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'])
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -89,7 +101,7 @@ def add_new_parcheh(request):
 def add_new_pooshak(request):
     try:
         data = request.POST
-        Pooshak.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'])
+        Pooshak.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'])
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -98,7 +110,7 @@ def add_new_pooshak(request):
 def add_new_hejab(request):
     try:
         data = request.POST
-        Hejab.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'])
+        Hejab.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'])
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -107,16 +119,36 @@ def add_new_hejab(request):
 def add_new_kharazi(request):
     try:
         data = request.POST
-        Kharazi.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'])
+        Kharazi.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'])
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+
+
+
+
+
+
+
+
 
 @csrf_exempt
 def send_message(request):
     data = {"chat_id":"7819430","text":request.POST['text']}
     requests.post("https://eitaayar.ir/api/bot20579:cdf451e2-577d-46bc-a768-59c764c41aeb/sendmessage",data=data)
     return JsonResponse({'status':'ok','result':request.POST},encoder=JSONEncoder)
+
+
+
+
+
+
+
+
+
+
+
 
 
 @csrf_exempt
@@ -159,6 +191,11 @@ def delete_kharazi(request):
     
     
     
+    
+    
+    
+    
+    
 @csrf_exempt
 def edit_parcheh(request):
     try:
@@ -168,7 +205,8 @@ def edit_parcheh(request):
         this_text = data['text']
         this_img = data['img']
         this_amount = data['amount']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount)
+        this_num = data['num']
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -182,7 +220,8 @@ def edit_pooshak(request):
         this_text = data['text']
         this_img = data['img']
         this_amount = data['amount']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount)
+        this_num = data['num']
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -196,7 +235,8 @@ def edit_hejab(request):
         this_text = data['text']
         this_img = data['img']
         this_amount = data['amount']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount)
+        this_num = data['num']
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -210,17 +250,23 @@ def edit_kharazi(request):
         this_text = data['text']
         this_img = data['img']
         this_amount = data['amount']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount)
+        this_num = data['num']
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
+    
+    
+    
+    
+    
     
 @csrf_exempt
 def add_to_cart(request):
     try:
         data = request.POST
         this_user = User.objects.filter(username=data['user'])[0]
-        this_kala = Cart.objects.create(user=this_user,name=data['name'],amount=data['amount'],kala_address=data['kala_address'],img=data['img'],num=data['num'])
+        this_kala = Cart.objects.create(user=this_user,name=data['name'],amount=data['amount'],kala_address=data['kala_address'],img=data['img'],num=data['num'],group=data['group'],this_id=data['this_id'])
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -244,7 +290,7 @@ def get_all_cart(request):
     this_user_cart = Cart.objects.filter(user=this_user)
     for kala in this_user_cart:
         count += 1
-        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['name']='{1}';this_kala{0}['amount']='{2}';this_kala{0}['kala_address']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{5}';all.append(this_kala{0})".format(count,kala.name,kala.amount,kala.kala_address,kala.img,kala.num))
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']='{7}';this_kala{0}['name']='{1}';this_kala{0}['amount']='{2}';this_kala{0}['kala_address']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{5}';this_kala{0}['group']='{6}';all.append(this_kala{0})".format(count,kala.name,kala.amount,kala.kala_address,kala.img,kala.num,kala.group,kala.this_id))
     return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
 
 
@@ -269,6 +315,150 @@ def delete_account(request):
     try:
         data = request.POST
         this_user = User.objects.filter(username=data['username'],password=data['password']).delete()
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+    
+    
+    
+    
+    
+    
+    
+    
+    
+@csrf_exempt
+def add_num_pooshak(request):
+    try:
+        data = request.POST
+        this_kala = Pooshak.objects.filter(id=data['id'])
+        # this_num = data['num']
+        old_num = this_kala[0].num
+        if old_num=="ناموجود":
+            new_num = 1
+        else:
+            new_num = int(old_num)+int(data['num'])
+        this_kala.update(num=new_num)
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+    
+@csrf_exempt
+def remove_num_pooshak(request):
+    try:
+        data = request.POST
+        this_kala = Pooshak.objects.filter(id=data['id'])
+        # this_num = data['num']
+        old_num = this_kala[0].num
+        if int(old_num)==0:
+            new_num = "ناموجود"
+        else:
+            new_num = int(old_num)-int(data['num'])
+            if int(new_num)==0:
+                new_num = "ناموجود"
+        this_kala.update(num=new_num)
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+  
+@csrf_exempt
+def add_num_parcheh(request):
+    try:
+        data = request.POST
+        this_kala = Parcheh.objects.filter(id=data['id'])
+        # this_num = data['num']
+        old_num = this_kala[0].num
+        if old_num=="ناموجود":
+            new_num = 1
+        else:
+            new_num = int(old_num)+int(data['num'])
+        this_kala.update(num=new_num)
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def remove_num_parcheh(request):
+    try:
+        data = request.POST
+        this_kala = Parcheh.objects.filter(id=data['id'])
+        # this_num = data['num']
+        old_num = this_kala[0].num
+        if int(old_num)==0:
+            new_num = "ناموجود"
+        else:
+            new_num = int(old_num)-int(data['num'])
+            if int(new_num)==0:
+                new_num = "ناموجود"
+        this_kala.update(num=new_num)
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def add_num_kharazi(request):
+    try:
+        data = request.POST
+        this_kala = Kharazi.objects.filter(id=data['id'])
+        # this_num = data['num']
+        old_num = this_kala[0].num
+        if old_num=="ناموجود":
+            new_num = 1
+        else:
+            new_num = int(old_num)+int(data['num'])
+        this_kala.update(num=new_num)
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def remove_num_kharazi(request):
+    try:
+        data = request.POST
+        this_kala = Kharazi.objects.filter(id=data['id'])
+        # this_num = data['num']
+        old_num = this_kala[0].num
+        if int(old_num)==0:
+            new_num = "ناموجود"
+        else:
+            new_num = int(old_num)-int(data['num'])
+            if int(new_num)==0:
+                new_num = "ناموجود"
+        this_kala.update(num=new_num)
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+    
+@csrf_exempt
+def add_num_hejab(request):
+    try:
+        data = request.POST
+        this_kala = Hejab.objects.filter(id=data['id'])
+        # this_num = data['num']
+        old_num = this_kala[0].num
+        if old_num=="ناموجود":
+            new_num = 1
+        else:
+            new_num = int(old_num)+int(data['num'])
+        this_kala.update(num=new_num)
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+    
+@csrf_exempt
+def remove_num_hejab(request):
+    try:
+        data = request.POST
+        this_kala = Hejab.objects.filter(id=data['id'])
+        # this_num = data['num']
+        old_num = this_kala[0].num
+        if int(old_num)==0:
+            new_num = "ناموجود"
+        else:
+            new_num = int(old_num)-int(data['num'])
+            if int(new_num)==0:
+                new_num = "ناموجود"
+        this_kala.update(num=new_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)

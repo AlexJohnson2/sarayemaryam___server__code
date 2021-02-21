@@ -120,10 +120,10 @@ angular.module('starter.controllers', [])
     $state.reload();
     
   }
-
+  
   $scope.delete_from_cart = function(kala) {
     $scope.data = {};
-  
+    console.log("kala group is : ",kala.group)
     // An elaborate, custom popup
     $scope.myPopup = $ionicPopup.show({
       template: 'آیا از حذف این مورد مطمئن هستید؟',
@@ -140,7 +140,14 @@ angular.module('starter.controllers', [])
             $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
             $http.post(DjangoURL+"/cart/delete", $scope.this_data)
             .success(function(data){
+              $scope.this_data = "id="+kala.id+"&num="+kala.num
+              add_url = "/kala/"+kala.group+"/add_num"
+              console.log($scope.this_data,add_url)
+              $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+              $http.post(DjangoURL+add_url, $scope.this_data)
               console.log(data)
+              $state.reload()
+              $state.reload()
             })
             $state.reload()
           }
@@ -544,7 +551,12 @@ angular.module('starter.controllers', [])
   $scope.num = 1
   $scope.add_to_num = function(){
     console.log("added num!")
-    $scope.num += 1
+    if ($scope.num == parseInt($scope.pooshak.num)){
+      $scope.num = parseInt($scope.pooshak.num)
+    }
+    else {
+      $scope.num += 1
+    }
   }
 
   $scope.remove_from_num = function(){
@@ -570,15 +582,22 @@ angular.module('starter.controllers', [])
   $scope.add_to_cart = function(){
     $scope.cart = true
     console.log($scope.pooshak)
-    $scope.this_data = "user="+String(getCookie("username"))+"&name="+$scope.pooshak.name+"&amount="+$scope.pooshak.amount+"&kala_address="+LocalURL+"/#/pooshak/"+String($stateParams.pooshakId)+"&img="+$scope.pooshak.img+"&num="+String($scope.num)
+    $scope.this_data = "user="+String(getCookie("username"))+"&name="+$scope.pooshak.name+"&amount="+$scope.pooshak.amount+"&kala_address="+LocalURL+"/#/pooshak/"+String($stateParams.pooshakId)+"&img="+$scope.pooshak.img+"&num="+String($scope.num)+"&group=pooshak"+"&this_id="+$scope.pooshak.id
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     $http.post(DjangoURL+"/cart/add",$scope.this_data)
       .success(function(data){
         console.log(data)
+        $scope.this_data = "name="+$scope.pooshak.name+"&id="+$scope.pooshak.id+"&num="+String($scope.num)
+        $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+        $http.post(DjangoURL+"/kala/pooshak/remove_num",$scope.this_data)
+        .success(function(){
+          console.log("removed item!")
+        })
+          
       })
   }
   $scope.finished_buy = function(){
-    $state.go("tab.account")
+    $state.go("tab.store")
   }
 
 })
@@ -714,7 +733,12 @@ angular.module('starter.controllers', [])
   $scope.num = 1
   $scope.add_to_num = function(){
     console.log("added num!")
-    $scope.num += 1
+    if ($scope.num == parseInt($scope.parcheh.num)){
+      $scope.num = parseInt($scope.parcheh.num)
+    }
+    else {
+      $scope.num += 1
+    }
   }
 
   $scope.remove_from_num = function(){
@@ -740,15 +764,21 @@ angular.module('starter.controllers', [])
   $scope.add_to_cart = function(){
     $scope.cart = true
     console.log($scope.parcheh)
-    $scope.this_data = "user="+String(getCookie("username"))+"&name="+$scope.parcheh.name+"&amount="+$scope.parcheh.amount+"&kala_address="+LocalURL+"/#/parcheh/"+String($stateParams.parchehId)+"&img="+$scope.parcheh.img+"&num="+String($scope.num)
+    $scope.this_data = "user="+String(getCookie("username"))+"&name="+$scope.parcheh.name+"&amount="+$scope.parcheh.amount+"&kala_address="+LocalURL+"/#/parcheh/"+String($stateParams.parchehId)+"&img="+$scope.parcheh.img+"&num="+String($scope.num)+"&group=parcheh"+"&this_id="+$scope.parcheh.id
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-    $http.post(DjangoURL+"/cart/add",$scope.this_data)
+    $http.post(DjangoURL+"/cart/add",$scope.this_data)  
       .success(function(data){
         console.log(data)
+        $scope.this_data = "name="+$scope.parcheh.name+"&id="+$scope.parcheh.id+"&num="+String($scope.num)
+        $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+        $http.post(DjangoURL+"/kala/parcheh/remove_num",$scope.this_data)
+        .success(function(){
+          console.log("removed item!")
+        })
       })
   }
   $scope.finished_buy = function(){
-    $state.go("tab.account")
+    $state.go("tab.store")
   }
 })
 
@@ -882,7 +912,12 @@ angular.module('starter.controllers', [])
   $scope.num = 1
   $scope.add_to_num = function(){
     console.log("added num!")
-    $scope.num += 1
+    if ($scope.num == parseInt($scope.kharazi.num)){
+      $scope.num = parseInt($scope.kharazi.num)
+    }
+    else {
+      $scope.num += 1
+    }
   }
 
   $scope.remove_from_num = function(){
@@ -908,15 +943,21 @@ angular.module('starter.controllers', [])
   $scope.add_to_cart = function(){
     $scope.cart = true
     console.log($scope.kharazi)
-    $scope.this_data = "user="+String(getCookie("username"))+"&name="+$scope.kharazi.name+"&amount="+$scope.kharazi.amount+"&kala_address="+LocalURL+"/#/kharazi/"+String($stateParams.kharaziId)+"&img="+$scope.kharazi.img+"&num="+String($scope.num)
+    $scope.this_data = "user="+String(getCookie("username"))+"&name="+$scope.kharazi.name+"&amount="+$scope.kharazi.amount+"&kala_address="+LocalURL+"/#/kharazi/"+String($stateParams.kharaziId)+"&img="+$scope.kharazi.img+"&num="+String($scope.num)+"&group=kharazi"+"&this_id="+$scope.kharazi.id
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     $http.post(DjangoURL+"/cart/add",$scope.this_data)
       .success(function(data){
         console.log(data)
+        $scope.this_data = "name="+$scope.kharazi.name+"&id="+$scope.kharazi.id+"&num="+String($scope.num)
+        $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+        $http.post(DjangoURL+"/kala/kharazi/remove_num",$scope.this_data)
+        .success(function(){
+          console.log("removed item!")
+        })
       })
   }
   $scope.finished_buy = function(){
-    $state.go("tab.account")
+    $state.go("tab.store")
   }
 })
 
@@ -1049,7 +1090,12 @@ angular.module('starter.controllers', [])
   $scope.num = 1
   $scope.add_to_num = function(){
     console.log("added num!")
-    $scope.num += 1
+    if ($scope.num == parseInt($scope.hejab.num)){
+      $scope.num = parseInt($scope.hejab.num)
+    }
+    else {
+      $scope.num += 1
+    }
   }
 
   $scope.remove_from_num = function(){
@@ -1075,15 +1121,21 @@ angular.module('starter.controllers', [])
   $scope.add_to_cart = function(){
     $scope.cart = true
     console.log($scope.hejab)
-    $scope.this_data = "user="+String(getCookie("username"))+"&name="+$scope.hejab.name+"&amount="+$scope.hejab.amount+"&kala_address="+LocalURL+"/#/hejab/"+String($stateParams.hejabId)+"&img="+$scope.hejab.img+"&num="+String($scope.num)
+    $scope.this_data = "user="+String(getCookie("username"))+"&name="+$scope.hejab.name+"&amount="+$scope.hejab.amount+"&kala_address="+LocalURL+"/#/hejab/"+String($stateParams.hejabId)+"&img="+$scope.hejab.img+"&num="+String($scope.num)+"&group=hejab"+"&this_id="+$scope.hejab.id
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     $http.post(DjangoURL+"/cart/add",$scope.this_data)
       .success(function(data){
         console.log(data)
+        $scope.this_data = "name="+$scope.hejab.name+"&id="+$scope.hejab.id+"&num="+String($scope.num)
+        $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+        $http.post(DjangoURL+"/kala/hejab/remove_num",$scope.this_data)
+        .success(function(){
+          console.log("removed item!")
+        })
       })
   }
   $scope.finished_buy = function(){
-    $state.go("tab.account")
+    $state.go("tab.store")
   }
 })
 

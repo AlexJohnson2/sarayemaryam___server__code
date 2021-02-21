@@ -30,8 +30,8 @@
 				<!--<h1 dir="rtl">سبد خرید:</h1>-->
 				<p><ion-icon class="icon ion-ios-cart-outline" style="font-size:50px"></ion-icon></p>
 				<p>سبد خرید</p>
-			<ion-list show-delete="true" can-swipe="listCanSwipe">
-			<ion-item class="item-thumbnail-right item-button-right" ng-repeat="kala in kalas" type="item-text-wrap" ng-click="load()" href="{{kala.kala_address}}">
+				<ion-list show-delete="true" can-swipe="listCanSwipe">
+				<ion-item class="item-thumbnail-right item-button-right" ng-repeat="kala in kalas" type="item-text-wrap" ng-click="load()" href="{{kala.kala_address}}">
 				<img src="{{kala.img}}" style="transform: translate3d(-52px, 0px, 0px);">
 				<h2 style="transform: translate3d(-52px, 0px, 0px);">{{kala.name}}</h2>
 				<h3 style="transform: translate3d(-52px, 0px, 0px);">قیمت : {{kala.amount}} تومان</h3>
