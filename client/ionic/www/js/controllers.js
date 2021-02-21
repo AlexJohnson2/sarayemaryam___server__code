@@ -1140,7 +1140,7 @@ function getCookie(cname) {
 
 var loggedin = false
 
-var DjangoURL = "http://193.176.243.61:8080"
-// var DjangoURL = "http://localhost:8000"
+// var DjangoURL = "http://193.176.243.61:8080"
+var DjangoURL = "http://localhost:8000"
 // var LocalURL =  "https://ionic-saraye-maryam.fandogh.cloud"
 var LocalURL = "http://193.176.243.61"
