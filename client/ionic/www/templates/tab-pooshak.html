@@ -1,0 +1,33 @@
+<ion-view view-title="پوشاک مریم" dir="rtl">
+    <ion-nav-buttons side="left">
+    <button class="button button-clear" ng-click="back()">
+    <i class="icon ion-arrow-left-c"></i>
+    </button>
+    </ion-nav-buttons>
+      <ion-content class="padding" scroll="false">
+
+          <!-- your content code in here -->
+          <div class="list">
+
+              <a class="item item-thumbnail-right" href="/pooshak/">
+                <img src="{{pooshak[0].image}}">
+                <h2>{{pooshak[0].name}}</h2>
+                <pre>
+
+                </pre>
+                <h2>قیمت : {{pooshak[0].amount}}  </h2>
+              </a>
+
+              <a class="item item-thumbnail-right" href="/pooshak/">
+                <img src="{{pooshak[1].image}}">
+                <h2>{{pooshak[1].name}}</h2>
+                <pre>
+
+                </pre>
+                <h2>قیمت : {{pooshak[1].amount}}  </h2>
+              </a>
+
+          </div>
+      </ion-content>
+
+</ion-view>

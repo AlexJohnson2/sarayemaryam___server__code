@@ -1,0 +1,51 @@
+	<ion-view dir="rtl" view-title="فروشگاه">
+		<title>فروشگاه</title>
+
+			<ion-content scroll="true">
+			<div class="list">
+
+			  <a class="item item-icon-right" href="#/pooshaks">
+			    <i class="icon ion-woman"></i>
+			    پوشاک مریم
+			  </a>
+
+			  <a class="item item-icon-right" href="#/parchehs">
+			    <i class="icon ion-social-buffer"></i>
+			    پارچه مریم
+			  </a>
+
+			  <a class="item item-icon-right" href="#/kharazis">
+			    <i class="icon ion-scissors"></i>
+			    خرازی مریم
+			  </a>
+
+			  <a class="item item-icon-right" href="#/hejabs">
+			    <i class="icon ion-woman"></i>
+			    حجاب مریم
+			  </a>
+
+			</div>
+
+			<div class="item item-body" style="text-align: right;">
+				<!--<h1 dir="rtl">سبد خرید:</h1>-->
+				<p><ion-icon class="icon ion-ios-cart-outline" style="font-size:50px"></ion-icon></p>
+				<p>سبد خرید</p>
+			<ion-list show-delete="shouldShowDelete" can-swipe="listCanSwipe">
+			<ion-item class="item-thumbnail-right" ng-repeat="kala in kalas" type="item-text-wrap" ng-click="load()" href="{{kala.kala_address}}">
+				<img src="{{kala.img}}">
+				<h2>{{kala.name}}</h2>
+				<h3>قیمت : {{kala.amount}} تومان</h3>
+				<h3>تعداد : {{kala.num}}</h3>
+				<ion-option-button class="button-assertive"
+								ng-click="delete_from_cart({{kala}})">
+				حذف
+				</ion-option-button>
+			</ion-item>
+			</ion-list>
+			<button ng-show="cart == true" class="button button-positive button-block" ng-click="go_to_eitaa_id();finished_buy()" ng-controller="AccountCtrl">نهایی کردن خرید</button>
+			<button ng-show="cart == false" class="button button-clear button-block" style="color:black; text-align:center;" ng-controller="AccountCtrl" disabled>سبد خرید شما خالی است.</button>
+			</div>
+
+			</ion-content>
+
+</ion-view>

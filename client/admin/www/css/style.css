@@ -1,0 +1,10 @@
+/* Empty. Add your own CSS if you like */
+ion-content,ion-tab,ion-nav-view,h1,h2,h3,h4,h5,h6,p,div{
+    font-family: "B Nazanin";
+    src: url("../lib/ionic/fonts/BNazanin.ttf");
+    text-align: "center";
+}
+.title , .button{
+    font-family: "B Nazanin";
+    text-align: "center";
+}

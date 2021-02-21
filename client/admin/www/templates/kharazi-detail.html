@@ -1,0 +1,13 @@
+<ion-view title="{{kharazi.name}}">
+  <ion-content has-header="true" padding="true">
+      <center><h2>{{pooshak.name}}</h2>
+      <img src="{{kharazi.img}}" width={{img}}></center>
+      <p style="text-align:right;">{{kharazi.text}}</p>
+      <div style="height:50px"></div>
+
+    </ion-content>
+
+    <div class="bar bar-footer" ng-controller="PooshakDetailCtrl">
+      <p style="font-size:20px;text-align:center;width:{{button_screen}}px;padding:5px">قیمت : {{kharazi.amount}}</p>
+    </div>
+</ion-view>

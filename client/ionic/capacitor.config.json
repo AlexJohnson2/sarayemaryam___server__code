@@ -1,0 +1,14 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "maryam",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 5
+    }
+  },
+  "cordova": {},
+  "linuxAndroidStudioPath": "/mnt/c/Users/ModernSystem/Desktop/studio.bat"
+}

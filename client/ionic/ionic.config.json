@@ -1,0 +1,15 @@
+{
+  "name": "tabs",
+  "integrations": {
+    "capacitor": {
+      "enabled": false
+    }
+  },
+  "type": "ionic1",
+  "watchPatterns": [
+    "scss/**/*",
+    "www/**/*",
+    "!www/lib/**/*",
+    "!www/**/*.map"
+  ]
+}

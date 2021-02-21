@@ -1,0 +1,21 @@
+<ion-view view-title="حساب کاربری" dir="rtl">
+      <ion-content class="padding">
+        <div class="list card" style="text-align: center;">
+          <div class="item item-avatar">
+            <h2>پروفایل شما</h2>
+          </div>
+          <div class="item item-body" style="text-align: right;">
+              <p>نام کاربری : {{username}}</p>
+              <p>شماره تلفن : {{this_user_phone}}</p>
+              <p>آیدی ایتا : {{this_user_tel_id}}</p>
+              <p>آدرس : {{this_user_address}}</p>
+              <p>کد پستی : {{this_post_code}}</p>
+        </div>          
+        <button id="padding_for_block_button_in_div" class="button button-positive button-block" ng-click="edit_account()" ng-controller="AccountCtrl"><i class="icon ion-exit"></i>ویرایش مشخصات</button>
+        <button id="padding_for_block_button_in_div" class="button button-assertive button-block" ng-click="logout()" ng-controller="AccountCtrl"><i class="icon ion-exit"></i>خروج از حساب کاربری</button>
+        <button id="padding_for_block_button_in_div" class="button button-assertive button-block" ng-click="delete_account()" ng-controller="AccountCtrl"><i class="icon ion-exit"></i>حذف حساب کاربری</button>
+        </div>
+        
+      </ion-content>
+
+</ion-view>
