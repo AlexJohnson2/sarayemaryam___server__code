@@ -72,6 +72,7 @@ angular.module('starter.controllers', [])
       .success(function(data){
         console.log(data)
         $scope.kalas = data.result
+        $state.reload()
       })
     $scope.cart = true
     $scope.this_data = "user="+String(getCookie("username"))
@@ -117,6 +118,7 @@ angular.module('starter.controllers', [])
     $state.reload();
     $state.reload();
     $state.reload();
+    
   }
 
   $scope.delete_from_cart = function(kala) {
@@ -411,12 +413,15 @@ angular.module('starter.controllers', [])
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  });
+  
     $http.post(DjangoURL+"/kala/pooshak/getall")
     .success(function(data){
         console.log(data);
     $scope.pooshaks = data.result
     })
+
+  });
+    
 
     
 })
@@ -582,12 +587,15 @@ angular.module('starter.controllers', [])
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  });
+  
     $http.post(DjangoURL+"/kala/parcheh/getall")
     .success(function(data){
         console.log(data);
     $scope.parchehs = data.result
     })
+  
+  });
+    
     
 })
 
@@ -748,12 +756,14 @@ angular.module('starter.controllers', [])
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  });
+  
     $http.post(DjangoURL+"/kala/kharazi/getall")
     .success(function(data){
         console.log(data);
     $scope.kharazis = data.result
     })
+  
+  });
     
 })
 
@@ -914,12 +924,15 @@ angular.module('starter.controllers', [])
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  });
+  
     $http.post(DjangoURL+"/kala/hejab/getall")
     .success(function(data){
         console.log(data);
     $scope.hejabs = data.result
     })
+  
+  });
+
 })
 
 .controller('HejabDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state) {
