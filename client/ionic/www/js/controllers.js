@@ -346,10 +346,10 @@ angular.module('starter.controllers', [])
         loggedin = true
         document.cookie = "username="+$scope.username
         document.cookie = "password="+$scope.password
-        document.cookie = "phonenumber="+data.this_phone
-        document.cookie = "tel_id="+data.tel_id
-        document.cookie = "address="+data.this_address
-        document.cookie = "post_code="+data.post_code
+        document.cookie = "phonenumber="+$scope.phonenumber
+        document.cookie = "tel_id="+$scope.tel_id
+        document.cookie = "address="+$scope.address
+        document.cookie = "post_code="+$scope.post_code
         // $state.go('tab-store')
         $window.location.href = '#/confirm'
         $state.reload()
