@@ -20,7 +20,7 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username")){
+      if (document.cookie.indexOf("username") == -1){
           $state.go('signin',{})
         }
     }
@@ -41,7 +41,7 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username")){
+      if (document.cookie.indexOf("username") == -1){
           $state.go('signin',{})
         }
     }
@@ -56,7 +56,7 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username")){
+      if (document.cookie.indexOf("username") == -1){
           $state.go('signin',{})
         }
     }
@@ -203,7 +203,7 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username")){
+      if (document.cookie.indexOf("username") == -1){
           $state.go('signin',{})
         }
     }
@@ -407,7 +407,7 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username")){
+      if (document.cookie.indexOf("username") == -1){
           $state.go('signin',{})
         }
     }
@@ -427,7 +427,7 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username")){
+      if (document.cookie.indexOf("username") == -1){
           $state.go('signin',{})
         }
     }
@@ -578,7 +578,7 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username")){
+      if (document.cookie.indexOf("username") == -1){
           $state.go('signin',{})
         }
     }
@@ -597,7 +597,7 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username")){
+      if (document.cookie.indexOf("username") == -1){
           $state.go('signin',{})
         }
     }
@@ -744,7 +744,7 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username")){
+      if (document.cookie.indexOf("username") == -1){
           $state.go('signin',{})
         }
     }
@@ -763,7 +763,7 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username")){
+      if (document.cookie.indexOf("username") == -1){
           $state.go('signin',{})
         }
     }
@@ -910,7 +910,7 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username")){
+      if (document.cookie.indexOf("username") == -1){
           $state.go('signin',{})
         }
     }
@@ -928,7 +928,7 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username")){
+      if (document.cookie.indexOf("username") == -1){
           $state.go('signin',{})
         }
     }
@@ -1074,7 +1074,7 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username")){
+      if (document.cookie.indexOf("username") == -1){
           $state.go('signin',{})
         }
     }
@@ -1094,7 +1094,7 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username")){
+      if (document.cookie.indexOf("username") == -1){
           $state.go('signin',{})
         }
     }
