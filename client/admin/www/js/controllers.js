@@ -557,7 +557,7 @@ angular.module('starter.controllers', [])
   };
 });
 
-// var DjangoURL = "http://193.176.243.61:8080"
-var DjangoURL = "http://localhost:8000"
+var DjangoURL = "http://193.176.243.61:8080"
+// var DjangoURL = "http://localhost:8000"
 // var DjangoURL = "https://sarayemaryam-saraye-maryam.fandogh.cloud"
 var LocalURL =  "http://193.176.243.61"
