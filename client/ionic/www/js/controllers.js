@@ -20,9 +20,9 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username") == -1){
-          $state.go('signin',{})
-        }
+    }
+    if (document.cookie.indexOf("username") == -1){
+      $state.go('signin',{})
     }
   });
     
@@ -41,9 +41,9 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username") == -1){
-          $state.go('signin',{})
-        }
+    }
+    if (document.cookie.indexOf("username") == -1){
+      $state.go('signin',{})
     }
   });
   
@@ -56,9 +56,9 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username") == -1){
-          $state.go('signin',{})
-        }
+    }
+    if (document.cookie.indexOf("username") == -1){
+      $state.go('signin',{})
     }
     $scope.username = String(getCookie("username"))
     console.log($scope.username)
@@ -203,9 +203,9 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username") == -1){
-          $state.go('signin',{})
-        }
+    }
+    if (document.cookie.indexOf("username") == -1){
+      $state.go('signin',{})
     }
     $scope.username = String(getCookie("username"))
     $scope.password = String(getCookie("password"))
@@ -407,9 +407,9 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username") == -1){
-          $state.go('signin',{})
-        }
+    }
+    if (document.cookie.indexOf("username") == -1){
+      $state.go('signin',{})
     }
   });
     $http.post(DjangoURL+"/kala/pooshak/getall")
@@ -427,9 +427,9 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username") == -1){
-          $state.go('signin',{})
-        }
+    }
+    if (document.cookie.indexOf("username") == -1){
+      $state.go('signin',{})
     }
   });
     $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
@@ -578,9 +578,9 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username") == -1){
-          $state.go('signin',{})
-        }
+    }
+    if (document.cookie.indexOf("username") == -1){
+      $state.go('signin',{})
     }
   });
     $http.post(DjangoURL+"/kala/parcheh/getall")
@@ -597,9 +597,9 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username") == -1){
-          $state.go('signin',{})
-        }
+    }
+    if (document.cookie.indexOf("username") == -1){
+      $state.go('signin',{})
     }
   });
     $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
@@ -744,9 +744,9 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username") == -1){
-          $state.go('signin',{})
-        }
+    }
+    if (document.cookie.indexOf("username") == -1){
+      $state.go('signin',{})
     }
   });
     $http.post(DjangoURL+"/kala/kharazi/getall")
@@ -763,9 +763,9 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username") == -1){
-          $state.go('signin',{})
-        }
+    }
+    if (document.cookie.indexOf("username") == -1){
+      $state.go('signin',{})
     }
   });
     $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
@@ -910,9 +910,9 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username") == -1){
-          $state.go('signin',{})
-        }
+    }
+    if (document.cookie.indexOf("username") == -1){
+      $state.go('signin',{})
     }
   });
     $http.post(DjangoURL+"/kala/hejab/getall")
@@ -928,9 +928,9 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username") == -1){
-          $state.go('signin',{})
-        }
+    }
+    if (document.cookie.indexOf("username") == -1){
+      $state.go('signin',{})
     }
   });
     $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
@@ -1074,9 +1074,9 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username") == -1){
-          $state.go('signin',{})
-        }
+    }
+    if (document.cookie.indexOf("username") == -1){
+      $state.go('signin',{})
     }
   });
 })
@@ -1094,9 +1094,9 @@ angular.module('starter.controllers', [])
       if (getCookie("username") == ""){
         $state.go('signin',{})
       }
-      if (document.cookie.indexOf("username") == -1){
-          $state.go('signin',{})
-        }
+    }
+    if (document.cookie.indexOf("username") == -1){
+      $state.go('signin',{})
     }
   });
 })
