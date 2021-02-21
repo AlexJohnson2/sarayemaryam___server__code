@@ -72,7 +72,7 @@ angular.module('starter.controllers', [])
       .success(function(data){
         console.log(data)
         $scope.kalas = data.result
-        $state.reload()
+        
       })
     $scope.cart = true
     $scope.this_data = "user="+String(getCookie("username"))
