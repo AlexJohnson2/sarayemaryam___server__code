@@ -462,3 +462,22 @@ def remove_num_hejab(request):
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+
+from django.conf import settings
+from django.shortcuts import render, redirect
+from .forms import ImageForm
+@csrf_exempt
+def maryam(request):
+    infos = Pooshak.objects.all()
+    if request.method == 'POST':
+        form = ImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            Pooshak(img=request.FILES['image']).save()
+            # return redirect('maryam:maryam')
+            # return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+            return render(request, 'upload_img.html', {'form':form, 'infos':infos,'status':f'{"http://193.176.243.61:8080"+settings.MEDIA_URL+str(request.FILES["image"])}'})
+
+    else:   
+        form = ImageForm()
+    return render(request, 'upload_img.html', {'form':form, 'infos':infos,'status':'هنوز فایلی آپلود نشده است'})

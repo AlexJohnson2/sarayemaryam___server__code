@@ -61,7 +61,7 @@ ROOT_URLCONF = 'sarayemaryam.urls'
 TEMPLATES = [
             {
              'BACKEND': 'django.template.backends.django.DjangoTemplates',
-               'DIRS': [],
+               'DIRS': ['client/admin/www/templates','template'],
                 'APP_DIRS': True,
             'OPTIONS': {
                         'context_processors': [
@@ -119,6 +119,9 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 FILE_UPLOAD_HANDLERS = ("django_excel.ExcelMemoryFileUploadHandler",
                           "django_excel.TemporaryExcelFileUploadHandler")

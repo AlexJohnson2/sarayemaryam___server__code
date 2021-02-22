@@ -13,7 +13,7 @@ class User(models.Model):
 class Pooshak(models.Model):
     name = models.CharField(max_length=250,default='', null=True, help_text="نام نمایشی کالا را وارد کنید")
     text = models.TextField(max_length=250,default='', null=True, help_text="توضیحات کالا را وارد کنید")
-    img = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
+    img = models.FileField(upload_to='',null=True)
     amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
     num = models.CharField(max_length=255,default="")
     def __str__(self):

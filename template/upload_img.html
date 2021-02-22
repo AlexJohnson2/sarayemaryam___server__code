@@ -1,0 +1,12 @@
+{% block content %}
+
+<h4>Upload Image</h4>
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="آپلود فایل">
+    <label for="{{ image.name}}">dsfsfd</label>
+</form>
+<h3>آدرس فایل :</h3>
+<a href={{status}}><p>{{status}}</p></a>
+{% endblock %}

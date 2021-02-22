@@ -42,5 +42,9 @@ urlpatterns = [
     
     url(r'^cart/add$',views.add_to_cart),
     url(r'^cart/delete$',views.delete_from_cart),
-    url(r'^cart/getall$',views.get_all_cart) 
+    url(r'^cart/getall$',views.get_all_cart),
+
+    url(r'upload_img',views.maryam,name="maryam"),
+
 ]
+app_name = "maryam"
