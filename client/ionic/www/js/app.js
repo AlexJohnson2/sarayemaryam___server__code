@@ -131,15 +131,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     controller: 'HejabCtrl'
   })
 
-  .state('tab.pooshaks', {
-    url: '/pooshaks',
-    views: {
-      'tab-pooshaks': {
-        templateUrl: 'templates/tab-pooshaks.html',
-        controller: 'PooshaksCtrl'
-      }
-    }
-  })
 
   .state('tab.home', {
     url: '/home',
@@ -151,16 +142,28 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   })
 
-  .state('pooshaks', {
-    url: '/pooshaks',
-    templateUrl: 'templates/tab-pooshaks.html',
-    controller: 'PooshaksCtrl'
+  .state('pooshaksdokdokhtarane', {
+    url: '/pooshaks/dokhtarane',
+    templateUrl: 'templates/tab-pooshaks-dokhtarane.html',
+    controller: 'PooshaksِDokhtaraneCtrl'
   })
-  .state('pooshak-detail', {
+  .state('pooshak-dokhtarane-detail', {
     url: '/pooshak/:pooshakId',
-    templateUrl: 'templates/pooshak-detail.html',
-    controller: 'PooshakDetailCtrl'
+    templateUrl: 'templates/pooshak-dokhtarane-detail.html',
+    controller: 'PooshakDokhtaraneDetailCtrl'
   })
+
+  .state('pooshaksmardane', {
+    url: '/pooshaks/mardane',
+    templateUrl: 'templates/tab-pooshaks-mardane.html',
+    controller: 'PooshaksِMardaneCtrl'
+  })
+  .state('pooshak-mardane-detail', {
+    url: '/pooshak/:pooshakId',
+    templateUrl: 'templates/pooshak-mardane-detail.html',
+    controller: 'PooshakMardaneDetailCtrl'
+  })
+  
 
   .state('parchehs', {
     url: '/parchehs',
@@ -195,16 +198,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     controller: 'HejabDetailCtrl'
   })
 
-
-  .state('tab.pooshak-detail', {
-    url: '/pooshak/:pooshakId',
-    views: {
-      'tab-pooshaks': {
-        templateUrl: 'templates/pooshak-detail.html',
-        controller: 'PooshakDetailCtrl'
-      }
-    }
-  })
 
 
 

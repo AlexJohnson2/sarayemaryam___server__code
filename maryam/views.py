@@ -1,13 +1,17 @@
-from django.shortcuts import render
-from django.http import JsonResponse
-from json import JSONEncoder
-import os
-import requests
 from .models import User,Pooshak , Parcheh , Kharazi , Hejab,Cart
+from .forms import ImageForm
+
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse,HttpResponseBadRequest
-import csv
 from django import forms
+from django.conf import settings
+from django.shortcuts import render, redirect
+from django.shortcuts import render
+from django.http import JsonResponse
+
+import os
+import requests
+from json import JSONEncoder
 
 
 @csrf_exempt
@@ -43,36 +47,36 @@ def check_user_with_password(request):
 def get_all_pooshak(request):
     all = []
     count = 0
-    for pooshak in Pooshak.objects.all():
+    for pooshak in Pooshak.objects.filter(tag=request.POST['tag']):
         count += 1
-        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';all.append(this_kala{0})".format(count,pooshak.name,pooshak.text,pooshak.amount,pooshak.img,pooshak.id,pooshak.num))
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';all.append(this_kala{0})".format(count,pooshak.name,pooshak.text,pooshak.amount,"http://193.176.243.61:8080/media/"+str(pooshak.img),pooshak.id,pooshak.num))
 
     return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
 @csrf_exempt
 def get_all_parcheh(request):
     all = []
     count = 0
-    for parcheh in Parcheh.objects.all():
+    for parcheh in Parcheh.objects.filter(tag=request.POST['tag']):
         count += 1
-        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';all.append(this_kala{0})".format(count,parcheh.name,parcheh.text,parcheh.amount,parcheh.img,parcheh.id,parcheh.num))
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';all.append(this_kala{0})".format(count,parcheh.name,parcheh.text,parcheh.amount,"http://193.176.243.61:8080/media/"+str(parcheh.img),parcheh.id,parcheh.num))
 
     return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
 @csrf_exempt
 def get_all_hejab(request):
     all = []
     count = 0
-    for hejab in Hejab.objects.all():
+    for hejab in Hejab.objects.filter(tag=request.POST['tag']):
         count += 1
-        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';all.append(this_kala{0})".format(count,hejab.name,hejab.text,hejab.amount,hejab.img,hejab.id,hejab.num))
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';all.append(this_kala{0})".format(count,hejab.name,hejab.text,hejab.amount,"http://193.176.243.61:8080/media/"+str(hejab.img),hejab.id,hejab.num))
 
     return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
 @csrf_exempt
 def get_all_kharazi(request):
     all = []
     count = 0
-    for kharazi in Kharazi.objects.all():
+    for kharazi in Kharazi.objects.filter(tag=request.POST['tag']):
         count += 1
-        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';all.append(this_kala{0})".format(count,kharazi.name,kharazi.text,kharazi.amount,kharazi.img,kharazi.id,kharazi.num))
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';all.append(this_kala{0})".format(count,kharazi.name,kharazi.text,kharazi.amount,"http://193.176.243.61:8080/media/"+str(kharazi.img),kharazi.id,kharazi.num))
 
     return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
 
@@ -92,7 +96,7 @@ def get_all_kharazi(request):
 def add_new_parcheh(request):
     try:
         data = request.POST
-        Parcheh.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'])
+        Parcheh.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],tag=data['tag'])
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -101,7 +105,7 @@ def add_new_parcheh(request):
 def add_new_pooshak(request):
     try:
         data = request.POST
-        Pooshak.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'])
+        Pooshak.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],tag=data['tag'])
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -110,7 +114,7 @@ def add_new_pooshak(request):
 def add_new_hejab(request):
     try:
         data = request.POST
-        Hejab.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'])
+        Hejab.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],tag=data['tag'])
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -119,7 +123,7 @@ def add_new_hejab(request):
 def add_new_kharazi(request):
     try:
         data = request.POST
-        Kharazi.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'])
+        Kharazi.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],tag=data['tag'])
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -141,7 +145,11 @@ def send_message(request):
 
 
 
-
+@csrf_exempt
+def send_comment(request):
+    data = {"chat_id":"7892910","text":request.POST['text']}
+    requests.post("https://eitaayar.ir/api/bot20579:cdf451e2-577d-46bc-a768-59c764c41aeb/sendmessage",data=data)
+    return JsonResponse({'status':'ok','result':request.POST},encoder=JSONEncoder)
 
 
 
@@ -206,25 +214,25 @@ def edit_parcheh(request):
         this_img = data['img']
         this_amount = data['amount']
         this_num = data['num']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,tag=data['tag'])
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
     
 @csrf_exempt
 def edit_pooshak(request):
-    try:
-        data = request.POST
-        this_kala = Pooshak.objects.filter(id=int(data['id']))
-        this_name = data['name']
-        this_text = data['text']
-        this_img = data['img']
-        this_amount = data['amount']
-        this_num = data['num']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
-        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
-    except:
-        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+    # try:
+    data = request.POST
+    this_kala = Pooshak.objects.filter(id=int(data['id']))
+    this_name = data['name']
+    this_text = data['text']
+    this_img = data['img']
+    this_amount = data['amount']
+    this_num = data['num']
+    this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,tag=data['tag'])
+    return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    # except:
+    #     return JsonResponse({'status':'error'},encoder=JSONEncoder)
     
 @csrf_exempt
 def edit_hejab(request):
@@ -236,7 +244,7 @@ def edit_hejab(request):
         this_img = data['img']
         this_amount = data['amount']
         this_num = data['num']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,tag=data['tag'])
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -251,7 +259,7 @@ def edit_kharazi(request):
         this_img = data['img']
         this_amount = data['amount']
         this_num = data['num']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,tag=data['tag'])
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -292,6 +300,26 @@ def get_all_cart(request):
         count += 1
         exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']='{7}';this_kala{0}['name']='{1}';this_kala{0}['amount']='{2}';this_kala{0}['kala_address']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{5}';this_kala{0}['group']='{6}';all.append(this_kala{0})".format(count,kala.name,kala.amount,kala.kala_address,kala.img,kala.num,kala.group,kala.this_id))
     return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
+@csrf_exempt
+def edit_cart(request):
+    # try:
+    data = request.POST
+    this_user = User.objects.filter(username=data['user'])[0]
+    this_kala = Cart.objects.filter(user=this_user,name=data['name'])
+    this_kala.update(num=data['num'])
+    return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    # except:
+    #     return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+
+
+
+
+
+
+
+
+
 
 
 @csrf_exempt
@@ -335,7 +363,8 @@ def add_num_pooshak(request):
         # this_num = data['num']
         old_num = this_kala[0].num
         if old_num=="ناموجود":
-            new_num = 1
+            old_num = 0
+            new_num = int(old_num)+int(data['num'])
         else:
             new_num = int(old_num)+int(data['num'])
         this_kala.update(num=new_num)
@@ -369,7 +398,8 @@ def add_num_parcheh(request):
         # this_num = data['num']
         old_num = this_kala[0].num
         if old_num=="ناموجود":
-            new_num = 1
+            old_num = 0
+            new_num = int(old_num)+int(data['num'])
         else:
             new_num = int(old_num)+int(data['num'])
         this_kala.update(num=new_num)
@@ -403,7 +433,8 @@ def add_num_kharazi(request):
         # this_num = data['num']
         old_num = this_kala[0].num
         if old_num=="ناموجود":
-            new_num = 1
+            old_num = 0
+            new_num = int(old_num)+int(data['num'])
         else:
             new_num = int(old_num)+int(data['num'])
         this_kala.update(num=new_num)
@@ -437,7 +468,8 @@ def add_num_hejab(request):
         # this_num = data['num']
         old_num = this_kala[0].num
         if old_num=="ناموجود":
-            new_num = 1
+            old_num = 0
+            new_num = int(old_num)+int(data['num'])
         else:
             new_num = int(old_num)+int(data['num'])
         this_kala.update(num=new_num)
@@ -464,9 +496,7 @@ def remove_num_hejab(request):
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
 
 
-from django.conf import settings
-from django.shortcuts import render, redirect
-from .forms import ImageForm
+
 @csrf_exempt
 def maryam(request):
     infos = Pooshak.objects.all()
@@ -476,7 +506,7 @@ def maryam(request):
             Pooshak(img=request.FILES['image']).save()
             # return redirect('maryam:maryam')
             # return JsonResponse({'status':'ok'},encoder=JSONEncoder)
-            return render(request, 'upload_img.html', {'form':form, 'infos':infos,'status':f'{"http://193.176.243.61:8080"+settings.MEDIA_URL+str(request.FILES["image"])}'})
+            return render(request, 'upload_img.html', {'form':form, 'infos':infos,'status':f'{str(request.FILES["image"])}'})
 
     else:   
         form = ImageForm()

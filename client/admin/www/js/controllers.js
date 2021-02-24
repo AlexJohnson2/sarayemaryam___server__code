@@ -86,13 +86,11 @@ angular.module('starter.controllers', [])
 
 .controller('PooshaksCtrl', function($scope,$state,$http,$ionicPopup,$ionicLoading) {
     $scope.$on('$ionicView.enter', function(e) {
-    
-    $http.post(DjangoURL+"/kala/pooshak/getall")
+    $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+    $http.post(DjangoURL+"/kala/pooshak/getall","tag=دخترانه")
     .success(function(data){
         console.log(data);
         $scope.pooshaks = data.result
-    })
-
     })
     $scope.shouldShowDelete = false;
     $scope.listCanSwipe = true;
@@ -149,7 +147,10 @@ angular.module('starter.controllers', [])
                   $scope.data.text = item.text
                 }
                 if ($scope.data.img == undefined){
-                  $scope.data.img = item.img
+                  console.log(item.img.substring(32, item.img.length))
+                  $scope.data.img = item.img.substring(32, item.img.length)
+                  // console.log(item.img)
+                  // $scope.data.img = "photo_2021-02-23_21-00-10.jpg"
                 }
                 if ($scope.data.amount == undefined){
                   $scope.data.amount = item.amount
@@ -158,7 +159,7 @@ angular.module('starter.controllers', [])
                   $scope.data.num = item.num
                 }
                 $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-                $http.post(DjangoURL+"/kala/pooshak/edit","id="+String(item.id)+"&name="+$scope.data.name+"&text="+$scope.data.text+"&img="+$scope.data.img+"&amount="+$scope.data.amount+"&num="+$scope.data.num)
+                $http.post(DjangoURL+"/kala/pooshak/edit","id="+String(item.id)+"&name="+$scope.data.name+"&text="+$scope.data.text+"&img="+$scope.data.img+"&amount="+$scope.data.amount+"&num="+$scope.data.num+"&tag=دخترانه")
                 
 		  /*
 		.success(function(data){
@@ -171,10 +172,28 @@ angular.module('starter.controllers', [])
             }
           ]
         })}
-})
+        console.log("vared shod!")
+        $scope.get = function(){
+          var s = document.getElementsByClassName("item-content")
+        console.log(s)
+        for (var i = 0; i <s.length; i++){
+          if (s[i].tagName == "A"){
+              s[i].style = "transform: translate3d(-111px, 0px, 0px);"
+              console.log(s[i])}}
+        var s = document.getElementsByClassName("item-options invisible")
+        for (var i = 0; i <s.length; i++){
+          if (s[i].tagName == "div"){
+              s[i].className = "item-options"
+              console.log(s[i])}}
+        }
+        // $scope.get()
+        // setTimeout(() => { $scope.get() }, 400);
+        
+})})
 
 .controller('PooshakDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state) {
     $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
+    $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 
     $http.post(DjangoURL+"/kala/pooshak/getall")
     .success(function(data){
@@ -277,7 +296,7 @@ angular.module('starter.controllers', [])
                   $scope.data.num = item.num
                 }
                 $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-                $http.post(DjangoURL+"/kala/parcheh/edit","id="+String(item.id)+"&name="+$scope.data.name+"&text="+$scope.data.text+"&img="+$scope.data.img+"&amount="+$scope.data.amount+"&num="+$scope.data.num)
+                $http.post(DjangoURL+"/kala/parcheh/edit","id="+String(item.id)+"&name="+$scope.data.name+"&text="+$scope.data.text+"&img="+$scope.data.img+"&amount="+$scope.data.amount+"&num="+$scope.data.num+"&tag=دخترانه")
                 /*
 		.success(function(data){
                   console.log(data)
@@ -294,6 +313,7 @@ angular.module('starter.controllers', [])
 
 .controller('ParchehDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state,$ionicPopup) {
     $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
+    $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 
     $http.post(DjangoURL+"/kala/parcheh/getall")
     .success(function(data){
@@ -385,7 +405,7 @@ angular.module('starter.controllers', [])
                   $scope.data.num = item.num
                 }
                 $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-                $http.post(DjangoURL+"/kala/kharazi/edit","id="+String(item.id)+"&name="+$scope.data.name+"&text="+$scope.data.text+"&img="+$scope.data.img+"&amount="+$scope.data.amount+"&num="+$scope.data.num)
+                $http.post(DjangoURL+"/kala/kharazi/edit","id="+String(item.id)+"&name="+$scope.data.name+"&text="+$scope.data.text+"&img="+$scope.data.img+"&amount="+$scope.data.amount+"&num="+$scope.data.num+"&tag=دخترانه")
                 
 		/*.success(function(data){
                   console.log(data)
@@ -402,6 +422,7 @@ angular.module('starter.controllers', [])
 
 .controller('KharaziDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state) {
     $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
+    $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 
     $http.post(DjangoURL+"/kala/kharazi/getall")
     .success(function(data){
@@ -506,7 +527,7 @@ angular.module('starter.controllers', [])
                   $scope.data.num = item.num
                 }
                 $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-                $http.post(DjangoURL+"/kala/hejab/edit","id="+String(item.id)+"&name="+$scope.data.name+"&text="+$scope.data.text+"&img="+$scope.data.img+"&amount="+$scope.data.amount+"&num="+$scope.data.num)
+                $http.post(DjangoURL+"/kala/hejab/edit","id="+String(item.id)+"&name="+$scope.data.name+"&text="+$scope.data.text+"&img="+$scope.data.img+"&amount="+$scope.data.amount+"&num="+$scope.data.num+"&tag=دخترانه")
                 /*
 		.success(function(data){
                   console.log(data)
@@ -522,6 +543,7 @@ angular.module('starter.controllers', [])
 
 .controller('HejabDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state) {
     $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
+    $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 
     $http.post(DjangoURL+"/kala/hejab/getall")
     .success(function(data){

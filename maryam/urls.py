@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^account/delete$',views.delete_account),
     
     url('send_message',views.send_message),
+    url('send_comment',views.send_comment),
     
     url(r'^kala/pooshak/getall$',views.get_all_pooshak),
     url(r'^kala/pooshak/add$',views.add_new_pooshak),
@@ -43,6 +44,7 @@ urlpatterns = [
     url(r'^cart/add$',views.add_to_cart),
     url(r'^cart/delete$',views.delete_from_cart),
     url(r'^cart/getall$',views.get_all_cart),
+    url(r'^cart/edit$',views.edit_cart),
 
     url(r'upload_img',views.maryam,name="maryam"),
 

@@ -2,36 +2,124 @@
 		<title>فروشگاه</title>
 
 			<ion-content scroll="true">
-			<div class="list">
+			<div class="list" ng-controller="StoreCtrl">
 
-			  <a class="item item-icon-right" href="#/pooshaks">
-			    <i class="icon ion-woman"></i>
-			    پوشاک مریم
+			  <a class="item item-icon-right" ng-click="pooshak_toggle()">
+				<i class="icon ion-woman"></i>
+			    <!--<i class="icon ion-woman"></i>-->
+			    پوشاک مریم<i id="pooshak-toggle-button" class="icon ion-arrow-left-b" style="transform: translate3d(-100px, 0px, 0px);font-size:17px"></i>
 			  </a>
 
-			  <a class="item item-icon-right" href="#/parchehs">
+				<a name="pooshak_subset" class="item item-icon-right" id="pooshak_subset" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/pooshaks/mardane">
+					<i class="icon ion-woman"></i>
+					مردانه
+				</a>
+
+				<a name="pooshak_subset" class="item item-icon-right" id="pooshak_subset" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/pooshaks/dokhtarane">
+					<i class="icon ion-woman"></i>
+					زنانه
+				</a>
+
+
+				<a name="pooshak_subset" class="item item-icon-right" id="pooshak_subset" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/pooshaks/dokhtarane">
+					<i class="icon ion-woman"></i>
+					دخترانه
+				</a>
+
+				<a name="pooshak_subset" class="item item-icon-right" id="pooshak_subset" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/pooshaks/dokhtarane">
+					<i class="icon ion-woman"></i>
+					پسرانه
+				</a>
+				
+				<a name="pooshak_subset" class="item item-icon-right" id="pooshak_subset" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/pooshaks/dokhtarane">
+					<i class="icon ion-woman"></i>
+					نوزاد
+				</a>
+
+				<a name="pooshak_subset" class="item item-icon-right" id="pooshak_subset" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/pooshaks/dokhtarane">
+					<i class="icon ion-woman"></i>
+					همه موارد
+				</a>
+				
+			  <a class="item item-icon-right" ng-click="parcheh_toggle()">
 			    <i class="icon ion-social-buffer"></i>
-			    پارچه مریم
+			    پارچه مریم<i id="parcheh-toggle-button" class="icon ion-arrow-left-b" style="transform: translate3d(-100px, 0px, 0px);font-size:17px"></i>
 			  </a>
 
-			  <a class="item item-icon-right" href="#/kharazis">
+			  <a name="parcheh_subset" class="item item-icon-right" id="pooshak_subset" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/pooshaks/dokhtarane">
+					<i class="icon ion-woman"></i>
+					همه موارد
+				</a>
+
+			  <a class="item item-icon-right" ng-click="kharazi_toggle()">
 			    <i class="icon ion-scissors"></i>
-			    خرازی مریم
+			    خرازی مریم<i id="kharazi-toggle-button" class="icon ion-arrow-left-b" style="transform: translate3d(-100px, 0px, 0px);font-size:17px"></i>
 			  </a>
 
-			  <a class="item item-icon-right" href="#/hejabs">
+				<a name="kharazi_subset" class="item item-icon-right" id="zir_majmooe" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/pooshaks/dokhtarane">
+					<i class="icon ion-woman"></i>
+					ابزار خیاطی
+				</a>
+
+				<a name="kharazi_subset" class="item item-icon-right" id="zir_majmooe" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/pooshaks/dokhtarane">
+					<i class="icon ion-woman"></i>
+					لوازم التحریر
+				</a>
+
+				<a name="kharazi_subset" class="item item-icon-right" id="zir_majmooe" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/pooshaks/dokhtarane">
+					<i class="icon ion-woman"></i>
+					همه موارد
+				</a>
+
+			  <a class="item item-icon-right" ng-click="hejab_toggle()">
 			    <i class="icon ion-woman"></i>
-			    حجاب مریم
+			    حجاب مریم<i id="hejab-toggle-button" class="icon ion-arrow-left-b" style="transform: translate3d(-100px, 0px, 0px);font-size:17px"></i>
 			  </a>
+
+			  <a name="hejab_subset" class="item item-icon-right" id="zir_majmooe" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/pooshaks/dokhtarane">
+					<i class="icon ion-woman"></i>
+					چادر
+				</a>
+
+				<a name="hejab_subset" class="item item-icon-right" id="zir_majmooe" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/pooshaks/dokhtarane">
+					<i class="icon ion-woman"></i>
+					شال
+				</a>
+				
+				<a name="hejab_subset" class="item item-icon-right" id="zir_majmooe" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/pooshaks/dokhtarane">
+					<i class="icon ion-woman"></i>
+					روسری
+				</a>
+
+				<a name="hejab_subset" class="item item-icon-right" id="zir_majmooe" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/pooshaks/dokhtarane">
+					<i class="icon ion-woman"></i>
+					ساق دست و دستکش
+				</a>
+
+				<a name="hejab_subset" class="item item-icon-right" id="zir_majmooe" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/pooshaks/dokhtarane">
+					<i class="icon ion-woman"></i>
+					ماسک و پوشیه
+				</a>
+
+
+				<a name="hejab_subset" class="item item-icon-right" id="zir_majmooe" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/pooshaks/dokhtarane">
+					<i class="icon ion-woman"></i>
+					همه موارد
+				</a>
+			  
 
 			</div>
+
+
+			
+
 
 			<div class="item item-body" style="text-align: right;">
 				<!--<h1 dir="rtl">سبد خرید:</h1>-->
 				<p><ion-icon class="icon ion-ios-cart-outline" style="font-size:50px"></ion-icon></p>
 				<p>سبد خرید</p>
 				<ion-list show-delete="true" can-swipe="listCanSwipe">
-				<ion-item class="item-thumbnail-right item-button-right" ng-repeat="kala in kalas" type="item-text-wrap" ng-click="load()" href="{{kala.kala_address}}">
+			<ion-item class="item-thumbnail-right item-button-right" ng-repeat="kala in kalas" type="item-text-wrap" ng-click="load()" href="{{kala.kala_address}}">
 				<img src="{{kala.img}}" style="transform: translate3d(-52px, 0px, 0px);">
 				<h2 style="transform: translate3d(-52px, 0px, 0px);">{{kala.name}}</h2>
 				<h3 style="transform: translate3d(-52px, 0px, 0px);">قیمت : {{kala.amount}} تومان</h3>
@@ -46,10 +134,12 @@
 						حذف
 				</ion-delete-button>
 				
+				
 			</ion-item>
 			
 			</ion-list>
-			<button ng-show="cart == true" class="button button-positive button-block" ng-click="go_to_eitaa_id();finished_buy()" ng-controller="AccountCtrl">نهایی کردن خرید</button>
+			<!--<button ng-show="cart == true" class="button button-positive button-block" ng-click="go_to_eitaa_id();finished_buy()" ng-controller="AccountCtrl">نهایی کردن خرید</button>-->
+			<button ng-show="cart == true" class="button button-positive button-block" ng-click="finish()" ng-controller="AccountCtrl">نهایی کردن خرید</button>
 			<button ng-show="cart == false" class="button button-clear button-block" style="color:black; text-align:center;" ng-controller="AccountCtrl" disabled>سبد خرید شما خالی است.</button>
 			</div>
 

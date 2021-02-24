@@ -16,6 +16,7 @@ class Pooshak(models.Model):
     img = models.FileField(upload_to='',null=True)
     amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
     num = models.CharField(max_length=255,default="")
+    tag = models.CharField(max_length=250,default='', null=True)
     def __str__(self):
         return self.name
 
@@ -25,6 +26,7 @@ class Parcheh(models.Model):
     img = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
     amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
     num = models.CharField(max_length=255,default="")
+    tag = models.CharField(max_length=250,default='', null=True)
     def __str__(self):
         return self.name
 class Hejab(models.Model):
@@ -33,6 +35,7 @@ class Hejab(models.Model):
     img = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
     amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
     num = models.CharField(max_length=255,default="")
+    tag = models.CharField(max_length=250,default='', null=True)
     def __str__(self):
         return self.name
 class Kharazi(models.Model):
@@ -41,6 +44,7 @@ class Kharazi(models.Model):
     img = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
     amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
     num = models.CharField(max_length=255,default="")
+    tag = models.CharField(max_length=250,default='', null=True)
     def __str__(self):
         return self.name
 

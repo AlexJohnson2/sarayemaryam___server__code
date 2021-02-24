@@ -86,40 +86,201 @@ angular.module('starter.controllers', [])
 
   });
 
-
   $scope.gotoexternallink = function(link){
     size = 'width='+window.innerWidth+',height='+window.innerHeight
     window.open(link,'newwindow',size); 
   }
 
+
+  $scope.pooshak_toggle = function(){
+        var y = document.getElementById("pooshak-toggle-button");
+        if (y.className === "icon ion-arrow-down-b") {
+          y.className = "icon ion-arrow-left-b";
+        } else {
+          y.className = "icon ion-arrow-down-b";
+        }
+        var x = document.getElementsByName("pooshak_subset");
+        console.log(x)
+        for (var i = 0; i <x.length; i++){
+          if (x[i].style.display === "none") {
+            x[i].style.display = "block";
+          } else {
+            x[i].style.display = "none";
+          }
+        }
+        
+      }
+
+      $scope.parcheh_toggle = function(){
+        var y = document.getElementById("parcheh-toggle-button");
+        if (y.className === "icon ion-arrow-down-b") {
+          y.className = "icon ion-arrow-left-b";
+        } else {
+          y.className = "icon ion-arrow-down-b";
+        }
+        var x = document.getElementsByName("parcheh_subset");
+        console.log(x)
+        for (var i = 0; i <x.length; i++){
+          if (x[i].style.display === "none") {
+            x[i].style.display = "block";
+          } else {
+            x[i].style.display = "none";
+          }
+        }
+        
+      }
+
+      $scope.kharazi_toggle = function(){
+        var y = document.getElementById("kharazi-toggle-button");
+        if (y.className === "icon ion-arrow-down-b") {
+          y.className = "icon ion-arrow-left-b";
+        } else {
+          y.className = "icon ion-arrow-down-b";
+        }
+        var x = document.getElementsByName("kharazi_subset");
+        console.log(x)
+        for (var i = 0; i <x.length; i++){
+          if (x[i].style.display === "none") {
+            x[i].style.display = "block";
+          } else {
+            x[i].style.display = "none";
+          }
+        }
+        
+      }
+
+      $scope.hejab_toggle = function(){
+        var y = document.getElementById("hejab-toggle-button");
+        if (y.className === "icon ion-arrow-down-b") {
+          y.className = "icon ion-arrow-left-b";
+        } else {
+          y.className = "icon ion-arrow-down-b";
+        }
+        
+      }
+  
+
+
   $scope.go_to_eitaa_id = function (){
     setTimeout(() => { $scope.gotoexternallink("https://eitaa.com/salambarf"); }, 4200);
   }
-  $scope.finished_buy = function(){
-    $ionicLoading.show({ template: '<ion-icon class="ion-icon ion-looping" animation="fade-in"></ion-icon> <p dir="rtl">سفارشات شما به مسئول فروش در پیام رسان ایتا ارسال شد. در حال انتقال به آیدی مسئول فروش...</p>', noBackdrop: true, duration: 3000 });
-    $http.post(DjangoURL+"/send_message","text=آغاز سبد خرید فرد با آیدی : "+$scope.this_user_tel_id+"\n\n و به شماره : "+$scope.this_user_phone+"\n\nو به آدرس : "+$scope.this_user_address+"\n\nو به کد پستی : "+$scope.this_post_code)
-    $scope.this_data = "user="+$scope.username
-    setTimeout(() => {  
-    $http.post(DjangoURL+"/cart/getall", $scope.this_data)
-    .success(function(data){
-      if (data.result.length != 0){
-        for (i in data.result){
-          $scope.this_data = 'text='+"سلام. \n\n"+"\n\nنام محصول : "+data.result[i]['name']+"\n\n  قیمت آن : "+data.result[i]['amount']+"\n\n آدرس سفارش: "+data.result[i]['kala_address']+"\n\n و تعداد آن:  "+data.result[i]['num']
-          $http.post(DjangoURL+"/send_message",$scope.this_data)
-          $http.post(DjangoURL+"/cart/delete","user="+$scope.username+"&name="+data.result[i]['name']+"&amount="+data.result[i]['amount']+"&kala_address="+data.result[i]['kala_address']+"&img="+data.result[i]['img'])
+
+{/* <ion-list><ion-radio ng-model="choice" ng-value="'A'">Choose A</ion-radio><ion-radio ng-model="choice" ng-value="'B'">Choose B</ion-radio></ion-list> */}
+  
+
+
+$scope.finished_buy = function(post_data){
+  $scope.go_to_eitaa_id();
+  $ionicLoading.show({ template: '<ion-icon class="ion-icon ion-looping" animation="fade-in"></ion-icon> <p dir="rtl">سفارشات شما به مسئول فروش در پیام رسان ایتا ارسال شد. در حال انتقال به آیدی مسئول فروش...</p>', noBackdrop: true, duration: 3000 });
+  $http.post(DjangoURL+"/send_message","text=سبد خرید : "+"\n\n آیدی : "+$scope.this_user_tel_id+"\n\nشماره : "+$scope.this_user_phone+"\n\nآدرس : "+$scope.this_user_address+"\n\nکد پستی : "+$scope.this_post_code+"\n\nنحوه دریافت کالا :"+post_data)
+  $scope.this_data = "user="+$scope.username
+  setTimeout(() => {  
+  $http.post(DjangoURL+"/cart/getall", $scope.this_data)
+  .success(function(data){
+    if (data.result.length != 0){
+      for (i in data.result){
+        $scope.this_data = 'text='+"سلام. \n\n"+"\n\nنام محصول : "+data.result[i]['name']+"\n\n  قیمت آن : "+data.result[i]['amount']+"\n\n آدرس سفارش: "+data.result[i]['kala_address']+"\n\n و تعداد آن:  "+data.result[i]['num']
+        $http.post(DjangoURL+"/send_message",$scope.this_data)
+        $http.post(DjangoURL+"/cart/delete","user="+$scope.username+"&name="+data.result[i]['name']+"&amount="+data.result[i]['amount']+"&kala_address="+data.result[i]['kala_address']+"&img="+data.result[i]['img'])
+        $state.reload();
+      }
+    }
+  });}, 1200);
+  $state.reload();
+  $state.reload();
+  $state.reload();
+  window.scroll(0,0);
+  $state.reload();
+  $state.reload();
+  $state.reload();
+  
+}
+
+
+
+
+$scope.finish = function() {
+  if (getCookie("address") == ""){
+    $scope.showAlert = function() {
+      var alertPopup = $ionicPopup.alert({
+        title: 'هشدار',
+        template: '<p dir="rtl">لطفا آدرس خود را در بخش حساب کاربری کامل کنید.</p>'
+      });
+    };
+    $scope.showAlert()
+   }
+    else if (getCookie("post_code") == ""){
+    $scope.showAlert = function() {
+      var alertPopup = $ionicPopup.alert({
+        title: 'هشدار',
+        template: '<p dir="rtl">لطفا کد پستی خود را در بخش حساب کاربری کامل کنید.</p>'
+      });
+    };
+    $scope.showAlert()
+  }
+  else if (getCookie("address") == " "){
+    $scope.showAlert = function() {
+      var alertPopup = $ionicPopup.alert({
+        title: 'هشدار',
+        template: '<p dir="rtl">لطفا آدرس خود را در بخش حساب کاربری کامل کنید.</p>'
+      });
+    };
+    $scope.showAlert()
+   }
+  else if (getCookie("post_code") == " "){
+    $scope.showAlert = function() {
+      var alertPopup = $ionicPopup.alert({
+        title: 'هشدار',
+        template: '<p dir="rtl">لطفا کد پستی خود را در بخش حساب کاربری کامل کنید.</p>'
+      });
+    };
+    $scope.showAlert()
+  }
+  else{
+    
+  $scope.data = {};
+
+  // An elaborate, custom popup
+  $scope.myPopup = $ionicPopup.show({
+  //   
+  template:'<div dir="rtl"><label class="container">ارسال به مجتمع اساتید<br>هزینه : رایگان🤩<input style="color:red" ng-model="data.post" ng-value="\'post_in_this\'" type="radio" checked="checked" name="radio"><span class="checkmark"></span></label><label class="container">ارسال به درون شهر قم<br>هزینه : 3000 تومان<input ng-model="data.post" ng-value="\'post_in_qom\'" type="radio" name="radio"><span class="checkmark"></span></label><label class="container">ارسال به پردیسان قم<br>هزینه : 5000 تومان<input ng-model="data.post" ng-value="\'post_out_qom\'" type="radio" name="radio"><span class="checkmark"></span></label><label class="container">ارسال به شهرستان ها<br>هزینه : 10000 تومان<input ng-model="data.post" ng-value="\'post_out_city\'" type="radio" name="radio"><span class="checkmark"></span></label></div>',
+  // template: '<input type="radio" id="male" name="gender" value="male"><label for="male">Male</label><br><input type="radio" id="female" name="gender" value="female"><label for="female">Female</label><br><input type="radio" id="other" name="gender" value="other"><label for="other">Other</label>',
+    // template: '<p dir="rtl">نحوه دریافت کالا را انتخاب کنید.</p><ion-list><label for="post_in_this">ارسال به شهرستان ها<br>هزینه : 10000 تومان</label><input id="" type="radio" ng-model="data.serverSide" value="post_in_this" ng-value="item.value"></ion-list>',
+    // <ion-radio-group></ion-radio-group><ion-radio class="radio radio-inline radio-gray " ng-model="data.post" ng-value="\'post_in_this\'" checked><p dir="rtl">ارسال به مجتمع اساتید<br>هزینه : رایگان🤩</p></ion-radio><ion-radio ng-model="data.post" ng-value="\'post_in_qom\'"><p dir="rtl">ارسال به درون شهر قم<br>هزینه : 3000 تومان</p></ion-radio><ion-radio ng-model="data.post" ng-value="\'post_out_qom\'"><p dir="rtl">ارسال به پردیسان قم<br>هزینه : 5000 تومان</p></ion-radio><ion-radio ng-model="data.post" ng-value="\'post_out_city\'"><p dir="rtl">ارسال به شهرستان ها<br>هزینه : 10000 تومان</p></ion-radio></ion-radio-group>
+    title: 'ویرایش',
+    subTitle: '',
+    scope: $scope,
+    buttons: [
+      { text: 'انصراف' },
+      {
+        text: '<b>اعمال</b>',
+        type: 'button-positive',
+        onTap: function(e) {
+          if ($scope.data.post == "post_in_this"){
+            $scope.post_data = "ارسال به مجتمع اساتید"
+          }
+          if ($scope.data.post == "post_in_qom"){
+            $scope.post_data = "ارسال به درون شهر قم"
+          }
+          if ($scope.data.post == "post_out_qom"){
+            $scope.post_data = "ارسال به پردیسان قم"
+          }
+          if ($scope.data.post == "post_out_city"){
+            $scope.post_data = "ارسال به سایر شهر ها"
+          }
+          console.log("finished buy!!",$scope.post_data)
+          $scope.finished_buy($scope.post_data)
           $state.reload();
+          $state.reload();
+          $state.reload();
+
         }
       }
-    });}, 1200);
-    $state.reload();
-    $state.reload();
-    $state.reload();
-    window.scroll(0,0);
-    $state.reload();
-    $state.reload();
-    $state.reload();
-    
-  }
+    ]
+  
+  })}}
+
+  
   
   $scope.delete_from_cart = function(kala) {
     $scope.data = {};
@@ -416,7 +577,7 @@ angular.module('starter.controllers', [])
   
 })
 
-.controller('PooshaksCtrl', function($scope,$state,$http) {
+.controller('PooshaksِDokhtaraneCtrl', function($scope,$state,$http) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -427,19 +588,17 @@ angular.module('starter.controllers', [])
       $state.go('signin',{})
     }
   
-    $http.post(DjangoURL+"/kala/pooshak/getall")
+    $http.post(DjangoURL+"/kala/pooshak/getall",'tag=دخترانه')
     .success(function(data){
         console.log(data);
     $scope.pooshaks = data.result
     })
-
   });
-    
-
-    
+  
+      
 })
 
-.controller('PooshakDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state) {
+.controller('PooshakDokhtaraneDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state,$ionicPopup) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -450,9 +609,287 @@ angular.module('starter.controllers', [])
       $state.go('signin',{})
     }
   });
-    $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
+    // $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
+    $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
 
-    $http.post(DjangoURL+"/kala/pooshak/getall")
+
+    $http.post(DjangoURL+"/kala/pooshak/getall","tag=دخترانه")
+    .success(function(data){
+    console.log(data);
+    $scope.pooshak = data.result[$stateParams.pooshakId-1]
+    storage.setItem("pooshak",$scope.pooshak)
+    })
+
+  $scope.back = function(){
+      history.back()
+  }
+  $scope.pooshak = storage.getItem("pooshak")
+  console.log($scope.pooshak)
+  
+  $http.post(DjangoURL+"/kala/pooshak/getall","tag=دخترانه")
+    .success(function(data){
+    console.log(data);
+    $scope.pooshak = data.result[$stateParams.pooshakId-1]
+    if ($scope.pooshak.num == "ناموجود"){
+      console.log("ناموجوده ها !!!")
+      $scope.unavailable = true
+    }
+    })
+
+    $scope.add_to_kalas = function(){
+      $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+      $http.post(DjangoURL+"/kala/pooshak/getall","tag=دخترانه")
+        .success(function(data){
+          $scope.pooshak = data.result[$stateParams.pooshakId-1]
+          console.log($scope.pooshak.name)
+          var name = $scope.pooshak.name
+          $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+          $http.post(DjangoURL+'/send_comment','text= پیشنهاد موجود شدن کالای : '+name)
+          .success(function(){
+            if (data.status == 'ok'){
+              $ionicLoading.show({ template: '<ion-icon class="ion-icon ion-looping" animation="fade-in"></ion-icon> <p dir="rtl">پیشنهاد شما ارسال شد.</p>', noBackdrop: true, duration: 2200 });
+
+            }
+          })
+
+        })
+      
+    }
+
+  $scope.screen_width = window.innerWidth
+  $scope.button_screen = (window.innerWidth/2)-45
+  $scope.img_height = window.innerHeight-(window.innerHeight/4)
+  $scope.img_width = window.innerWidth-(window.innerWidth/4)
+  $scope.img = String($scope.img_width)+"px"
+  $scope.params_utf8 = encodeURI($scope.params)
+  $scope.this_url_with_http = window.location.href
+  $scope.this_url = LocalURL+$scope.this_url_with_http.substring(LocalURL.length, $scope.this_url_with_http.length);
+  $scope.message_template = ''
+
+  $scope.gotoexternallink = function(link){
+    size = 'width='+window.innerWidth+',height='+window.innerHeight
+    window.open(link,'newwindow',size); 
+  }
+  $scope.go_to_tel_id = function (){
+    setTimeout(() => { $scope.gotoexternallink("https://t.me/salambarf"); }, 4200);
+  }
+  $scope.go_to_eitaa_id = function (){
+    setTimeout(() => { $scope.gotoexternallink("https://eitaa.com/salambarf"); }, 4200);
+  }
+
+  $scope.get_tel_id = function(){
+    $scope.this_username = String(getCookie("username"))
+    $scope.this_password = String(getCookie("password"))
+    $http.post(DjangoURL + '/account/checkuserwithpassword','username='+$scope.this_username+'&password='+$scope.this_password)
+    .success(function(data){
+      const this_tel_id = data.tel_id
+      storage.removeItem('this_tel_id')
+      storage.setItem('this_tel_id',this_tel_id)
+
+    })
+      .error(function () {
+        console.log("error")
+      })
+
+}
+
+  // this is a edit_cart
+
+  $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
+    .success(function(data){
+      result = data.result
+      $scope.this_kala =  data.result.filter(function(result) {
+        return result.name == $scope.pooshak.name;
+        
+      });
+      console.log($scope.this_kala)
+      console.log($scope.this_kala.num)
+    })
+  
+  $scope.edit_cart = function() {
+    $scope.data = {};
+    $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
+    .success(function(data){
+      result = data.result
+      $scope.this_kala =  data.result.filter(function(result) {
+        
+        return result.name == $scope.pooshak.name;
+        
+      });
+      console.log($scope.this_kala)
+      console.log($scope.this_kala[0].num)
+      console.log($scope.this_kala['num'])
+    })
+    $scope.num = parseInt($scope.this_kala[0].num)
+    // An elaborate, custom popup
+    $scope.myPopup = $ionicPopup.show({
+      template: '<center><ion-button class="button button-positive" ng-click="remove_from_num()" style="display:inline;font-size:30px;">-</ion-button><p id="number" style="display:inline;font-size:20px;padding-top:50px"> {{num}} </p><ion-button class="button button-positive" ng-click="add_to_num()" style="display:inline;font-size:30px;">+</ion-button></center>',
+      title: 'ویرایش',
+      subTitle: '',
+      scope: $scope,
+      buttons: [
+        { text: 'انصراف' },
+        {
+          text: '<b>اعمال</b>',
+          type: 'button-positive',
+          onTap: function(e) {
+            $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+            $http.post(DjangoURL+"/cart/edit","user="+String(getCookie("username"))+"&name="+$scope.pooshak.name+"&amount="+$scope.pooshak.amount+"&num="+$scope.num)
+            .success(function(data){
+              console.log(data)
+
+            })
+            $scope.this_data = "name="+$scope.pooshak.name+"&id="+$scope.pooshak.id+"&num="+String($scope.num)
+            $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+            $http.post(DjangoURL+"/kala/pooshak/remove_num",$scope.this_data)
+            .success(function(){
+              console.log("removed item!")
+            })
+          $state.reload()
+          }
+        }
+      ]
+    })}
+
+
+  
+  $scope.sefaresh = function(pooshak){
+    $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
+        setTimeout(() => {
+          $ionicLoading.show({template: $scope.message_template, noBackdrop: true, duration: 1500});
+        }, 1500);
+      $scope.this_username = String(getCookie("username"))
+      $scope.this_password = String(getCookie("password"))
+
+      $http.post(DjangoURL + '/account/checkuserwithpassword','username='+$scope.this_username+'&password='+$scope.this_password)
+      .success(function(data){
+        $scope.this_tel_id = data.tel_id
+        storage.removeItem('this_tel_id')
+        $state.reload()
+        storage.setItem('this_tel_id',$scope.this_tel_id)
+
+        $scope.this_address = String(getCookie("assress"))
+        // Send Message To Telegram
+
+        // $http.post('https://api.telegram.org/bot1480674202:AAEuY1mfVI2LMSszabJM0nZni5CjpzhLCVA/sendmessage'
+        // ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone+'&chat_id='+'134200837')
+        // .success(function(data){
+        //
+        // console.log(data)
+        // $scope.message_template =  '<p dir="rtl">پیام شما در تلگرام به مسئول فروش ارسال شد. در اسرع وقت پاسگو خواهیم بود.</p>'
+        // setTimeout(() => {
+        //   $ionicLoading.show({template: $scope.message_template, noBackdrop: true, duration: 3700});
+        // }, 1500);
+        // })
+
+        // Send Message To Eitaa
+        
+        $http.post(DjangoURL+'/send_message'
+        ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
+        .success(function(data){
+          if (true){
+            setTimeout(() => { $scope.gotoexternallink("https://eitaa.com/salambarf"); }, 4200);
+          }
+        console.log(data)
+        })
+        
+
+      })
+      .error(function () {
+        console.log("error")
+      })
+  }
+
+  $scope.num = 1
+  $scope.add_to_num = function(){
+    console.log("added num!")
+    if ($scope.num == parseInt($scope.pooshak.num)){
+      $scope.num = parseInt($scope.pooshak.num)
+    }
+    else {
+      $scope.num += 1
+    }
+  }
+
+  $scope.remove_from_num = function(){
+    console.log("removed num!")
+    if ($scope.num == 1){
+      $scope.num = 1
+    }
+    else {
+      $scope.num -= 1
+    }
+  }
+
+  $scope.cart = false
+  $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
+  .success(function(data){
+    console.log(data)
+    if (data.result.length > 0){
+      if (JSON.stringify(data.result).indexOf($scope.pooshak.name) > -1){
+        $scope.cart = true
+      }
+    }
+  })
+  $scope.add_to_cart = function(){
+    $scope.cart = true
+    console.log($scope.pooshak)
+    $scope.this_data = "user="+String(getCookie("username"))+"&name="+$scope.pooshak.name+"&amount="+$scope.pooshak.amount+"&kala_address="+LocalURL+"/#/pooshak/"+String($stateParams.pooshakId)+"&img="+$scope.pooshak.img+"&num="+String($scope.num)+"&group=pooshak"+"&this_id="+$scope.pooshak.id
+    $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+    $http.post(DjangoURL+"/cart/add",$scope.this_data)
+      .success(function(data){
+        console.log(data)
+        $scope.this_data = "name="+$scope.pooshak.name+"&id="+$scope.pooshak.id+"&num="+String($scope.num)
+        $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+        $http.post(DjangoURL+"/kala/pooshak/remove_num",$scope.this_data)
+        .success(function(){
+          console.log("removed item!")
+        })
+          
+      })
+  }
+  $scope.finished_buy = function(){
+    $state.go("tab.store")
+  }
+
+})
+
+
+.controller('PooshaksِMardaneCtrl', function($scope,$state,$http) {
+  $scope.$on('$ionicView.enter', function(e) {
+    if (document.cookie.indexOf("username") > -1){
+      if (getCookie("username") == ""){
+        $state.go('signin',{})
+      }
+    }
+    if (document.cookie.indexOf("username") == -1){
+      $state.go('signin',{})
+    }
+  
+    $http.post(DjangoURL+"/kala/pooshak/getall",'tag=مردانه')
+    .success(function(data){
+        console.log(data);
+    $scope.pooshaks = data.result
+    })
+
+  });
+      
+})
+
+.controller('PooshakMardaneDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state) {
+  $scope.$on('$ionicView.enter', function(e) {
+    if (document.cookie.indexOf("username") > -1){
+      if (getCookie("username") == ""){
+        $state.go('signin',{})
+      }
+    }
+    if (document.cookie.indexOf("username") == -1){
+      $state.go('signin',{})
+    }
+  });
+  $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
+
+    $http.post(DjangoURL+"/kala/pooshak/getall","tag=دخترانه")
     .success(function(data){
     console.log(data);
     $scope.pooshak = data.result[$stateParams.pooshakId-1]
@@ -602,6 +1039,8 @@ angular.module('starter.controllers', [])
 
 })
 
+
+
 .controller('ParchehsCtrl', function($scope,$state,$http) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
@@ -635,7 +1074,7 @@ angular.module('starter.controllers', [])
       $state.go('signin',{})
     }
   });
-    $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
+  $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
 
     $http.post(DjangoURL+"/kala/parcheh/getall")
     .success(function(data){
@@ -814,7 +1253,7 @@ angular.module('starter.controllers', [])
       $state.go('signin',{})
     }
   });
-    $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
+  $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
 
     $http.post(DjangoURL+"/kala/kharazi/getall")
     .success(function(data){
@@ -993,7 +1432,7 @@ angular.module('starter.controllers', [])
       $state.go('signin',{})
     }
   });
-    $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
+  $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
 
     $http.post(DjangoURL+"/kala/hejab/getall")
     .success(function(data){
