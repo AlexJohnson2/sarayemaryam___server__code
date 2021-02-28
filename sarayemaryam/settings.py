@@ -126,6 +126,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 FILE_UPLOAD_HANDLERS = ("django_excel.ExcelMemoryFileUploadHandler",
                           "django_excel.TemporaryExcelFileUploadHandler")
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 CORS_ORIGIN_ALLOW_ALL = True
 

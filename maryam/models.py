@@ -10,6 +10,15 @@ class User(models.Model):
     def __str__(self):
         return self.username
 
+class Admin_user(models.Model):
+    username = models.CharField(max_length=500000,default='', null=True,help_text="نام کاربری خود را وارد کنید. این نام کاربری برای ورود شما استفاده می شود")
+    password = models.CharField(max_length=500000,default='', null=True,help_text="رمز خود را وارد کنید. این رمز برای ورود شما به سایت اسفاده می شود")
+    def __str__(self):
+        return self.username
+
+
+
+
 class Pooshak(models.Model):
     name = models.CharField(max_length=250,default='', null=True, help_text="نام نمایشی کالا را وارد کنید")
     text = models.TextField(max_length=250,default='', null=True, help_text="توضیحات کالا را وارد کنید")
@@ -20,33 +29,217 @@ class Pooshak(models.Model):
     def __str__(self):
         return self.name
 
+class Pooshak_mardane(models.Model):
+    name = models.CharField(max_length=250,default='', null=True, help_text="نام نمایشی کالا را وارد کنید")
+    text = models.TextField(max_length=250,default='', null=True, help_text="توضیحات کالا را وارد کنید")
+    img = models.FileField(upload_to='',null=True)
+    amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
+    num = models.CharField(max_length=255,default="")
+    tag = models.CharField(max_length=250,default='', null=True)
+    def __str__(self):
+        return self.name
+class Pooshak_zanane(models.Model):
+    name = models.CharField(max_length=250,default='', null=True, help_text="نام نمایشی کالا را وارد کنید")
+    text = models.TextField(max_length=250,default='', null=True, help_text="توضیحات کالا را وارد کنید")
+    img = models.FileField(upload_to='',null=True)
+    amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
+    num = models.CharField(max_length=255,default="")
+    tag = models.CharField(max_length=250,default='', null=True)
+    def __str__(self):
+        return self.name
+class Pooshak_dokhtarane(models.Model):
+    name = models.CharField(max_length=250,default='', null=True, help_text="نام نمایشی کالا را وارد کنید")
+    text = models.TextField(max_length=250,default='', null=True, help_text="توضیحات کالا را وارد کنید")
+    img = models.FileField(upload_to='',null=True)
+    amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
+    num = models.CharField(max_length=255,default="")
+    tag = models.CharField(max_length=250,default='', null=True)
+    def __str__(self):
+        return self.name
+class Pooshak_pesarane(models.Model):
+    name = models.CharField(max_length=250,default='', null=True, help_text="نام نمایشی کالا را وارد کنید")
+    text = models.TextField(max_length=250,default='', null=True, help_text="توضیحات کالا را وارد کنید")
+    img = models.FileField(upload_to='',null=True)
+    amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
+    num = models.CharField(max_length=255,default="")
+    tag = models.CharField(max_length=250,default='', null=True)
+    def __str__(self):
+        return self.name
+class Pooshak_nozadi(models.Model):
+    name = models.CharField(max_length=250,default='', null=True, help_text="نام نمایشی کالا را وارد کنید")
+    text = models.TextField(max_length=250,default='', null=True, help_text="توضیحات کالا را وارد کنید")
+    img = models.FileField(upload_to='',null=True)
+    amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
+    num = models.CharField(max_length=255,default="")
+    tag = models.CharField(max_length=250,default='', null=True)
+    def __str__(self):
+        return self.name
+
+
+
+
+
+
+
 class Parcheh(models.Model):
     name = models.CharField(max_length=250,default='', null=True, help_text="نام نمایشی کالا را وارد کنید")
     text = models.TextField(max_length=250,default='', null=True, help_text="توضیحات کالا را وارد کنید")
-    img = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
+    img = models.FileField(upload_to='',null=True)
     amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
     num = models.CharField(max_length=255,default="")
     tag = models.CharField(max_length=250,default='', null=True)
     def __str__(self):
         return self.name
+
+
 class Hejab(models.Model):
     name = models.CharField(max_length=250,default='', null=True, help_text="نام نمایشی کالا را وارد کنید")
     text = models.TextField(max_length=250,default='', null=True, help_text="توضیحات کالا را وارد کنید")
-    img = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
+    img = models.FileField(upload_to='',null=True)
     amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
     num = models.CharField(max_length=255,default="")
     tag = models.CharField(max_length=250,default='', null=True)
     def __str__(self):
         return self.name
+
+class Hejab_chador(models.Model):
+    name = models.CharField(max_length=250,default='', null=True, help_text="نام نمایشی کالا را وارد کنید")
+    text = models.TextField(max_length=250,default='', null=True, help_text="توضیحات کالا را وارد کنید")
+    img = models.FileField(upload_to='',null=True)
+    amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
+    num = models.CharField(max_length=255,default="")
+    tag = models.CharField(max_length=250,default='', null=True)
+    def __str__(self):
+        return self.name
+class Hejab_shal(models.Model):
+    name = models.CharField(max_length=250,default='', null=True, help_text="نام نمایشی کالا را وارد کنید")
+    text = models.TextField(max_length=250,default='', null=True, help_text="توضیحات کالا را وارد کنید")
+    img = models.FileField(upload_to='',null=True)
+    amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
+    num = models.CharField(max_length=255,default="")
+    tag = models.CharField(max_length=250,default='', null=True)
+    def __str__(self):
+        return self.name
+class Hejab_roosari(models.Model):
+    name = models.CharField(max_length=250,default='', null=True, help_text="نام نمایشی کالا را وارد کنید")
+    text = models.TextField(max_length=250,default='', null=True, help_text="توضیحات کالا را وارد کنید")
+    img = models.FileField(upload_to='',null=True)
+    amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
+    num = models.CharField(max_length=255,default="")
+    tag = models.CharField(max_length=250,default='', null=True)
+    def __str__(self):
+        return self.name
+class Hejab_saghedast_dastkesh(models.Model):
+    name = models.CharField(max_length=250,default='', null=True, help_text="نام نمایشی کالا را وارد کنید")
+    text = models.TextField(max_length=250,default='', null=True, help_text="توضیحات کالا را وارد کنید")
+    img = models.FileField(upload_to='',null=True)
+    amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
+    num = models.CharField(max_length=255,default="")
+    tag = models.CharField(max_length=250,default='', null=True)
+    def __str__(self):
+        return self.name
+class Hejab_mask_pooshie(models.Model):
+    name = models.CharField(max_length=250,default='', null=True, help_text="نام نمایشی کالا را وارد کنید")
+    text = models.TextField(max_length=250,default='', null=True, help_text="توضیحات کالا را وارد کنید")
+    img = models.FileField(upload_to='',null=True)
+    amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
+    num = models.CharField(max_length=255,default="")
+    tag = models.CharField(max_length=250,default='', null=True)
+    def __str__(self):
+        return self.name
+
+
+
+
+
+
+
 class Kharazi(models.Model):
     name = models.CharField(max_length=250,default='', null=True, help_text="نام نمایشی کالا را وارد کنید")
     text = models.TextField(max_length=250,default='', null=True, help_text="توضیحات کالا را وارد کنید")
-    img = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
+    img = models.FileField(upload_to='',null=True)
     amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
     num = models.CharField(max_length=255,default="")
     tag = models.CharField(max_length=250,default='', null=True)
     def __str__(self):
         return self.name
+class Kharazi_abzarkhayati(models.Model):
+    name = models.CharField(max_length=250,default='', null=True, help_text="نام نمایشی کالا را وارد کنید")
+    text = models.TextField(max_length=250,default='', null=True, help_text="توضیحات کالا را وارد کنید")
+    img = models.FileField(upload_to='',null=True)
+    amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
+    num = models.CharField(max_length=255,default="")
+    tag = models.CharField(max_length=250,default='', null=True)
+    def __str__(self):
+        return self.name
+class Kharazi_lavazemtahrir(models.Model):
+    name = models.CharField(max_length=250,default='', null=True, help_text="نام نمایشی کالا را وارد کنید")
+    text = models.TextField(max_length=250,default='', null=True, help_text="توضیحات کالا را وارد کنید")
+    img = models.FileField(upload_to='',null=True)
+    amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
+    num = models.CharField(max_length=255,default="")
+    tag = models.CharField(max_length=250,default='', null=True)
+    def __str__(self):
+        return self.name
+
+
+class Sefaresh_sayer(models.Model):
+    name = models.CharField(max_length=250,default='', null=True, help_text="نام نمایشی کالا را وارد کنید")
+    text = models.TextField(max_length=250,default='', null=True, help_text="توضیحات کالا را وارد کنید")
+    img = models.FileField(upload_to='',null=True)
+    amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
+    num = models.CharField(max_length=255,default="")
+    tag = models.CharField(max_length=250,default='', null=True)
+    def __str__(self):
+        return self.name
+
+class Sefaresh_mardane(models.Model):
+    name = models.CharField(max_length=250,default='', null=True, help_text="نام نمایشی کالا را وارد کنید")
+    text = models.TextField(max_length=250,default='', null=True, help_text="توضیحات کالا را وارد کنید")
+    img = models.FileField(upload_to='',null=True)
+    amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
+    num = models.CharField(max_length=255,default="")
+    tag = models.CharField(max_length=250,default='', null=True)
+    def __str__(self):
+        return self.name
+class Sefaresh_zanane(models.Model):
+    name = models.CharField(max_length=250,default='', null=True, help_text="نام نمایشی کالا را وارد کنید")
+    text = models.TextField(max_length=250,default='', null=True, help_text="توضیحات کالا را وارد کنید")
+    img = models.FileField(upload_to='',null=True)
+    amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
+    num = models.CharField(max_length=255,default="")
+    tag = models.CharField(max_length=250,default='', null=True)
+    def __str__(self):
+        return self.name
+class Sefaresh_dokhtarane(models.Model):
+    name = models.CharField(max_length=250,default='', null=True, help_text="نام نمایشی کالا را وارد کنید")
+    text = models.TextField(max_length=250,default='', null=True, help_text="توضیحات کالا را وارد کنید")
+    img = models.FileField(upload_to='',null=True)
+    amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
+    num = models.CharField(max_length=255,default="")
+    tag = models.CharField(max_length=250,default='', null=True)
+    def __str__(self):
+        return self.name
+class Sefaresh_pesarane(models.Model):
+    name = models.CharField(max_length=250,default='', null=True, help_text="نام نمایشی کالا را وارد کنید")
+    text = models.TextField(max_length=250,default='', null=True, help_text="توضیحات کالا را وارد کنید")
+    img = models.FileField(upload_to='',null=True)
+    amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
+    num = models.CharField(max_length=255,default="")
+    tag = models.CharField(max_length=250,default='', null=True)
+    def __str__(self):
+        return self.name
+class Sefaresh_nozadi(models.Model):
+    name = models.CharField(max_length=250,default='', null=True, help_text="نام نمایشی کالا را وارد کنید")
+    text = models.TextField(max_length=250,default='', null=True, help_text="توضیحات کالا را وارد کنید")
+    img = models.FileField(upload_to='',null=True)
+    amount = models.CharField(max_length=250,default='', null=True, help_text="آدرس فایل آپلود شده در پیکوفایل را وارد کنید")
+    num = models.CharField(max_length=255,default="")
+    tag = models.CharField(max_length=250,default='', null=True)
+    def __str__(self):
+        return self.name
+
+
 
 class Cart(models.Model):
     this_id = models.CharField(max_length=255,default="")
@@ -59,3 +252,9 @@ class Cart(models.Model):
     group = models.CharField(max_length=255,default="")
     def __str__(self):
         return str(self.user)+" ____ "+str(self.name)+" ____ "+str(self.amount)
+
+class Comment(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    name = models.CharField(max_length=255,default="")
+    def __str__(self):
+        return self.name

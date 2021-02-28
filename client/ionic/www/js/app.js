@@ -48,6 +48,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
   // Each tab has its own nav history stack:
 
+
+  // tabs
   .state('tab.learn', {
       url: '/learn',
       views: {
@@ -58,24 +60,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     })
 
-
-  .state('tab.settings', {
-    url: '/settings',
-    views: {
-      'tab-settings': {
-        templateUrl: 'templates/tab-settings.html',
-        controller: 'SettingsCtrl'
+    .state('tab.home', {
+      url: '/home',
+      views: {
+        'tab-home': {
+          templateUrl: 'templates/tab-home.html',
+          controller: 'HomeCtrl'
+        }
       }
-    }
-  })
-
-
-
-  .state('parcheh', {
-    url: '/parcheh',
-    templateUrl: 'templates/tab-parcheh.html',
-    controller: 'ParchehCtrl'
-  })
+    })
 
   .state('tab.account', {
     url: '/account',
@@ -86,16 +79,31 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     }
   })
+
+  .state('tab.store', {
+    url: '/store',
+    views: {
+      'tab-store': {
+        templateUrl: 'templates/tab-store.html',
+        controller: 'StoreCtrl'
+      }
+    }
+  })
+
+  // pages
+
   .state('aboutme', {
     url: '/aboutme',
     templateUrl: 'templates/tab-aboutme.html',
     controller: 'AboutmeCtrl'
   })
+  
   .state('help', {
     url: '/help',
     templateUrl: 'templates/tab-help.html',
     controller: 'HelpCtrl'
   })
+
   .state('signin', {
     url: '/signin',
     templateUrl: 'templates/tab-signin.html',
@@ -114,7 +122,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     controller: 'ConfirmCtrl'
   })  
 
-  
+
+
+
+
   .state('kharazi', {
     url: '/kharazi',
     templateUrl: 'templates/tab-kharazi.html',
@@ -132,38 +143,241 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   })
 
 
-  .state('tab.home', {
-    url: '/home',
-    views: {
-      'tab-home': {
-        templateUrl: 'templates/tab-home.html',
-        controller: 'HomeCtrl'
-      }
-    }
-  })
-
-  .state('pooshaksdokdokhtarane', {
-    url: '/pooshaks/dokhtarane',
-    templateUrl: 'templates/tab-pooshaks-dokhtarane.html',
-    controller: 'PooshaksِDokhtaraneCtrl'
-  })
-  .state('pooshak-dokhtarane-detail', {
-    url: '/pooshak/:pooshakId',
-    templateUrl: 'templates/pooshak-dokhtarane-detail.html',
-    controller: 'PooshakDokhtaraneDetailCtrl'
-  })
-
+  
   .state('pooshaksmardane', {
-    url: '/pooshaks/mardane',
+    url: '/pooshaks_mardane',
     templateUrl: 'templates/tab-pooshaks-mardane.html',
     controller: 'PooshaksِMardaneCtrl'
   })
   .state('pooshak-mardane-detail', {
-    url: '/pooshak/:pooshakId',
+    url: '/pooshak_mardane/:pooshakmardaneId',
     templateUrl: 'templates/pooshak-mardane-detail.html',
     controller: 'PooshakMardaneDetailCtrl'
   })
+
+  .state('pooshakszanane', {
+    url: '/pooshaks_zanane',
+    templateUrl: 'templates/tab-pooshaks-zanane.html',
+    controller: 'PooshaksِZananeCtrl'
+  })
+  .state('pooshak-zanane-detail', {
+    url: '/pooshak_zanane/:pooshakzananeId',
+    templateUrl: 'templates/pooshak-zanane-detail.html',
+    controller: 'PooshakZananeDetailCtrl'
+  })
+
+  .state('pooshaksdokdokhtarane', {
+    url: '/pooshaks_dokhtarane',
+    templateUrl: 'templates/tab-pooshaks-dokhtarane.html',
+    controller: 'PooshaksِDokhtaraneCtrl'
+  })
+  .state('pooshak-dokhtarane-detail', {
+    url: '/pooshak_dokhtarane/:pooshakdokhtaraneId',
+    templateUrl: 'templates/pooshak-dokhtarane-detail.html',
+    controller: 'PooshakDokhtaraneDetailCtrl'
+  })
+
+  .state('pooshakspesarane', {
+    url: '/pooshaks_pesarane',
+    templateUrl: 'templates/tab-pooshaks-pesarane.html',
+    controller: 'PooshaksِPesaraneCtrl'
+  })
+  .state('pooshak-pesarane-detail', {
+    url: '/pooshak_pesarane/:pooshakpesaraneId',
+    templateUrl: 'templates/pooshak-pesarane-detail.html',
+    controller: 'PooshakPesaraneDetailCtrl'
+  })
+
+  .state('pooshaksnozadi', {
+    url: '/pooshaks_nozadi',
+    templateUrl: 'templates/tab-pooshaks-nozadi.html',
+    controller: 'PooshaksِNozadiCtrl'
+  })
+  .state('pooshak-nozadi-detail', {
+    url: '/pooshak_nozadi/:pooshaknozadiId',
+    templateUrl: 'templates/pooshak-nozadi-detail.html',
+    controller: 'PooshakNozadiDetailCtrl'
+  })
+
+
+
+
+
+
+
+
+
+
+
+  .state('sefareshsmardane', {
+    url: '/sefareshs_mardane',
+    templateUrl: 'templates/tab-sefareshs-mardane.html',
+    controller: 'SefareshMardaneCtrl'
+  })
+  .state('sefaresh-mardane-detail', {
+    url: '/sefaresh_mardane/:sefareshmardaneId',
+    templateUrl: 'templates/sefaresh-mardane-detail.html',
+    controller: 'SefareshMardaneDetailCtrl'
+  })
+
+
+  .state('sefareshszanane', {
+    url: '/sefareshs_zanane',
+    templateUrl: 'templates/tab-sefareshs-zanane.html',
+    controller: 'SefareshZananeCtrl'
+  })
+  .state('sefaresh-zanane-detail', {
+    url: '/sefaresh_zanane/:sefareshzananeId',
+    templateUrl: 'templates/sefaresh-zanane-detail.html',
+    controller: 'SefareshZananeDetailCtrl'
+  })
+
+
+  .state('sefareshsdokhtarane', {
+    url: '/sefareshs_dokhtarane',
+    templateUrl: 'templates/tab-sefareshs-dokhtarane.html',
+    controller: 'SefareshDokhtaraneCtrl'
+  })
+  .state('sefaresh-dokhtarane-detail', {
+    url: '/sefaresh_dokhtarane/:sefareshdokhtaraneId',
+    templateUrl: 'templates/sefaresh-dokhtarane-detail.html',
+    controller: 'SefareshDokhtaraneDetailCtrl'
+  })
+
+
+  .state('sefareshspesarane', {
+    url: '/sefareshs_pesarane',
+    templateUrl: 'templates/tab-sefareshs-pesarane.html',
+    controller: 'SefareshPesaraneCtrl'
+  })
+  .state('sefaresh-pesarane-detail', {
+    url: '/sefaresh_pesarane/:sefareshpesaraneId',
+    templateUrl: 'templates/sefaresh-pesarane-detail.html',
+    controller: 'SefareshPesaraneDetailCtrl'
+  })
+
+
+  .state('sefareshsnozadi', {
+    url: '/sefareshs_nozadi',
+    templateUrl: 'templates/tab-sefareshs-nozadi.html',
+    controller: 'SefareshNozadiCtrl'
+  })
+  .state('sefaresh-nozadi-detail', {
+    url: '/sefaresh_nozadi/:sefareshnozadiId',
+    templateUrl: 'templates/sefaresh-nozadi-detail.html',
+    controller: 'SefareshNozadiDetailCtrl'
+  })
+
+
+  .state('sefareshssayer', {
+    url: '/sefareshs_sayer',
+    templateUrl: 'templates/tab-sefareshs-sayer.html',
+    controller: 'SefareshSayerCtrl'
+  })
+  .state('sefaresh-sayer-detail', {
+    url: '/sefaresh_sayer/:sefareshsayerId',
+    templateUrl: 'templates/sefaresh-sayer-detail.html',
+    controller: 'SefareshSayerDetailCtrl'
+  })
+
+
+
+
+
+
+
+
+
+
+
+  .state('hejabschador', {
+    url: '/hejabs_chador',
+    templateUrl: 'templates/tab-hejab-chador.html',
+    controller: 'HejabChadorCtrl'
+  })
+  .state('hejab-chador-detail', {
+    url: '/hejab_chador/:hejabchadorId',
+    templateUrl: 'templates/hejab-chador-detail.html',
+    controller: 'HejabChadorDetailCtrl'
+  })
+
+  .state('hejabsshal', {
+    url: '/hejabs_shal',
+    templateUrl: 'templates/tab-hejab-shal.html',
+    controller: 'HejabShalCtrl'
+  })
+  .state('hejab-shal-detail', {
+    url: '/hejab_shal/:hejabshalId',
+    templateUrl: 'templates/hejab-shal-detail.html',
+    controller: 'HejabShalDetailCtrl'
+  })
   
+  .state('hejabsroosari', {
+    url: '/hejabs_roosari',
+    templateUrl: 'templates/tab-hejab-roosari.html',
+    controller: 'HejabRoosariCtrl'
+  })
+  .state('hejab-roosari-detail', {
+    url: '/hejab_roosari/:hejabroosariId',
+    templateUrl: 'templates/hejab-roosari-detail.html',
+    controller: 'HejabRoosariDetailCtrl'
+  })
+
+  .state('hejabssaghedastdastkesh', {
+    url: '/hejabs_saghedast_dastkesh',
+    templateUrl: 'templates/tab-hejab-saghedast-dastkesh.html',
+    controller: 'HejabSaghedastdastkeshCtrl'
+  })
+  .state('hejab-saghedast-dastkesh-detail', {
+    url: '/hejab_saghedast_dastkesh/:hejabsaghedastdastkeshId',
+    templateUrl: 'templates/hejab-saghedast-dastkesh-detail.html',
+    controller: 'HejabSaghedastdastkeshDetailCtrl'
+  })
+
+  .state('hejabsmaskpooshie', {
+    url: '/hejabs_mask_pooshie',
+    templateUrl: 'templates/tab-hejab-mask-pooshie.html',
+    controller: 'HejabMaskpooshieCtrl'
+  })
+  .state('hejab-mask-pooshie-detail', {
+    url: '/hejab_mask_pooshie/:hejabmaskpooshieId',
+    templateUrl: 'templates/hejab-mask-pooshie-detail.html',
+    controller: 'HejabMaskpooshieDetailCtrl'
+  })
+
+  .state('kharazisabzarkhayati', {
+    url: '/kharazis_abzarkhayati',
+    templateUrl: 'templates/tab-kharazi-abzarkhayati.html',
+    controller: 'KharaziAbzarkhayatiCtrl'
+  })
+  .state('kharazi-abzarkhayati-detail', {
+    url: '/kharazi_abzarkhayati/:kharaziabzarkhayatiId',
+    templateUrl: 'templates/kharazi-abzarkhayati-detail.html',
+    controller: 'KharaziAbzarkhayatiDetailCtrl'
+  })
+
+  .state('kharazislavazemtahrir', {
+    url: '/kharazis_lavazemtahrir',
+    templateUrl: 'templates/tab-kharazi-lavazemtahrir.html',
+    controller: 'KharaziLavazemtahrirCtrl'
+  })
+  .state('kharazi-lavazemtahrir-detail', {
+    url: '/kharazi_lavazemtahrir/:kharazilavazemtahrirId',
+    templateUrl: 'templates/kharazi-lavazemtahrir-detail.html',
+    controller: 'KharaziLavazemtahrirDetailCtrl'
+  })
+
+
+  .state('pooshaks', {
+    url: '/pooshaks',
+    templateUrl: 'templates/tab-pooshaks.html',
+    controller: 'PooshaksCtrl'
+  })
+  .state('pooshak-detail', {
+    url: '/pooshak/:pooshakId',
+    templateUrl: 'templates/pooshak-detail.html',
+    controller: 'PooshakDetailCtrl'
+  })
 
   .state('parchehs', {
     url: '/parchehs',
@@ -176,6 +390,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     controller: 'ParchehDetailCtrl'
   })
 
+
+
+
   .state('kharazis', {
     url: '/kharazis',
     templateUrl: 'templates/tab-kharazis.html',
@@ -186,6 +403,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     templateUrl: 'templates/kharazi-detail.html',
     controller: 'KharaziDetailCtrl'
   })
+
+
 
   .state('hejabs', {
     url: '/hejabs',
@@ -198,18 +417,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     controller: 'HejabDetailCtrl'
   })
 
-
-
-
-  .state('tab.store', {
-      url: '/store',
-      views: {
-        'tab-store': {
-          templateUrl: 'templates/tab-store.html',
-          controller: 'StoreCtrl'
-        }
-      }
-    })
+  
   ;
 
 

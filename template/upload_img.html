@@ -5,8 +5,8 @@
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="آپلود فایل">
-    <label for="{{ image.name}}">dsfsfd</label>
+    <label for="{{ image.name}}"></label>
 </form>
 <h3>آدرس فایل :</h3>
-<a href={{status}}><p>{{status}}</p></a>
+<a href="/media/{{status}}"><p>{{status}}</p></a>
 {% endblock %}
