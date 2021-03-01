@@ -52,6 +52,9 @@ angular.module('starter.controllers', [])
                     document.getElementById("addform").reset();
                     $state.reload()
                 })
+                $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+                $http.post(DjangoURL+"/kala/pooshak/add",
+                          "name="+$scope.name+"&text="+$scope.text+"&img="+$scope.img+"&amount="+$scope.amount+"&num="+$scope.num)
             }
     if ($scope.selected == "پوشاک زنانه"){
         $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
@@ -63,6 +66,9 @@ angular.module('starter.controllers', [])
                     document.getElementById("addform").reset();
                     $state.reload()
     })
+    $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+        $http.post(DjangoURL+"/kala/pooshak/add",
+                "name="+$scope.name+"&text="+$scope.text+"&img="+$scope.img+"&amount="+$scope.amount+"&num="+$scope.num)
 
                         }
     if ($scope.selected == "پوشاک دخترانه"){
@@ -75,6 +81,9 @@ angular.module('starter.controllers', [])
                     document.getElementById("addform").reset();
                     $state.reload()
                 })
+                $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+        $http.post(DjangoURL+"/kala/pooshak/add",
+                "name="+$scope.name+"&text="+$scope.text+"&img="+$scope.img+"&amount="+$scope.amount+"&num="+$scope.num)
             }
     if ($scope.selected == "پوشاک پسرانه"){
         $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
@@ -86,6 +95,9 @@ angular.module('starter.controllers', [])
                     document.getElementById("addform").reset();
                     $state.reload()
                 })
+                $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+        $http.post(DjangoURL+"/kala/pooshak/add",
+                "name="+$scope.name+"&text="+$scope.text+"&img="+$scope.img+"&amount="+$scope.amount+"&num="+$scope.num)
             }
 
     if ($scope.selected == "پوشاک نوزاد"){
@@ -98,6 +110,9 @@ angular.module('starter.controllers', [])
                   document.getElementById("addform").reset();
                   $state.reload()
               })
+              $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+        $http.post(DjangoURL+"/kala/pooshak/add",
+                "name="+$scope.name+"&text="+$scope.text+"&img="+$scope.img+"&amount="+$scope.amount+"&num="+$scope.num)
           }
 
     if ($scope.selected == "ابزار خیاطی"){
@@ -110,6 +125,9 @@ angular.module('starter.controllers', [])
                   document.getElementById("addform").reset();
                   $state.reload()
               })
+              $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+      $http.post(DjangoURL+"/kala/kharazi/add",
+              "name="+$scope.name+"&text="+$scope.text+"&img="+$scope.img+"&amount="+$scope.amount+"&num="+$scope.num)
           }
 
     if ($scope.selected == "لوازم التحریر"){
@@ -122,6 +140,9 @@ angular.module('starter.controllers', [])
                   document.getElementById("addform").reset();
                   $state.reload()
               })
+              $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+      $http.post(DjangoURL+"/kala/kharazi/add",
+              "name="+$scope.name+"&text="+$scope.text+"&img="+$scope.img+"&amount="+$scope.amount+"&num="+$scope.num)
           }
 
     if ($scope.selected == "چادر"){
@@ -134,6 +155,9 @@ angular.module('starter.controllers', [])
                   document.getElementById("addform").reset();
                   $state.reload()
               })
+              $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+      $http.post(DjangoURL+"/kala/hejab/add",
+              "name="+$scope.name+"&text="+$scope.text+"&img="+$scope.img+"&amount="+$scope.amount+"&num="+$scope.num)
           }
 
     if ($scope.selected == "شال"){
@@ -146,6 +170,9 @@ angular.module('starter.controllers', [])
                   document.getElementById("addform").reset();
                   $state.reload()
               })
+              $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+      $http.post(DjangoURL+"/kala/hejab/add",
+              "name="+$scope.name+"&text="+$scope.text+"&img="+$scope.img+"&amount="+$scope.amount+"&num="+$scope.num)
           }
 
     if ($scope.selected == "روسری"){
@@ -157,7 +184,11 @@ angular.module('starter.controllers', [])
                   $ionicLoading.show({ template: '<ion-icon class="ion-icon ion-looping" animation="fade-in"></ion-icon> <p dir="rtl">محصول با موفقیت اضافه شد.</p>', noBackdrop: true, duration: 2200 });
                   document.getElementById("addform").reset();
                   $state.reload()
+                  
               })
+              $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+      $http.post(DjangoURL+"/kala/hejab/add",
+              "name="+$scope.name+"&text="+$scope.text+"&img="+$scope.img+"&amount="+$scope.amount+"&num="+$scope.num)
           }
           
     if ($scope.selected == "ساق دست و دستکش"){
@@ -170,6 +201,9 @@ angular.module('starter.controllers', [])
                   document.getElementById("addform").reset();
                   $state.reload()
               })
+              $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+      $http.post(DjangoURL+"/kala/hejab/add",
+              "name="+$scope.name+"&text="+$scope.text+"&img="+$scope.img+"&amount="+$scope.amount+"&num="+$scope.num)
           }
     
     if ($scope.selected == "ماسک و پوشیه"){
@@ -182,6 +216,9 @@ angular.module('starter.controllers', [])
                   document.getElementById("addform").reset();
                   $state.reload()
               })
+              $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+      $http.post(DjangoURL+"/kala/hejab/add",
+              "name="+$scope.name+"&text="+$scope.text+"&img="+$scope.img+"&amount="+$scope.amount+"&num="+$scope.num)
           }
 
 
