@@ -7,7 +7,7 @@
 
     </ion-content>
 
-    <div class="bar bar-footer" ng-controller="ParchehDetailCtrl">
+    <div style="align-content: center;" class="bar bar-footer" ng-controller="ParchehDetailCtrl">
     
             <a ng-hide="cart == true || unavailable == true" ng-click="add_to_cart()"><button class="button button-positive" style="width: {{button_screen}}px;">افزودن به سبد خرید</button></a>
       <a ng-hide="unavailable == false || comment == true" ng-click="add_to_kalas()"><button class="button button-assertive" style="width: {{button_screen}}px;">پیشنهاد موجود شدن</button></a>
@@ -16,7 +16,7 @@
       <ion-button ng-hide="cart == true || unavailable == true" class="button button-positive" ng-click="remove_from_num()" style="font-size:30px;">-</ion-button>
       <pre> </pre><p ng-hide="cart == true || unavailable == true" id="number" style="font-size:20px;padding-top:9px"> {{num}} </p><pre> </pre>
       <ion-button ng-hide="cart == true || unavailable == true" class="button button-positive" ng-click="add_to_num()" style="font-size:30px;">+</ion-button>
-      <p ng-hide="cart == true || unavailable == true" style="font-size:20px;text-align:center;width:{{button_screen}}px;padding:5px">قیمت : {{parcheh.amount}}</p>
+      <p ng-hide="cart == true || unavailable == true" style="font-size:18px;text-align:center;width:{{button_screen}}px;padding:5px">قیمت : {{parcheh.amount}} تومان</p>
       <p ng-show="unavailable == true" style="font-size:20px;text-align:center;width:{{button_screen}}px;padding:5px;color:red">ناموجود است</p>
       <a ng-show="cart == true" ng-click="edit_cart()"><button class="button button-positive" style="width: {{button_screen}}px;">ویرایش تعداد</button></a><pre> </pre>
     </div>

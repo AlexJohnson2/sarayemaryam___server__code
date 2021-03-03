@@ -221,7 +221,17 @@ angular.module('starter.controllers', [])
               "name="+$scope.name+"&text="+$scope.text+"&img="+$scope.img+"&amount="+$scope.amount+"&num="+$scope.num)
           }
 
-
+    if ($scope.selected == "پارچه مریم"){
+      $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+      $http.post(DjangoURL+"/kala/parcheh/add",
+              "name="+$scope.name+"&text="+$scope.text+"&img="+$scope.img+"&amount="+$scope.amount+"&num="+$scope.num)
+              .success(function(data){
+                  console.log(data)
+                  $ionicLoading.show({ template: '<ion-icon class="ion-icon ion-looping" animation="fade-in"></ion-icon> <p dir="rtl">محصول با موفقیت اضافه شد.</p>', noBackdrop: true, duration: 2200 });
+                  document.getElementById("addform").reset();
+                  $state.reload()
+      })
+    }
 
 
     if ($scope.selected == "سفارش دوخت مردانه"){
@@ -798,6 +808,31 @@ angular.module('starter.controllers', [])
     .success(function(data){
         console.log(data);
     $scope.hejabs = data.result
+    })
+    $http.post(DjangoURL+"/kala/hejab_shal/getall")
+    .success(function(data){
+        console.log(data);
+    $scope.hejab_shal = data.result
+    })
+    $http.post(DjangoURL+"/kala/hejab_chador/getall")
+    .success(function(data){
+        console.log(data);
+    $scope.hejab_chador = data.result
+    })
+    $http.post(DjangoURL+"/kala/hejab_roosari/getall")
+    .success(function(data){
+        console.log(data);
+    $scope.hejab_roosari = data.result
+    })
+    $http.post(DjangoURL+"/kala/hejab_saghedast_dastkesh/getall")
+    .success(function(data){
+        console.log(data);
+    $scope.hejab_saghedast_dastkesh = data.result
+    })
+    $http.post(DjangoURL+"/kala/hejab_mask_pooshie/getall")
+    .success(function(data){
+        console.log(data);
+    $scope.hejab_mask_pooshie = data.result
     })
     })
     $scope.shouldShowDelete = false;
@@ -2498,6 +2533,31 @@ angular.module('starter.controllers', [])
         console.log(data);
     $scope.pooshaks = data.result
     })
+    $http.post(DjangoURL+"/kala/pooshak_zanane/getall")
+    .success(function(data){
+        console.log(data);
+    $scope.pooshak_zanane = data.result
+    })
+    $http.post(DjangoURL+"/kala/pooshak_mardane/getall")
+    .success(function(data){
+    console.log(data);
+    $scope.pooshak_mardane = data.result
+    })
+    $http.post(DjangoURL+"/kala/pooshak_dokhtarane/getall")
+    .success(function(data){
+        console.log(data);
+    $scope.pooshak_dokhtarane = data.result
+    })
+    $http.post(DjangoURL+"/kala/pooshak_pesarane/getall")
+    .success(function(data){
+        console.log(data);
+    $scope.pooshak_pesarane = data.result
+    })
+    $http.post(DjangoURL+"/kala/pooshak_nozadi/getall")
+    .success(function(data){
+        console.log(data);
+    $scope.pooshak_nozadi = data.result
+    })
   });
 
   $scope.shouldShowDelete = false;
@@ -3583,6 +3643,16 @@ angular.module('starter.controllers', [])
         console.log(data);
     $scope.kharazis = data.result
     })
+    $http.post(DjangoURL+"/kala/kharazi_abzarkhayati/getall")
+    .success(function(data){
+        console.log(data);
+    $scope.kharazi_abzarkhayati = data.result
+    })
+    $http.post(DjangoURL+"/kala/kharazi_lavazemtahrir/getall")
+    .success(function(data){
+        console.log(data);
+    $scope.kharazi_lavazemtahrir = data.result
+    })
   });
 
   $scope.shouldShowDelete = false;
@@ -3593,6 +3663,7 @@ angular.module('starter.controllers', [])
     .success(function(data){
       console.log(data)
     })
+    
     
    console.log("deleted item : ",id)
   }

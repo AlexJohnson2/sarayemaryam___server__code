@@ -133,8 +133,9 @@ angular.module('starter.controllers', [])
   });
 
   $scope.gotoexternallink = function(link){
-    size = 'width='+window.innerWidth+',height='+window.innerHeight
-    window.open(link,'newwindow',size); 
+    // size = 'width='+window.innerWidth+',height='+window.innerHeight
+    // window.open(link,'newwindow',size); 
+    window.open(link, '_system', 'location=yes'); return false;
   }
 
 
@@ -776,8 +777,9 @@ $scope.finish = function() {
   $scope.message_template = ''
 
   $scope.gotoexternallink = function(link){
-    size = 'width='+window.innerWidth+',height='+window.innerHeight
-    window.open(link,'newwindow',size); 
+    // size = 'width='+window.innerWidth+',height='+window.innerHeight
+    // window.open(link,'newwindow',size); 
+    window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
     setTimeout(() => { $scope.gotoexternallink("https://t.me/salambarf"); }, 4200);
@@ -1055,9 +1057,10 @@ $scope.finish = function() {
   $scope.this_url = LocalURL+$scope.this_url_with_http.substring(LocalURL.length, $scope.this_url_with_http.length);
   $scope.message_template = ''
 
-  $scope.gotoexternallink = function(link){
-    size = 'width='+window.innerWidth+',height='+window.innerHeight
-    window.open(link,'newwindow',size); 
+  $$scope.gotoexternallink = function(link){
+    // size = 'width='+window.innerWidth+',height='+window.innerHeight
+    // window.open(link,'newwindow',size); 
+    window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
     setTimeout(() => { $scope.gotoexternallink("https://t.me/salambarf"); }, 4200);
@@ -1336,8 +1339,9 @@ $scope.finish = function() {
   $scope.message_template = ''
 
   $scope.gotoexternallink = function(link){
-    size = 'width='+window.innerWidth+',height='+window.innerHeight
-    window.open(link,'newwindow',size); 
+    // size = 'width='+window.innerWidth+',height='+window.innerHeight
+    // window.open(link,'newwindow',size); 
+    window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
     setTimeout(() => { $scope.gotoexternallink("https://t.me/salambarf"); }, 4200);
@@ -1621,8 +1625,9 @@ $scope.finish = function() {
   $scope.message_template = ''
 
   $scope.gotoexternallink = function(link){
-    size = 'width='+window.innerWidth+',height='+window.innerHeight
-    window.open(link,'newwindow',size); 
+    // size = 'width='+window.innerWidth+',height='+window.innerHeight
+    // window.open(link,'newwindow',size); 
+    window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
     setTimeout(() => { $scope.gotoexternallink("https://t.me/salambarf"); }, 4200);
@@ -1901,8 +1906,9 @@ $scope.finish = function() {
   $scope.message_template = ''
 
   $scope.gotoexternallink = function(link){
-    size = 'width='+window.innerWidth+',height='+window.innerHeight
-    window.open(link,'newwindow',size); 
+    // size = 'width='+window.innerWidth+',height='+window.innerHeight
+    // window.open(link,'newwindow',size); 
+    window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
     setTimeout(() => { $scope.gotoexternallink("https://t.me/salambarf"); }, 4200);
@@ -2181,8 +2187,9 @@ $scope.finish = function() {
   $scope.message_template = ''
 
   $scope.gotoexternallink = function(link){
-    size = 'width='+window.innerWidth+',height='+window.innerHeight
-    window.open(link,'newwindow',size); 
+    // size = 'width='+window.innerWidth+',height='+window.innerHeight
+    // window.open(link,'newwindow',size); 
+    window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
     setTimeout(() => { $scope.gotoexternallink("https://t.me/salambarf"); }, 4200);
@@ -2461,8 +2468,9 @@ $scope.finish = function() {
   $scope.message_template = ''
 
   $scope.gotoexternallink = function(link){
-    size = 'width='+window.innerWidth+',height='+window.innerHeight
-    window.open(link,'newwindow',size); 
+    // size = 'width='+window.innerWidth+',height='+window.innerHeight
+    // window.open(link,'newwindow',size); 
+    window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
     setTimeout(() => { $scope.gotoexternallink("https://t.me/salambarf"); }, 4200);
@@ -2741,8 +2749,9 @@ $scope.finish = function() {
   $scope.message_template = ''
 
   $scope.gotoexternallink = function(link){
-    size = 'width='+window.innerWidth+',height='+window.innerHeight
-    window.open(link,'newwindow',size); 
+    // size = 'width='+window.innerWidth+',height='+window.innerHeight
+    // window.open(link,'newwindow',size); 
+    window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
     setTimeout(() => { $scope.gotoexternallink("https://t.me/salambarf"); }, 4200);
@@ -3021,8 +3030,9 @@ $scope.finish = function() {
   $scope.message_template = ''
 
   $scope.gotoexternallink = function(link){
-    size = 'width='+window.innerWidth+',height='+window.innerHeight
-    window.open(link,'newwindow',size); 
+    // size = 'width='+window.innerWidth+',height='+window.innerHeight
+    // window.open(link,'newwindow',size); 
+    window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
     setTimeout(() => { $scope.gotoexternallink("https://t.me/salambarf"); }, 4200);
@@ -3301,8 +3311,9 @@ $scope.finish = function() {
   $scope.message_template = ''
 
   $scope.gotoexternallink = function(link){
-    size = 'width='+window.innerWidth+',height='+window.innerHeight
-    window.open(link,'newwindow',size); 
+    // size = 'width='+window.innerWidth+',height='+window.innerHeight
+    // window.open(link,'newwindow',size); 
+    window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
     setTimeout(() => { $scope.gotoexternallink("https://t.me/salambarf"); }, 4200);
@@ -3581,8 +3592,9 @@ $scope.finish = function() {
   $scope.message_template = ''
 
   $scope.gotoexternallink = function(link){
-    size = 'width='+window.innerWidth+',height='+window.innerHeight
-    window.open(link,'newwindow',size); 
+    // size = 'width='+window.innerWidth+',height='+window.innerHeight
+    // window.open(link,'newwindow',size); 
+    window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
     setTimeout(() => { $scope.gotoexternallink("https://t.me/salambarf"); }, 4200);
@@ -3863,8 +3875,9 @@ $scope.finish = function() {
   $scope.message_template = ''
 
   $scope.gotoexternallink = function(link){
-    size = 'width='+window.innerWidth+',height='+window.innerHeight
-    window.open(link,'newwindow',size); 
+    // size = 'width='+window.innerWidth+',height='+window.innerHeight
+    // window.open(link,'newwindow',size); 
+    window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
     setTimeout(() => { $scope.gotoexternallink("https://t.me/salambarf"); }, 4200);
@@ -4049,10 +4062,30 @@ $scope.finish = function() {
       $state.go('signin',{})
     }
   
-    $http.post(DjangoURL+"/kala/pooshak/getall")
+    $http.post(DjangoURL+"/kala/pooshak_zanane/getall")
     .success(function(data){
         console.log(data);
-    $scope.pooshaks = data.result
+    $scope.pooshak_zanane = data.result
+    })
+    $http.post(DjangoURL+"/kala/pooshak_mardane/getall")
+    .success(function(data){
+    console.log(data);
+    $scope.pooshak_mardane = data.result
+    })
+    $http.post(DjangoURL+"/kala/pooshak_dokhtarane/getall")
+    .success(function(data){
+        console.log(data);
+    $scope.pooshak_dokhtarane = data.result
+    })
+    $http.post(DjangoURL+"/kala/pooshak_pesarane/getall")
+    .success(function(data){
+        console.log(data);
+    $scope.pooshak_pesarane = data.result
+    })
+    $http.post(DjangoURL+"/kala/pooshak_nozadi/getall")
+    .success(function(data){
+        console.log(data);
+    $scope.pooshak_nozadi = data.result
     })
   });
   
@@ -4180,8 +4213,9 @@ $scope.finish = function() {
   $scope.message_template = ''
 
   $scope.gotoexternallink = function(link){
-    size = 'width='+window.innerWidth+',height='+window.innerHeight
-    window.open(link,'newwindow',size); 
+    // size = 'width='+window.innerWidth+',height='+window.innerHeight
+    // window.open(link,'newwindow',size); 
+    window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
     setTimeout(() => { $scope.gotoexternallink("https://t.me/salambarf"); }, 4200);
@@ -4342,7 +4376,7 @@ $scope.finish = function() {
   $scope.add_to_cart = function(){
     $scope.cart = true
     console.log($scope.pooshak)
-    $scope.this_data = "user="+String(getCookie("username"))+"&group=sefaresh_mardane"+"&name="+$scope.pooshak.name+"&amount="+$scope.pooshak.amount+"&kala_address="+LocalURL+"/#/pooshak/"+String($stateParams.pooshakdokhtaraneId)+"&img="+$scope.pooshak.img+"&num="+String($scope.num)+"&this_id="+$scope.pooshak.id
+    $scope.this_data = "user="+String(getCookie("username"))+"&group=sefaresh_mardane"+"&name="+$scope.pooshak.name+"&amount="+$scope.pooshak.amount+"&kala_address="+LocalURL+"/#/pooshak/"+String($stateParams.sefareshmardaneId)+"&img="+$scope.pooshak.img+"&num="+String($scope.num)+"&this_id="+$scope.pooshak.id
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     $http.post(DjangoURL+"/cart/add",$scope.this_data)
       .success(function(data){
@@ -4476,8 +4510,9 @@ $scope.finish = function() {
   $scope.message_template = ''
 
   $scope.gotoexternallink = function(link){
-    size = 'width='+window.innerWidth+',height='+window.innerHeight
-    window.open(link,'newwindow',size); 
+    // size = 'width='+window.innerWidth+',height='+window.innerHeight
+    // window.open(link,'newwindow',size); 
+    window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
     setTimeout(() => { $scope.gotoexternallink("https://t.me/salambarf"); }, 4200);
@@ -4780,8 +4815,9 @@ $scope.finish = function() {
   $scope.message_template = ''
 
   $scope.gotoexternallink = function(link){
-    size = 'width='+window.innerWidth+',height='+window.innerHeight
-    window.open(link,'newwindow',size); 
+    // size = 'width='+window.innerWidth+',height='+window.innerHeight
+    // window.open(link,'newwindow',size); 
+    window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
     setTimeout(() => { $scope.gotoexternallink("https://t.me/salambarf"); }, 4200);
@@ -5070,8 +5106,9 @@ $scope.finish = function() {
   $scope.message_template = ''
 
   $scope.gotoexternallink = function(link){
-    size = 'width='+window.innerWidth+',height='+window.innerHeight
-    window.open(link,'newwindow',size); 
+    // size = 'width='+window.innerWidth+',height='+window.innerHeight
+    // window.open(link,'newwindow',size); 
+    window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
     setTimeout(() => { $scope.gotoexternallink("https://t.me/salambarf"); }, 4200);
@@ -5359,8 +5396,9 @@ $scope.finish = function() {
   $scope.message_template = ''
 
   $scope.gotoexternallink = function(link){
-    size = 'width='+window.innerWidth+',height='+window.innerHeight
-    window.open(link,'newwindow',size); 
+    // size = 'width='+window.innerWidth+',height='+window.innerHeight
+    // window.open(link,'newwindow',size); 
+    window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
     setTimeout(() => { $scope.gotoexternallink("https://t.me/salambarf"); }, 4200);
@@ -5648,8 +5686,9 @@ $scope.finish = function() {
   $scope.message_template = ''
 
   $scope.gotoexternallink = function(link){
-    size = 'width='+window.innerWidth+',height='+window.innerHeight
-    window.open(link,'newwindow',size); 
+    // size = 'width='+window.innerWidth+',height='+window.innerHeight
+    // window.open(link,'newwindow',size); 
+    window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
     setTimeout(() => { $scope.gotoexternallink("https://t.me/salambarf"); }, 4200);
@@ -5914,8 +5953,9 @@ $scope.finish = function() {
   $scope.message_template = ''
 
   $scope.gotoexternallink = function(link){
-    size = 'width='+window.innerWidth+',height='+window.innerHeight
-    window.open(link,'newwindow',size); 
+    // size = 'width='+window.innerWidth+',height='+window.innerHeight
+    // window.open(link,'newwindow',size); 
+    window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
     setTimeout(() => { $scope.gotoexternallink("https://t.me/salambarf"); }, 4200);
@@ -6105,6 +6145,8 @@ $scope.finish = function() {
         console.log(data);
     $scope.parchehs = data.result
     })
+    
+
   });
   
       
@@ -6194,8 +6236,9 @@ $scope.finish = function() {
   $scope.message_template = ''
 
   $scope.gotoexternallink = function(link){
-    size = 'width='+window.innerWidth+',height='+window.innerHeight
-    window.open(link,'newwindow',size); 
+    // size = 'width='+window.innerWidth+',height='+window.innerHeight
+    // window.open(link,'newwindow',size); 
+    window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
     setTimeout(() => { $scope.gotoexternallink("https://t.me/salambarf"); }, 4200);
@@ -6385,6 +6428,17 @@ $scope.finish = function() {
         console.log(data);
     $scope.kharazis = data.result
     })
+    $http.post(DjangoURL+"/kala/kharazi_abzarkhayati/getall")
+    .success(function(data){
+        console.log(data);
+    $scope.kharazi_abzarkhayati = data.result
+    })
+    $http.post(DjangoURL+"/kala/kharazi_lavazemtahrir/getall")
+    .success(function(data){
+        console.log(data);
+    $scope.kharazi_lavazemtahrir = data.result
+    })
+    
   });
   
       
@@ -6474,8 +6528,9 @@ $scope.finish = function() {
   $scope.message_template = ''
 
   $scope.gotoexternallink = function(link){
-    size = 'width='+window.innerWidth+',height='+window.innerHeight
-    window.open(link,'newwindow',size); 
+    // size = 'width='+window.innerWidth+',height='+window.innerHeight
+    // window.open(link,'newwindow',size); 
+    window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
     setTimeout(() => { $scope.gotoexternallink("https://t.me/salambarf"); }, 4200);
@@ -6660,10 +6715,30 @@ $scope.finish = function() {
       $state.go('signin',{})
     }
   
-    $http.post(DjangoURL+"/kala/hejab/getall")
+    $http.post(DjangoURL+"/kala/hejab_shal/getall")
     .success(function(data){
         console.log(data);
-    $scope.hejabs = data.result
+    $scope.hejab_shal = data.result
+    })
+    $http.post(DjangoURL+"/kala/hejab_chador/getall")
+    .success(function(data){
+        console.log(data);
+    $scope.hejab_chador = data.result
+    })
+    $http.post(DjangoURL+"/kala/hejab_roosari/getall")
+    .success(function(data){
+        console.log(data);
+    $scope.hejab_roosari = data.result
+    })
+    $http.post(DjangoURL+"/kala/hejab_saghedast_dastkesh/getall")
+    .success(function(data){
+        console.log(data);
+    $scope.hejab_saghedast_dastkesh = data.result
+    })
+    $http.post(DjangoURL+"/kala/hejab_mask_pooshie/getall")
+    .success(function(data){
+        console.log(data);
+    $scope.hejab_mask_pooshie = data.result
     })
   });
   
@@ -6754,8 +6829,9 @@ $scope.finish = function() {
   $scope.message_template = ''
 
   $scope.gotoexternallink = function(link){
-    size = 'width='+window.innerWidth+',height='+window.innerHeight
-    window.open(link,'newwindow',size); 
+    // size = 'width='+window.innerWidth+',height='+window.innerHeight
+    // window.open(link,'newwindow',size); 
+    window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
     setTimeout(() => { $scope.gotoexternallink("https://t.me/salambarf"); }, 4200);
@@ -6944,8 +7020,9 @@ $scope.finish = function() {
 
 .controller('AboutmeCtrl', function($scope,$state) {
   $scope.gotoexternallink = function(link){
-    size = 'width='+window.innerWidth+',height='+window.innerHeight
-    window.open(link,'newwindow',size); 
+    // size = 'width='+window.innerWidth+',height='+window.innerHeight
+    // window.open(link,'newwindow',size); 
+    window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.back = function(){
       history.back()

@@ -248,6 +248,7 @@ def get_all_hejab_shal(request):
 
     return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
 
+
 @csrf_exempt
 def get_all_hejab_roosari(request):
     """

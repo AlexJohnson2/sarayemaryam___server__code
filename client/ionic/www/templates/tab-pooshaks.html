@@ -7,7 +7,43 @@
     </ion-nav-buttons>
   <ion-content has-header="true" padding="true">
     <ion-list>
-      <ion-item class="item-thumbnail-right" ng-repeat="pooshak in pooshaks" type="item-text-wrap" ng-click="load()" href="#/pooshak/{{pooshak.number}}">
+      <ion-item class="item-thumbnail-right" ng-repeat="pooshak in pooshak_zanane" type="item-text-wrap" ng-click="load()" href="#/pooshak_zanane/{{pooshak.number}}">
+         <img src="{{pooshak.img}}">
+        <h2>{{pooshak.name}}</h2>
+        <br>
+        <br>
+        <h3 style="display:inline;">قیمت : {{pooshak.amount}} تومان</h3><h3 style="text-align:left;color:red;">موجودی : {{pooshak.num}}</h3>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item class="item-thumbnail-right" ng-repeat="pooshak in pooshak_mardane" type="item-text-wrap" ng-click="load()" href="#/pooshak_mardane/{{pooshak.number}}">
+         <img src="{{pooshak.img}}">
+        <h2>{{pooshak.name}}</h2>
+        <br>
+        <br>
+        <h3 style="display:inline;">قیمت : {{pooshak.amount}} تومان</h3><h3 style="text-align:left;color:red;">موجودی : {{pooshak.num}}</h3>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item class="item-thumbnail-right" ng-repeat="pooshak in pooshak_dokhtarane" type="item-text-wrap" ng-click="load()" href="#/pooshak_dokhtarane/{{pooshak.number}}">
+         <img src="{{pooshak.img}}">
+        <h2>{{pooshak.name}}</h2>
+        <br>
+        <br>
+        <h3 style="display:inline;">قیمت : {{pooshak.amount}} تومان</h3><h3 style="text-align:left;color:red;">موجودی : {{pooshak.num}}</h3>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item class="item-thumbnail-right" ng-repeat="pooshak in pooshak_pesarane" type="item-text-wrap" ng-click="load()" href="#/pooshak_pesarane/{{pooshak.number}}">
+         <img src="{{pooshak.img}}">
+        <h2>{{pooshak.name}}</h2>
+        <br>
+        <br>
+        <h3 style="display:inline;">قیمت : {{pooshak.amount}} تومان</h3><h3 style="text-align:left;color:red;">موجودی : {{pooshak.num}}</h3>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item class="item-thumbnail-right" ng-repeat="pooshak in pooshak_nozadi" type="item-text-wrap" ng-click="load()" href="#/pooshak_nozadi/{{pooshak.number}}">
          <img src="{{pooshak.img}}">
         <h2>{{pooshak.name}}</h2>
         <br>
