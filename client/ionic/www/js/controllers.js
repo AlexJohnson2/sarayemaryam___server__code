@@ -239,7 +239,7 @@ angular.module('starter.controllers', [])
 
 
   $scope.go_to_eitaa_id = function (){
-    setTimeout(() => { $scope.gotoexternallink("https://eitaa.com/salambarf"); }, 4200);
+    $scope.gotoexternallink("https://eitaa.com/salambarf")
   }
 
 {/* <ion-list><ion-radio ng-model="choice" ng-value="'A'">Choose A</ion-radio><ion-radio ng-model="choice" ng-value="'B'">Choose B</ion-radio></ion-list> */}
@@ -247,8 +247,8 @@ angular.module('starter.controllers', [])
 
 
 $scope.finished_buy = function(post_data){
-  $scope.go_to_eitaa_id();
-  $ionicLoading.show({ template: '<ion-icon class="ion-icon ion-looping" animation="fade-in"></ion-icon> <p dir="rtl">سفارشات شما به مسئول فروش در پیام رسان ایتا ارسال شد. در حال انتقال به آیدی مسئول فروش...</p>', noBackdrop: true, duration: 3000 }).then(function(){$scope.gotoexternallink("https://eitaa.com/salambarf");});
+  // $scope.go_to_eitaa_id();
+  // $ionicLoading.show({ template: '<ion-icon class="ion-icon ion-looping" animation="fade-in"></ion-icon> <p dir="rtl">سفارشات شما به مسئول فروش در پیام رسان ایتا ارسال شد. در حال انتقال به آیدی مسئول فروش...</p>', noBackdrop: true, duration: 3000 }).then(function(){$scope.gotoexternallink("https://eitaa.com/salambarf");});
   $http.post(DjangoURL+"/send_message","text=سبد خرید : "+"\n\n آیدی : "+$scope.this_user_tel_id+"\n\nشماره : "+$scope.this_user_phone+"\n\nآدرس : "+$scope.this_user_address+"\n\nکد پستی : "+$scope.this_post_code+"\n\nنحوه دریافت کالا :"+post_data)
   $scope.this_data = "user="+$scope.username
   setTimeout(() => {  
@@ -267,6 +267,18 @@ $scope.finished_buy = function(post_data){
         })
         $state.reload();
       }
+      $scope.showAlert = function() {
+        var alertPopup = $ionicPopup.alert({
+          title: 'انتقال به آیدی مسئول فروش',
+          template: '<p dir="rtl" style="line-height : 150%;font-size:23px;">سبد خرید و سفارشات شما به مسئول فروش در پیام رسان ایتا ارسال شد. برای انتقال به آیدی ایتای مسئول فروش روی دکمه زیر کلیک کنید.</p>',
+          buttons: [{text:'انتقال به آیدی مسئول فروش',type:'button-positive'}]
+        });
+     
+        alertPopup.then(function(res) {
+          $scope.go_to_eitaa_id()
+        });
+      };
+      $scope.showAlert()
     }
   });}, 1200);
   $state.reload();
@@ -276,6 +288,7 @@ $scope.finished_buy = function(post_data){
   $state.reload();
   $state.reload();
   $state.reload();
+  
   
 }
 
