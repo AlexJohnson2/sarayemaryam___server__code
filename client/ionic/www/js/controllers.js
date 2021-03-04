@@ -135,7 +135,7 @@ angular.module('starter.controllers', [])
   $scope.gotoexternallink = function(link){
     // size = 'width='+window.innerWidth+',height='+window.innerHeight
     // window.open(link,'newwindow',size); 
-    window.open(link, '_system', 'location=yes');
+    window.open(link, '_system', 'location=yes');$state.reload(); return false;
   }
 
 
