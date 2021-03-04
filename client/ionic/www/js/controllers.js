@@ -270,8 +270,8 @@ $scope.finished_buy = function(post_data){
       $scope.showAlert = function() {
         var alertPopup = $ionicPopup.alert({
           title: 'انتقال به آیدی مسئول فروش',
-          template: '<p dir="rtl" style="line-height : 150%;font-size:23px;">سبد خرید و سفارشات شما به مسئول فروش در پیام رسان ایتا ارسال شد. برای انتقال به آیدی ایتای مسئول فروش روی دکمه زیر کلیک کنید.</p><a onclick="window.open(\'https://eitaa.com/salambarf\', \'_system\', \'location=yes\'); return false;"><button class="button button-positive button-block">انتقال به آیدی مسئول فروش</button></a>',
-          buttons: []//{text:'انتقال به آیدی مسئول فروش',type:'button-positive'}
+          template: '<p dir="rtl" style="line-height : 150%;font-size:23px;">سبد خرید و سفارشات شما به مسئول فروش در پیام رسان ایتا ارسال شد. برای انتقال به آیدی ایتای مسئول فروش روی دکمه زیر کلیک کنید.</p><a onclick="window.open(\'https://eitaa.com/salambarf\', \'_system\', \'location=yes\'); return false;">انتقال به آیدی مسئول فروش</a>',
+          buttons: [] //{text:'انتقال به آیدی مسئول فروش',type:'button-positive'}
         });
      
         alertPopup.then(function(res) {
@@ -279,7 +279,7 @@ $scope.finished_buy = function(post_data){
         });
         setTimeout(() => {
           alertPopup.close();
-        }, 2500);
+        }, 5000);
       };
       $scope.showAlert()
       
