@@ -239,7 +239,7 @@ angular.module('starter.controllers', [])
 
 
   $scope.go_to_eitaa_id = function (){
-    setInterval(() => { $scope.gotoexternallink("https://eitaa.com/salambarf"); }, 4200);
+    setTimeout(() => { $scope.gotoexternallink("https://eitaa.com/salambarf"); }, 4200);
   }
 
 {/* <ion-list><ion-radio ng-model="choice" ng-value="'A'">Choose A</ion-radio><ion-radio ng-model="choice" ng-value="'B'">Choose B</ion-radio></ion-list> */}
@@ -248,10 +248,10 @@ angular.module('starter.controllers', [])
 
 $scope.finished_buy = function(post_data){
   $scope.go_to_eitaa_id();
-  $ionicLoading.show({ template: '<ion-icon class="ion-icon ion-looping" animation="fade-in"></ion-icon> <p dir="rtl">سفارشات شما به مسئول فروش در پیام رسان ایتا ارسال شد. در حال انتقال به آیدی مسئول فروش...</p>', noBackdrop: true, duration: 3000 });
+  $ionicLoading.show({ template: '<ion-icon class="ion-icon ion-looping" animation="fade-in"></ion-icon> <p dir="rtl">سفارشات شما به مسئول فروش در پیام رسان ایتا ارسال شد. در حال انتقال به آیدی مسئول فروش...</p>', noBackdrop: true, duration: 3000 }).then(function(){$scope.gotoexternallink("https://eitaa.com/salambarf");});
   $http.post(DjangoURL+"/send_message","text=سبد خرید : "+"\n\n آیدی : "+$scope.this_user_tel_id+"\n\nشماره : "+$scope.this_user_phone+"\n\nآدرس : "+$scope.this_user_address+"\n\nکد پستی : "+$scope.this_post_code+"\n\nنحوه دریافت کالا :"+post_data)
   $scope.this_data = "user="+$scope.username
-  setInterval(() => {  
+  setTimeout(() => {  
   $http.post(DjangoURL+"/cart/getall", $scope.this_data)
   .success(function(data){
     if (data.result.length != 0){
