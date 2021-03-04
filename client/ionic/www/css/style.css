@@ -10,6 +10,10 @@ ion-content,ion-tab,ion-nav-view,h1,h2,h3,h4,h5,h6,p,div{
     
 }
 
+.ion-header-bar , .title ,.title-center, .header-item{
+  text-align: "center";
+}
+
 /* The container */
 .container {
     display: block;
