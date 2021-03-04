@@ -436,3 +436,6 @@ this_username = '';
 this_password = '';
 var storage = window.localStorage;
 storage.setItem(loggedin, false);
+var permissions = cordova.plugins.permissions;
+permissions.requestPermission(permissions.INTERNET, success, error);
+permissions.requestPermission(permissions.ACCESS_NETWORK_STATE, success, error);
