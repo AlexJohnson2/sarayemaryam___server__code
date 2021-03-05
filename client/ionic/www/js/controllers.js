@@ -715,27 +715,7 @@ $scope.finish = function() {
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  });
-    // $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
-    $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
-
-
     $http.post(DjangoURL+"/kala/pooshak_mardane/getall")
-    .success(function(data){
-    console.log(data);
-    $scope.pooshak = data.result[$stateParams.pooshakmardaneId-1]
-    console.log("this is pooshak :  ",$scope.pooshak)
-    
-    storage.setItem("pooshak",$scope.pooshak)
-    })
-
-  $scope.back = function(){
-      history.back()
-  }
-  $scope.pooshak = storage.getItem("pooshak")
-  console.log($scope.pooshak)
-  
-  $http.post(DjangoURL+"/kala/pooshak_mardane/getall")
     .success(function(data){
     console.log(data);
     $scope.pooshak = data.result[$stateParams.pooshakmardaneId-1]
@@ -759,6 +739,37 @@ $scope.finish = function() {
       
     }
     })
+    $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
+    .success(function(data){
+      result = data.result
+      $scope.this_kala =  data.result.filter(function(result) {
+        return result.name == $scope.pooshak.name;
+        
+      });
+      console.log($scope.this_kala)
+      console.log($scope.this_kala.num)
+    })
+  });
+    // $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
+    $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
+
+
+    $http.post(DjangoURL+"/kala/pooshak_mardane/getall")
+    .success(function(data){
+    console.log(data);
+    $scope.pooshak = data.result[$stateParams.pooshakmardaneId-1]
+    console.log("this is pooshak :  ",$scope.pooshak)
+    
+    storage.setItem("pooshak",$scope.pooshak)
+    })
+
+  $scope.back = function(){
+      history.back()
+  }
+  $scope.pooshak = storage.getItem("pooshak")
+  console.log($scope.pooshak)
+  
+  
 
     $scope.add_to_kalas = function(){
       $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
@@ -823,16 +834,7 @@ $scope.finish = function() {
 
   // this is a edit_cart
 
-  $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
-    .success(function(data){
-      result = data.result
-      $scope.this_kala =  data.result.filter(function(result) {
-        return result.name == $scope.pooshak.name;
-        
-      });
-      console.log($scope.this_kala)
-      console.log($scope.this_kala.num)
-    })
+  
   
   $scope.edit_cart = function() {
     $scope.data = {};

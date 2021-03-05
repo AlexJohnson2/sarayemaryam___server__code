@@ -7,15 +7,15 @@
       
     </ion-content>
 
-    <div style="align-content: center;" class="bar bar-footer" ng-controller="HejabShalDetailCtrl">
+    <div style="align-content: center;height: 75px;" class="bar bar-footer" ng-controller="HejabShalDetailCtrl">
     
             <a ng-hide="cart == true || unavailable == true || comment == true" ng-click="add_to_cart()"><button class="button button-positive" style="width: {{button_screen}}px;">افزودن به سبد خرید</button></a>
       <a ng-hide="unavailable == false || comment == true" ng-click="add_to_kalas()"><button class="button button-assertive" style="width: {{button_screen}}px;">پیشنهاد موجود شدن</button></a>
       <a ng-show="comment == true"><button class="button button-positive" style="width: {{button_screen}}px;">پیشنهاد ارسال شد</button></a>
       <a ng-show="cart == true" ng-click="finished_buy()"><button class="button button-positive" style="width: {{button_screen}}px;"> نهایی کردن خرید</button></a><pre> </pre>
-      <ion-button ng-hide="cart == true || unavailable == true" class="button button-positive" ng-click="remove_from_num()" style="font-size:30px;">-</ion-button>
+            <a><ion-button ng-hide="cart == true || unavailable == true" class="button button-positive" ng-click="remove_from_num()" style="font-size:30px;">-</ion-button></a>
       <pre> </pre><p ng-hide="cart == true || unavailable == true" id="number" style="font-size:20px;padding-top:9px"> {{num}} </p><pre> </pre>
-      <ion-button ng-hide="cart == true || unavailable == true" class="button button-positive" ng-click="add_to_num()" style="font-size:30px;">+</ion-button>
+      <a><ion-button ng-hide="cart == true || unavailable == true" class="button button-positive" ng-click="add_to_num()" style="font-size:30px;">+</ion-button></a>
       <p ng-hide="cart == true || unavailable == true" style="font-size:18px;text-align:center;width:{{button_screen}}px;padding:5px">قیمت : {{pooshak.amount}} تومان</p>
       <p ng-show="unavailable == true" style="font-size:20px;text-align:center;width:{{button_screen}}px;padding:5px;color:red">ناموجود است</p>
       <a ng-show="cart == true" ng-click="edit_cart()"><button class="button button-positive" style="width: {{button_screen}}px;">ویرایش تعداد</button></a><pre> </pre>
