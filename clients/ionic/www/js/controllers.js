@@ -12,7 +12,7 @@ angular.module('starter.controllers', [])
     $scope.img_height = window.innerHeight-(window.innerHeight/4)
     $scope.img_width = window.innerWidth-(window.innerWidth/4)
   $scope.img = String($scope.img_width)+"px"
-  
+
 
   $scope.send_signup_class_hozoori = function() {
     $scope.data = {};
@@ -71,11 +71,11 @@ angular.module('starter.controllers', [])
       $state.go('signin',{})
     }
   });
-    
+
   $scope.img_height = window.innerHeight-(window.innerHeight/4)
   $scope.img_width = window.innerWidth-(window.innerWidth/4)
   $scope.img = String($scope.img_width)+"px"
-  
+
 })
 
 .controller('HelpCtrl',function($scope){
@@ -92,7 +92,7 @@ angular.module('starter.controllers', [])
       $state.go('signin',{})
     }
   });
-  
+
 
 })
 
@@ -118,7 +118,7 @@ angular.module('starter.controllers', [])
       .success(function(data){
         console.log(data)
         $scope.kalas = data.result
-        
+
       })
     $scope.cart = true
     $scope.this_data = "user="+String(getCookie("username"))
@@ -134,7 +134,7 @@ angular.module('starter.controllers', [])
 
   $scope.gotoexternallink = function(link){
     // size = 'width='+window.innerWidth+',height='+window.innerHeight
-    // window.open(link,'newwindow',size); 
+    // window.open(link,'newwindow',size);
     window.open(link, '_system', 'location=yes'); return false;
   }
 
@@ -155,7 +155,7 @@ angular.module('starter.controllers', [])
             x[i].style.display = "none";
           }
         }
-        
+
       }
 
       $scope.parcheh_toggle = function(){
@@ -174,7 +174,7 @@ angular.module('starter.controllers', [])
             x[i].style.display = "none";
           }
         }
-        
+
       }
 
       $scope.kharazi_toggle = function(){
@@ -193,7 +193,7 @@ angular.module('starter.controllers', [])
             x[i].style.display = "none";
           }
         }
-        
+
       }
 
       $scope.hejab_toggle = function(){
@@ -212,8 +212,8 @@ angular.module('starter.controllers', [])
         } else {
           y.className = "icon ion-arrow-down-b";
         }
-        
-        
+
+
       }
 
       $scope.sefaresh_toggle = function(){
@@ -232,10 +232,10 @@ angular.module('starter.controllers', [])
         } else {
           y.className = "icon ion-arrow-down-b";
         }
-        
-        
+
+
       }
-  
+
 
 
   $scope.go_to_eitaa_id = function (){
@@ -243,7 +243,7 @@ angular.module('starter.controllers', [])
   }
 
 {/* <ion-list><ion-radio ng-model="choice" ng-value="'A'">Choose A</ion-radio><ion-radio ng-model="choice" ng-value="'B'">Choose B</ion-radio></ion-list> */}
-  
+
 
 
 $scope.finished_buy = function(post_data){
@@ -251,7 +251,7 @@ $scope.finished_buy = function(post_data){
   // $ionicLoading.show({ template: '<ion-icon class="ion-icon ion-looping" animation="fade-in"></ion-icon> <p dir="rtl">سفارشات شما به مسئول فروش در پیام رسان ایتا ارسال شد. در حال انتقال به آیدی مسئول فروش...</p>', noBackdrop: true, duration: 3000 }).then(function(){$scope.gotoexternallink("https://eitaa.com/salambarf");});
   $http.post(DjangoURL+"/send_message","text=سبد خرید : "+"\n\n آیدی : "+$scope.this_user_tel_id+"\n\nشماره : "+$scope.this_user_phone+"\n\nآدرس : "+$scope.this_user_address+"\n\nکد پستی : "+$scope.this_post_code+"\n\nنحوه دریافت کالا :"+post_data)
   $scope.this_data = "user="+$scope.username
-  setTimeout(() => {  
+  setTimeout(() => {
   $http.post(DjangoURL+"/cart/getall", $scope.this_data)
   .success(function(data){
     if (data.result.length != 0){
@@ -273,7 +273,7 @@ $scope.finished_buy = function(post_data){
           template: '<p dir="rtl" style="line-height : 150%;font-size:23px;">سبد خرید و سفارشات شما به مسئول فروش در پیام رسان ایتا ارسال شد. برای انتقال به آیدی ایتای مسئول فروش روی دکمه زیر کلیک کنید.</p><a onclick="window.open(\'https://eitaa.com/salambarf\', \'_system\', \'location=yes\'); return false;">انتقال به آیدی مسئول فروش</a>',
           buttons: [] //{text:'انتقال به آیدی مسئول فروش',type:'button-positive'}
         });
-     
+
         alertPopup.then(function(res) {
           console.log("finish!!!")
         });
@@ -282,7 +282,7 @@ $scope.finished_buy = function(post_data){
         }, 5000);
       };
       $scope.showAlert()
-      
+
     }
   });}, 1200);
   $state.reload();
@@ -292,8 +292,8 @@ $scope.finished_buy = function(post_data){
   $state.reload();
   $state.reload();
   $state.reload();
-  
-  
+
+
 }
 
 
@@ -337,12 +337,12 @@ $scope.finish = function() {
     $scope.showAlert()
   }
   else{
-    
+
   $scope.data = {};
 
   // An elaborate, custom popup
   $scope.myPopup = $ionicPopup.show({
-  //   
+  //
   template:'<div dir="rtl"><label class="container"><p style="font-size:18px">تحویل حضوری از سرای مریم</p><p style="font-size:15px">(قم،بلوار 15 خرداد،کوچه 40)</p><input ng-model="data.post" ng-value="\'post_in_sara\'" type="radio" name="radio"><span class="checkmark"></span></label><label class="container">ارسال به مجتمع اساتید<br>هزینه : رایگان<input style="color:red" ng-model="data.post" ng-value="\'post_in_this\'" type="radio" checked="checked" name="radio"><span class="checkmark"></span></label><label class="container">ارسال به داخل شهر قم<br>هزینه : 3000 تومان<input ng-model="data.post" ng-value="\'post_in_qom\'" type="radio" name="radio"><span class="checkmark"></span></label><label class="container">ارسال به پردیسان قم<br>هزینه : 5000 تومان<input ng-model="data.post" ng-value="\'post_out_qom\'" type="radio" name="radio"><span class="checkmark"></span></label><label class="container">ارسال به شهرستان ها<br>هزینه : 10000 تومان<input ng-model="data.post" ng-value="\'post_out_city\'" type="radio" name="radio"><span class="checkmark"></span></label></div>',
   // template: '<input type="radio" id="male" name="gender" value="male"><label for="male">Male</label><br><input type="radio" id="female" name="gender" value="female"><label for="female">Female</label><br><input type="radio" id="other" name="gender" value="other"><label for="other">Other</label>',
     // template: '<p dir="rtl">نحوه دریافت کالا را انتخاب کنید.</p><ion-list><label for="post_in_this">ارسال به شهرستان ها<br>هزینه : 10000 تومان</label><input id="" type="radio" ng-model="data.serverSide" value="post_in_this" ng-value="item.value"></ion-list>',
@@ -380,14 +380,14 @@ $scope.finish = function() {
         }
       }
     ]
-  
+
   })
   $state.reload();
   $state.reload();
 }}
 
-  
-  
+
+
   $scope.delete_from_cart = function(kala) {
     $scope.data = {};
     console.log("kala group is : ",kala.group)
@@ -450,7 +450,7 @@ $scope.finish = function() {
 
   $scope.delete_account = function(id) {
     $scope.data = {};
-  
+
     // An elaborate, custom popup
     $scope.myPopup = $ionicPopup.show({
       template: 'آیا از حذف این مورد مطمئن هستید؟',
@@ -500,7 +500,7 @@ $scope.finish = function() {
 
   $scope.edit_account = function() {
     $scope.data = {};
-  
+
     // An elaborate, custom popup
     $scope.myPopup = $ionicPopup.show({
       template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام کاربری جدید:</p><input type="text" ng-model="data.username"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">رمز عبور جدید: </p><input type="text" ng-model="data.password"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">شماره تلفن جدید:</p><input type="text" ng-model="data.phonenumber"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آیدی ایتای جدید:</p><input type="text" ng-model="data.tel_id"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس جدید:</p><input type="text" ng-model="data.address"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">کد پستی جدید:</p><input type="text" ng-model="data.post_code"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
@@ -582,13 +582,17 @@ $scope.finish = function() {
         $ionicLoading.show({ template: '<ion-icon class="ion-icon ion-looping" animation="fade-in"></ion-icon><p dir="rtl">  شما با موفقیت به سیستم وارد شدید. </p>', noBackdrop: true, duration: 1300 });
         loggedin = true
         // $state.go('tab-store')
-        $window.location.href = '#/tab/home'
+
         document.cookie = "username="+$scope.username
         document.cookie = "password="+$scope.password
         document.cookie = "phonenumber="+data.this_phone
         document.cookie = "tel_id="+data.tel_id
         document.cookie = "address="+data.this_address
         document.cookie = "post_code="+data.post_code
+        $window.location.href = '#/tab/home'
+        location.reload()
+        $state.reload()
+
       }
       else{
         $ionicLoading.show({ template: '<ion-icon class="ion-icon ion-looping" animation="fade-in"></ion-icon>  در ورود شما به سیستم مشکلی پیش آمده. لطفا یوزرنیم و پسورد خود را چک کنید.', noBackdrop: true, duration: 2200 });
@@ -598,6 +602,14 @@ $scope.finish = function() {
     .error(function(){
       $ionicLoading.show({ template: '<ion-icon class="ion-icon ion-looping" animation="fade-in"></ion-icon>  در ورود شما به سیستم مشکلی پیش آمده است. لطفا اینترنت خود را چک کنید.', noBackdrop: true, duration: 2200 });
     })
+    $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+    $http.post(DjangoURL + '/account/checkuserwithpassword',
+                'username='+$scope.username+'&password='+$scope.password)
+                .success(function(data){location.reload();$state.reload()})
+    $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+    $http.post(DjangoURL + '/account/checkuserwithpassword',
+                'username='+$scope.username+'&password='+$scope.password)
+                .success(function(data){location.reload();$state.reload()})
   }
 })
 
@@ -661,7 +673,7 @@ $scope.finish = function() {
     $scope.username = String(getCookie("username"))
     $scope.this_user_phone = String(getCookie("phonenumber"))
     $scope.this_user_tel_id = String(getCookie("tel_id"))
-    console.log($scope.username,$scope.this_user_phone,$scope.this_user_tel_id) 
+    console.log($scope.username,$scope.this_user_phone,$scope.this_user_tel_id)
   $scope.message = Math.floor(Math.random()*100000)
   // $http.post("https://api.kavenegar.com/v1/596B62346B54313941663337754E7537372B394134734B2F4269753074727556524766386347796C5A5A453D/sms/send",
   //             'Message='+String(message+'&Receptor='+String(this_user_phonenumber)))
@@ -679,12 +691,12 @@ $scope.finish = function() {
 
     }
   }
-  
+
 })
 
 
 
-.controller('PooshaksِMardaneCtrl', function($scope,$state,$http) {
+.controller('PooshaksِMardaneCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -694,15 +706,19 @@ $scope.finish = function() {
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  
+
     $http.post(DjangoURL+"/kala/pooshak_mardane/getall")
     .success(function(data){
         console.log(data);
     $scope.pooshaks = data.result
     })
   });
-  
-      
+
+    $scope.open_page = function(id){
+        console.log("you are the page : ",id)
+        $window.location.href = '#/pooshak_mardane/'+String(id)
+    }
+
 })
 
 .controller('PooshakMardaneDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state,$ionicPopup) {
@@ -733,10 +749,10 @@ $scope.finish = function() {
       .success(function(data){
         if (JSON.stringify(data.result).indexOf($scope.pooshak.name) > -1){
           $scope.comment = true
-          
+
         }
       })
-      
+
     }
     })
     $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
@@ -744,7 +760,7 @@ $scope.finish = function() {
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala.num)
@@ -759,7 +775,7 @@ $scope.finish = function() {
     console.log(data);
     $scope.pooshak = data.result[$stateParams.pooshakmardaneId-1]
     console.log("this is pooshak :  ",$scope.pooshak)
-    
+
     storage.setItem("pooshak",$scope.pooshak)
     })
 
@@ -768,8 +784,8 @@ $scope.finish = function() {
   }
   $scope.pooshak = storage.getItem("pooshak")
   console.log($scope.pooshak)
-  
-  
+
+
 
     $scope.add_to_kalas = function(){
       $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
@@ -791,7 +807,7 @@ $scope.finish = function() {
           })
 
         })
-      
+
     }
 
   $scope.screen_width = window.innerWidth
@@ -806,7 +822,7 @@ $scope.finish = function() {
 
   $scope.gotoexternallink = function(link){
     // size = 'width='+window.innerWidth+',height='+window.innerHeight
-    // window.open(link,'newwindow',size); 
+    // window.open(link,'newwindow',size);
     window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
@@ -834,17 +850,17 @@ $scope.finish = function() {
 
   // this is a edit_cart
 
-  
-  
+
+
   $scope.edit_cart = function() {
     $scope.data = {};
     $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
     .success(function(data){
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
-        
+
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
@@ -876,7 +892,7 @@ $scope.finish = function() {
     })}
 
 
-  
+
   $scope.sefaresh = function(pooshak){
     $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
         setTimeout(() => {
@@ -907,7 +923,7 @@ $scope.finish = function() {
         // })
 
         // Send Message To Eitaa
-        
+
         $http.post(DjangoURL+'/send_message'
         ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
         .success(function(data){
@@ -916,7 +932,7 @@ $scope.finish = function() {
           }
         console.log(data)
         })
-        
+
 
       })
       .error(function () {
@@ -963,7 +979,7 @@ $scope.finish = function() {
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     $http.post(DjangoURL+"/cart/add",$scope.this_data)
       .success(function(data){
-        console.log(data)          
+        console.log(data)
       })
   }
   $scope.finished_buy = function(){
@@ -972,7 +988,7 @@ $scope.finish = function() {
 
 })
 
-.controller('PooshaksِDokhtaraneCtrl', function($scope,$state,$http) {
+.controller('PooshaksِDokhtaraneCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -982,15 +998,18 @@ $scope.finish = function() {
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  
+
     $http.post(DjangoURL+"/kala/pooshak_dokhtarane/getall")
     .success(function(data){
         console.log(data);
     $scope.pooshaks = data.result
     })
   });
-  
-      
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/pooshak_dokhtarane/'+String(id)
+  }
+
 })
 
 .controller('PooshakDokhtaraneDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state,$ionicPopup) {
@@ -1020,7 +1039,7 @@ $scope.finish = function() {
   }
   $scope.pooshak = storage.getItem("pooshak")
   console.log($scope.pooshak)
-  
+
   $http.post(DjangoURL+"/kala/pooshak_dokhtarane/getall")
     .success(function(data){
     console.log(data);
@@ -1039,7 +1058,7 @@ $scope.finish = function() {
       .success(function(data){
         if (JSON.stringify(data.result).indexOf($scope.pooshak.name) > -1){
           $scope.comment = true
-          
+
         }
       })
     }
@@ -1063,7 +1082,7 @@ $scope.finish = function() {
           })
 
         })
-      
+
     }
 
   $scope.screen_width = window.innerWidth
@@ -1078,7 +1097,7 @@ $scope.finish = function() {
 
   $$scope.gotoexternallink = function(link){
     // size = 'width='+window.innerWidth+',height='+window.innerHeight
-    // window.open(link,'newwindow',size); 
+    // window.open(link,'newwindow',size);
     window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
@@ -1111,21 +1130,21 @@ $scope.finish = function() {
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala.num)
     })
-  
+
   $scope.edit_cart = function() {
     $scope.data = {};
     $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
     .success(function(data){
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
-        
+
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
@@ -1157,7 +1176,7 @@ $scope.finish = function() {
     })}
 
 
-  
+
   $scope.sefaresh = function(pooshak){
     $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
         setTimeout(() => {
@@ -1188,7 +1207,7 @@ $scope.finish = function() {
         // })
 
         // Send Message To Eitaa
-        
+
         $http.post(DjangoURL+'/send_message'
         ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
         .success(function(data){
@@ -1197,7 +1216,7 @@ $scope.finish = function() {
           }
         console.log(data)
         })
-        
+
 
       })
       .error(function () {
@@ -1244,7 +1263,7 @@ $scope.finish = function() {
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     $http.post(DjangoURL+"/cart/add",$scope.this_data)
       .success(function(data){
-        console.log(data)          
+        console.log(data)
       })
   }
   $scope.finished_buy = function(){
@@ -1253,7 +1272,7 @@ $scope.finish = function() {
 
 })
 
-.controller('PooshaksِZananeCtrl', function($scope,$state,$http) {
+.controller('PooshaksِZananeCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -1263,15 +1282,19 @@ $scope.finish = function() {
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  
+
     $http.post(DjangoURL+"/kala/pooshak_zanane/getall")
     .success(function(data){
         console.log(data);
     $scope.pooshaks = data.result
     })
   });
-  
-      
+
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/pooshak_zanane/'+String(id)
+  }
+
 })
 
 .controller('PooshakZananeDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state,$ionicPopup) {
@@ -1301,7 +1324,7 @@ $scope.finish = function() {
   }
   $scope.pooshak = storage.getItem("pooshak")
   console.log($scope.pooshak)
-  
+
   $http.post(DjangoURL+"/kala/pooshak_zanane/getall")
     .success(function(data){
     console.log(data);
@@ -1320,7 +1343,7 @@ $scope.finish = function() {
       .success(function(data){
         if (JSON.stringify(data.result).indexOf($scope.pooshak.name) > -1){
           $scope.comment = true
-          
+
         }
       })
     }
@@ -1344,7 +1367,7 @@ $scope.finish = function() {
           })
 
         })
-      
+
     }
 
   $scope.screen_width = window.innerWidth
@@ -1359,7 +1382,7 @@ $scope.finish = function() {
 
   $scope.gotoexternallink = function(link){
     // size = 'width='+window.innerWidth+',height='+window.innerHeight
-    // window.open(link,'newwindow',size); 
+    // window.open(link,'newwindow',size);
     window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
@@ -1392,21 +1415,21 @@ $scope.finish = function() {
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala.num)
     })
-  
+
   $scope.edit_cart = function() {
     $scope.data = {};
     $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
     .success(function(data){
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
-        
+
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
@@ -1431,7 +1454,7 @@ $scope.finish = function() {
               console.log(data)
 
             })
-      
+
           $state.reload()
           }
         }
@@ -1439,7 +1462,7 @@ $scope.finish = function() {
     })}
 
 
-  
+
   $scope.sefaresh = function(pooshak){
     $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
         setTimeout(() => {
@@ -1470,7 +1493,7 @@ $scope.finish = function() {
         // })
 
         // Send Message To Eitaa
-        
+
         $http.post(DjangoURL+'/send_message'
         ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
         .success(function(data){
@@ -1479,7 +1502,7 @@ $scope.finish = function() {
           }
         console.log(data)
         })
-        
+
 
       })
       .error(function () {
@@ -1526,7 +1549,7 @@ $scope.finish = function() {
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     $http.post(DjangoURL+"/cart/add",$scope.this_data)
       .success(function(data){
-        console.log(data)          
+        console.log(data)
       })
   }
   $scope.finished_buy = function(){
@@ -1535,7 +1558,7 @@ $scope.finish = function() {
 
 })
 
-.controller('PooshaksِPesaraneCtrl', function($scope,$state,$http) {
+.controller('PooshaksِPesaraneCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -1545,15 +1568,19 @@ $scope.finish = function() {
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  
+
     $http.post(DjangoURL+"/kala/pooshak_pesarane/getall")
     .success(function(data){
         console.log(data);
     $scope.pooshaks = data.result
     })
   });
-  
-      
+
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/pooshak_pesarane/'+String(id)
+  }
+
 })
 
 .controller('PooshakPesaraneDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state,$ionicPopup) {
@@ -1583,7 +1610,7 @@ $scope.finish = function() {
   }
   $scope.pooshak = storage.getItem("pooshak")
   console.log($scope.pooshak)
-  
+
   $http.post(DjangoURL+"/kala/pooshak_pesarane/getall")
     .success(function(data){
     console.log(data);
@@ -1601,11 +1628,11 @@ $scope.finish = function() {
       $http.post(DjangoURL+"/comments","user="+String(getCookie("username")))
       .success(function(data){
         console.log(JSON.stringify(data.result))
-      
+
         if (JSON.stringify(data.result).indexOf($scope.pooshak.name) > -1){
           console.log("it is a true")
           $scope.comment = true
-          
+
         }
       })
     }
@@ -1629,12 +1656,12 @@ $scope.finish = function() {
           })
 
         })
-      
+
     }
 
   $scope.screen_width = window.innerWidth
   $scope.button_screen = (window.innerWidth/2)-45
-  
+
   $scope.img_height = window.innerHeight-(window.innerHeight/4)
   $scope.img_width = window.innerWidth-(window.innerWidth/4)
   $scope.img = String($scope.img_width)+"px"
@@ -1645,7 +1672,7 @@ $scope.finish = function() {
 
   $scope.gotoexternallink = function(link){
     // size = 'width='+window.innerWidth+',height='+window.innerHeight
-    // window.open(link,'newwindow',size); 
+    // window.open(link,'newwindow',size);
     window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
@@ -1678,21 +1705,21 @@ $scope.finish = function() {
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala.num)
     })
-  
+
   $scope.edit_cart = function() {
     $scope.data = {};
     $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
     .success(function(data){
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
-        
+
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
@@ -1724,7 +1751,7 @@ $scope.finish = function() {
     })}
 
 
-  
+
   $scope.sefaresh = function(pooshak){
     $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
         setTimeout(() => {
@@ -1755,7 +1782,7 @@ $scope.finish = function() {
         // })
 
         // Send Message To Eitaa
-        
+
         $http.post(DjangoURL+'/send_message'
         ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
         .success(function(data){
@@ -1764,7 +1791,7 @@ $scope.finish = function() {
           }
         console.log(data)
         })
-        
+
 
       })
       .error(function () {
@@ -1811,7 +1838,7 @@ $scope.finish = function() {
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     $http.post(DjangoURL+"/cart/add",$scope.this_data)
       .success(function(data){
-        console.log(data)          
+        console.log(data)
       })
   }
   $scope.finished_buy = function(){
@@ -1820,7 +1847,7 @@ $scope.finish = function() {
 
 })
 
-.controller('PooshaksِNozadiCtrl', function($scope,$state,$http) {
+.controller('PooshaksِNozadiCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -1830,15 +1857,18 @@ $scope.finish = function() {
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  
+
     $http.post(DjangoURL+"/kala/pooshak_nozadi/getall")
     .success(function(data){
         console.log(data);
     $scope.pooshaks = data.result
     })
   });
-  
-      
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/pooshak_nozadi/'+String(id)
+  }
+
 })
 
 .controller('PooshakNozadiDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state,$ionicPopup) {
@@ -1868,7 +1898,7 @@ $scope.finish = function() {
   }
   $scope.pooshak = storage.getItem("pooshak")
   console.log($scope.pooshak)
-  
+
   $http.post(DjangoURL+"/kala/pooshak_nozadi/getall")
     .success(function(data){
     console.log(data);
@@ -1887,7 +1917,7 @@ $scope.finish = function() {
       .success(function(data){
         if (JSON.stringify(data.result).indexOf($scope.pooshak.name) > -1){
           $scope.comment = true
-          
+
         }
       })
     }
@@ -1911,7 +1941,7 @@ $scope.finish = function() {
           })
 
         })
-      
+
     }
 
   $scope.screen_width = window.innerWidth
@@ -1926,7 +1956,7 @@ $scope.finish = function() {
 
   $scope.gotoexternallink = function(link){
     // size = 'width='+window.innerWidth+',height='+window.innerHeight
-    // window.open(link,'newwindow',size); 
+    // window.open(link,'newwindow',size);
     window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
@@ -1959,21 +1989,21 @@ $scope.finish = function() {
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala.num)
     })
-  
+
   $scope.edit_cart = function() {
     $scope.data = {};
     $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
     .success(function(data){
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
-        
+
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
@@ -2005,7 +2035,7 @@ $scope.finish = function() {
     })}
 
 
-  
+
   $scope.sefaresh = function(pooshak){
     $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
         setTimeout(() => {
@@ -2036,7 +2066,7 @@ $scope.finish = function() {
         // })
 
         // Send Message To Eitaa
-        
+
         $http.post(DjangoURL+'/send_message'
         ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
         .success(function(data){
@@ -2045,7 +2075,7 @@ $scope.finish = function() {
           }
         console.log(data)
         })
-        
+
 
       })
       .error(function () {
@@ -2092,7 +2122,7 @@ $scope.finish = function() {
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     $http.post(DjangoURL+"/cart/add",$scope.this_data)
       .success(function(data){
-        console.log(data)          
+        console.log(data)
       })
   }
   $scope.finished_buy = function(){
@@ -2101,7 +2131,7 @@ $scope.finish = function() {
 
 })
 
-.controller('HejabChadorCtrl', function($scope,$state,$http) {
+.controller('HejabChadorCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -2111,15 +2141,18 @@ $scope.finish = function() {
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  
+
     $http.post(DjangoURL+"/kala/hejab_chador/getall")
     .success(function(data){
         console.log(data);
     $scope.pooshaks = data.result
     })
   });
-  
-      
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/hejab_chador/'+String(id)
+  }
+
 })
 
 .controller('HejabChadorDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state,$ionicPopup) {
@@ -2149,7 +2182,7 @@ $scope.finish = function() {
   }
   $scope.pooshak = storage.getItem("pooshak")
   console.log($scope.pooshak)
-  
+
   $http.post(DjangoURL+"/kala/hejab_chador/getall")
     .success(function(data){
     console.log(data);
@@ -2168,7 +2201,7 @@ $scope.finish = function() {
       .success(function(data){
         if (JSON.stringify(data.result).indexOf($scope.pooshak.name) > -1){
           $scope.comment = true
-          
+
         }
       })
     }
@@ -2192,7 +2225,7 @@ $scope.finish = function() {
           })
 
         })
-      
+
     }
 
   $scope.screen_width = window.innerWidth
@@ -2207,7 +2240,7 @@ $scope.finish = function() {
 
   $scope.gotoexternallink = function(link){
     // size = 'width='+window.innerWidth+',height='+window.innerHeight
-    // window.open(link,'newwindow',size); 
+    // window.open(link,'newwindow',size);
     window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
@@ -2240,21 +2273,21 @@ $scope.finish = function() {
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala.num)
     })
-  
+
   $scope.edit_cart = function() {
     $scope.data = {};
     $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
     .success(function(data){
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
-        
+
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
@@ -2286,7 +2319,7 @@ $scope.finish = function() {
     })}
 
 
-  
+
   $scope.sefaresh = function(pooshak){
     $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
         setTimeout(() => {
@@ -2317,7 +2350,7 @@ $scope.finish = function() {
         // })
 
         // Send Message To Eitaa
-        
+
         $http.post(DjangoURL+'/send_message'
         ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
         .success(function(data){
@@ -2326,7 +2359,7 @@ $scope.finish = function() {
           }
         console.log(data)
         })
-        
+
 
       })
       .error(function () {
@@ -2373,7 +2406,7 @@ $scope.finish = function() {
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     $http.post(DjangoURL+"/cart/add",$scope.this_data)
       .success(function(data){
-        console.log(data)          
+        console.log(data)
       })
   }
   $scope.finished_buy = function(){
@@ -2382,7 +2415,7 @@ $scope.finish = function() {
 
 })
 
-.controller('HejabShalCtrl', function($scope,$state,$http) {
+.controller('HejabShalCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -2392,15 +2425,18 @@ $scope.finish = function() {
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  
+
     $http.post(DjangoURL+"/kala/hejab_shal/getall")
     .success(function(data){
         console.log(data);
     $scope.pooshaks = data.result
     })
   });
-  
-      
+
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/hejab_shal/'+String(id)
+  }
 })
 
 .controller('HejabShalDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state,$ionicPopup) {
@@ -2430,7 +2466,7 @@ $scope.finish = function() {
   }
   $scope.pooshak = storage.getItem("pooshak")
   console.log($scope.pooshak)
-  
+
   $http.post(DjangoURL+"/kala/hejab_shal/getall")
     .success(function(data){
     console.log(data);
@@ -2449,7 +2485,7 @@ $scope.finish = function() {
       .success(function(data){
         if (JSON.stringify(data.result).indexOf($scope.pooshak.name) > -1){
           $scope.comment = true
-          
+
         }
       })
     }
@@ -2473,7 +2509,7 @@ $scope.finish = function() {
           })
 
         })
-      
+
     }
 
   $scope.screen_width = window.innerWidth
@@ -2488,7 +2524,7 @@ $scope.finish = function() {
 
   $scope.gotoexternallink = function(link){
     // size = 'width='+window.innerWidth+',height='+window.innerHeight
-    // window.open(link,'newwindow',size); 
+    // window.open(link,'newwindow',size);
     window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
@@ -2521,21 +2557,21 @@ $scope.finish = function() {
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala.num)
     })
-  
+
   $scope.edit_cart = function() {
     $scope.data = {};
     $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
     .success(function(data){
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
-        
+
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
@@ -2567,7 +2603,7 @@ $scope.finish = function() {
     })}
 
 
-  
+
   $scope.sefaresh = function(pooshak){
     $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
         setTimeout(() => {
@@ -2598,7 +2634,7 @@ $scope.finish = function() {
         // })
 
         // Send Message To Eitaa
-        
+
         $http.post(DjangoURL+'/send_message'
         ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
         .success(function(data){
@@ -2607,7 +2643,7 @@ $scope.finish = function() {
           }
         console.log(data)
         })
-        
+
 
       })
       .error(function () {
@@ -2654,7 +2690,7 @@ $scope.finish = function() {
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     $http.post(DjangoURL+"/cart/add",$scope.this_data)
       .success(function(data){
-        console.log(data)          
+        console.log(data)
       })
   }
   $scope.finished_buy = function(){
@@ -2663,7 +2699,7 @@ $scope.finish = function() {
 
 })
 
-.controller('HejabRoosariCtrl', function($scope,$state,$http) {
+.controller('HejabRoosariCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -2673,15 +2709,20 @@ $scope.finish = function() {
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  
+
     $http.post(DjangoURL+"/kala/hejab_roosari/getall")
     .success(function(data){
         console.log(data);
     $scope.pooshaks = data.result
     })
   });
-  
-      
+
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/hejab_roosari/'+String(id)
+  }
+
+
 })
 
 .controller('HejabRoosariDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state,$ionicPopup) {
@@ -2711,7 +2752,7 @@ $scope.finish = function() {
   }
   $scope.pooshak = storage.getItem("pooshak")
   console.log($scope.pooshak)
-  
+
   $http.post(DjangoURL+"/kala/hejab_roosari/getall")
     .success(function(data){
     console.log(data);
@@ -2730,7 +2771,7 @@ $scope.finish = function() {
       .success(function(data){
         if (JSON.stringify(data.result).indexOf($scope.pooshak.name) > -1){
           $scope.comment = true
-          
+
         }
       })
     }
@@ -2754,7 +2795,7 @@ $scope.finish = function() {
           })
 
         })
-      
+
     }
 
   $scope.screen_width = window.innerWidth
@@ -2769,7 +2810,7 @@ $scope.finish = function() {
 
   $scope.gotoexternallink = function(link){
     // size = 'width='+window.innerWidth+',height='+window.innerHeight
-    // window.open(link,'newwindow',size); 
+    // window.open(link,'newwindow',size);
     window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
@@ -2802,21 +2843,21 @@ $scope.finish = function() {
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala.num)
     })
-  
+
   $scope.edit_cart = function() {
     $scope.data = {};
     $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
     .success(function(data){
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
-        
+
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
@@ -2848,7 +2889,7 @@ $scope.finish = function() {
     })}
 
 
-  
+
   $scope.sefaresh = function(pooshak){
     $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
         setTimeout(() => {
@@ -2879,7 +2920,7 @@ $scope.finish = function() {
         // })
 
         // Send Message To Eitaa
-        
+
         $http.post(DjangoURL+'/send_message'
         ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
         .success(function(data){
@@ -2888,7 +2929,7 @@ $scope.finish = function() {
           }
         console.log(data)
         })
-        
+
 
       })
       .error(function () {
@@ -2935,7 +2976,7 @@ $scope.finish = function() {
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     $http.post(DjangoURL+"/cart/add",$scope.this_data)
       .success(function(data){
-        console.log(data)          
+        console.log(data)
       })
   }
   $scope.finished_buy = function(){
@@ -2944,7 +2985,7 @@ $scope.finish = function() {
 
 })
 
-.controller('HejabSaghedastdastkeshCtrl', function($scope,$state,$http) {
+.controller('HejabSaghedastdastkeshCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -2954,15 +2995,19 @@ $scope.finish = function() {
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  
+
     $http.post(DjangoURL+"/kala/hejab_saghedast_dastkesh/getall")
     .success(function(data){
         console.log(data);
     $scope.pooshaks = data.result
     })
   });
-  
-      
+
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/hejab_saghedast_dastkesh/'+String(id)
+  }
+
 })
 
 .controller('HejabSaghedastdastkeshDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state,$ionicPopup) {
@@ -2992,7 +3037,7 @@ $scope.finish = function() {
   }
   $scope.pooshak = storage.getItem("pooshak")
   console.log($scope.pooshak)
-  
+
   $http.post(DjangoURL+"/kala/hejab_saghedast_dastkesh/getall")
     .success(function(data){
     console.log(data);
@@ -3011,7 +3056,7 @@ $scope.finish = function() {
       .success(function(data){
         if (JSON.stringify(data.result).indexOf($scope.pooshak.name) > -1){
           $scope.comment = true
-          
+
         }
       })
     }
@@ -3035,7 +3080,7 @@ $scope.finish = function() {
           })
 
         })
-      
+
     }
 
   $scope.screen_width = window.innerWidth
@@ -3050,7 +3095,7 @@ $scope.finish = function() {
 
   $scope.gotoexternallink = function(link){
     // size = 'width='+window.innerWidth+',height='+window.innerHeight
-    // window.open(link,'newwindow',size); 
+    // window.open(link,'newwindow',size);
     window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
@@ -3083,21 +3128,21 @@ $scope.finish = function() {
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala.num)
     })
-  
+
   $scope.edit_cart = function() {
     $scope.data = {};
     $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
     .success(function(data){
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
-        
+
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
@@ -3129,7 +3174,7 @@ $scope.finish = function() {
     })}
 
 
-  
+
   $scope.sefaresh = function(pooshak){
     $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
         setTimeout(() => {
@@ -3160,7 +3205,7 @@ $scope.finish = function() {
         // })
 
         // Send Message To Eitaa
-        
+
         $http.post(DjangoURL+'/send_message'
         ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
         .success(function(data){
@@ -3169,7 +3214,7 @@ $scope.finish = function() {
           }
         console.log(data)
         })
-        
+
 
       })
       .error(function () {
@@ -3216,7 +3261,7 @@ $scope.finish = function() {
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     $http.post(DjangoURL+"/cart/add",$scope.this_data)
       .success(function(data){
-        console.log(data)          
+        console.log(data)
       })
   }
   $scope.finished_buy = function(){
@@ -3225,7 +3270,7 @@ $scope.finish = function() {
 
 })
 
-.controller('HejabMaskpooshieCtrl', function($scope,$state,$http) {
+.controller('HejabMaskpooshieCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -3235,15 +3280,19 @@ $scope.finish = function() {
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  
+
     $http.post(DjangoURL+"/kala/hejab_mask_pooshie/getall")
     .success(function(data){
         console.log(data);
     $scope.pooshaks = data.result
     })
   });
-  
-      
+
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/hejab_mask_pooshie/'+String(id)
+  }
+
 })
 
 .controller('HejabMaskpooshieDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state,$ionicPopup) {
@@ -3273,7 +3322,7 @@ $scope.finish = function() {
   }
   $scope.pooshak = storage.getItem("pooshak")
   console.log($scope.pooshak)
-  
+
   $http.post(DjangoURL+"/kala/hejab_mask_pooshie/getall")
     .success(function(data){
     console.log(data);
@@ -3292,7 +3341,7 @@ $scope.finish = function() {
       .success(function(data){
         if (JSON.stringify(data.result).indexOf($scope.pooshak.name) > -1){
           $scope.comment = true
-          
+
         }
       })
     }
@@ -3316,7 +3365,7 @@ $scope.finish = function() {
           })
 
         })
-      
+
     }
 
   $scope.screen_width = window.innerWidth
@@ -3331,7 +3380,7 @@ $scope.finish = function() {
 
   $scope.gotoexternallink = function(link){
     // size = 'width='+window.innerWidth+',height='+window.innerHeight
-    // window.open(link,'newwindow',size); 
+    // window.open(link,'newwindow',size);
     window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
@@ -3364,21 +3413,21 @@ $scope.finish = function() {
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala.num)
     })
-  
+
   $scope.edit_cart = function() {
     $scope.data = {};
     $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
     .success(function(data){
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
-        
+
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
@@ -3410,7 +3459,7 @@ $scope.finish = function() {
     })}
 
 
-  
+
   $scope.sefaresh = function(pooshak){
     $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
         setTimeout(() => {
@@ -3441,7 +3490,7 @@ $scope.finish = function() {
         // })
 
         // Send Message To Eitaa
-        
+
         $http.post(DjangoURL+'/send_message'
         ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
         .success(function(data){
@@ -3450,7 +3499,7 @@ $scope.finish = function() {
           }
         console.log(data)
         })
-        
+
 
       })
       .error(function () {
@@ -3497,7 +3546,7 @@ $scope.finish = function() {
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     $http.post(DjangoURL+"/cart/add",$scope.this_data)
       .success(function(data){
-        console.log(data)          
+        console.log(data)
       })
   }
   $scope.finished_buy = function(){
@@ -3506,7 +3555,7 @@ $scope.finish = function() {
 
 })
 
-.controller('KharaziAbzarkhayatiCtrl', function($scope,$state,$http) {
+.controller('KharaziAbzarkhayatiCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -3516,15 +3565,19 @@ $scope.finish = function() {
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  
+
     $http.post(DjangoURL+"/kala/kharazi_abzarkhayati/getall")
     .success(function(data){
         console.log(data);
     $scope.pooshaks = data.result
     })
   });
-  
-      
+
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/kharazi_abzarkhayati/'+String(id)
+  }
+
 })
 
 .controller('KharaziAbzarkhayatiDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state,$ionicPopup) {
@@ -3554,7 +3607,7 @@ $scope.finish = function() {
   }
   $scope.pooshak = storage.getItem("pooshak")
   console.log($scope.pooshak)
-  
+
   $http.post(DjangoURL+"/kala/kharazi_abzarkhayati/getall")
     .success(function(data){
     console.log(data);
@@ -3573,7 +3626,7 @@ $scope.finish = function() {
       .success(function(data){
         if (JSON.stringify(data.result).indexOf($scope.pooshak.name) > -1){
           $scope.comment = true
-          
+
         }
       })
     }
@@ -3597,7 +3650,7 @@ $scope.finish = function() {
           })
 
         })
-      
+
     }
 
   $scope.screen_width = window.innerWidth
@@ -3612,7 +3665,7 @@ $scope.finish = function() {
 
   $scope.gotoexternallink = function(link){
     // size = 'width='+window.innerWidth+',height='+window.innerHeight
-    // window.open(link,'newwindow',size); 
+    // window.open(link,'newwindow',size);
     window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
@@ -3645,21 +3698,21 @@ $scope.finish = function() {
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala.num)
     })
-  
+
   $scope.edit_cart = function() {
     $scope.data = {};
     $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
     .success(function(data){
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
-        
+
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
@@ -3691,7 +3744,7 @@ $scope.finish = function() {
     })}
 
 
-  
+
   $scope.sefaresh = function(pooshak){
     $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
         setTimeout(() => {
@@ -3722,7 +3775,7 @@ $scope.finish = function() {
         // })
 
         // Send Message To Eitaa
-        
+
         $http.post(DjangoURL+'/send_message'
         ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
         .success(function(data){
@@ -3731,7 +3784,7 @@ $scope.finish = function() {
           }
         console.log(data)
         })
-        
+
 
       })
       .error(function () {
@@ -3778,7 +3831,7 @@ $scope.finish = function() {
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     $http.post(DjangoURL+"/cart/add",$scope.this_data)
       .success(function(data){
-        console.log(data)          
+        console.log(data)
       })
   }
   $scope.finished_buy = function(){
@@ -3787,7 +3840,7 @@ $scope.finish = function() {
 
 })
 
-.controller('KharaziLavazemtahrirCtrl', function($scope,$state,$http) {
+.controller('KharaziLavazemtahrirCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -3797,15 +3850,19 @@ $scope.finish = function() {
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  
+
     $http.post(DjangoURL+"/kala/kharazi_lavazemtahrir/getall")
     .success(function(data){
         console.log(data);
     $scope.pooshaks = data.result
     })
   });
-  
-      
+
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/kharazi_lavazemtahrir/'+String(id)
+  }
+
 })
 
 .controller('KharaziLavazemtahrirDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state,$ionicPopup) {
@@ -3835,7 +3892,7 @@ $scope.finish = function() {
   }
   $scope.pooshak = storage.getItem("pooshak")
   console.log($scope.pooshak)
-  
+
   $http.post(DjangoURL+"/kala/kharazi_lavazemtahrir/getall")
     .success(function(data){
     console.log(data);
@@ -3856,7 +3913,7 @@ $scope.finish = function() {
         if (JSON.stringify(data.result).indexOf($scope.pooshak.name) > -1){
           console.log("it is a true")
           $scope.comment = true
-          
+
         }
       })
     }
@@ -3880,7 +3937,7 @@ $scope.finish = function() {
           })
 
         })
-      
+
     }
 
   $scope.screen_width = window.innerWidth
@@ -3895,7 +3952,7 @@ $scope.finish = function() {
 
   $scope.gotoexternallink = function(link){
     // size = 'width='+window.innerWidth+',height='+window.innerHeight
-    // window.open(link,'newwindow',size); 
+    // window.open(link,'newwindow',size);
     window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
@@ -3928,21 +3985,21 @@ $scope.finish = function() {
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala.num)
     })
-  
+
   $scope.edit_cart = function() {
     $scope.data = {};
     $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
     .success(function(data){
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
-        
+
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
@@ -3974,7 +4031,7 @@ $scope.finish = function() {
     })}
 
 
-  
+
   $scope.sefaresh = function(pooshak){
     $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
         setTimeout(() => {
@@ -4005,7 +4062,7 @@ $scope.finish = function() {
         // })
 
         // Send Message To Eitaa
-        
+
         $http.post(DjangoURL+'/send_message'
         ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
         .success(function(data){
@@ -4014,7 +4071,7 @@ $scope.finish = function() {
           }
         console.log(data)
         })
-        
+
 
       })
       .error(function () {
@@ -4061,7 +4118,7 @@ $scope.finish = function() {
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     $http.post(DjangoURL+"/cart/add",$scope.this_data)
       .success(function(data){
-        console.log(data)          
+        console.log(data)
       })
   }
   $scope.finished_buy = function(){
@@ -4070,7 +4127,7 @@ $scope.finish = function() {
 
 })
 
-.controller('PooshaksCtrl', function($scope,$state,$http) {
+.controller('PooshaksCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -4080,7 +4137,7 @@ $scope.finish = function() {
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  
+
     $http.post(DjangoURL+"/kala/pooshak_zanane/getall")
     .success(function(data){
         console.log(data);
@@ -4106,9 +4163,35 @@ $scope.finish = function() {
         console.log(data);
     $scope.pooshak_nozadi = data.result
     })
+
+    $scope.open_page_pooshak_zanane = function(id){
+        console.log("you are the page : ",id)
+        $window.location.href = '#/pooshak_zanane/'+String(id)
+    }
+
+    $scope.open_page_pooshak_mardane = function(id){
+        console.log("you are the page : ",id)
+        $window.location.href = '#/pooshak_mardane/'+String(id)
+    }
+
+    $scope.open_page_pooshak_dokhtarane = function(id){
+        console.log("you are the page : ",id)
+        $window.location.href = '#/pooshak_dokhtarane/'+String(id)
+    }
+
+    $scope.open_page_pooshak_pesarane = function(id){
+        console.log("you are the page : ",id)
+        $window.location.href = '#/pooshak_pesarane/'+String(id)
+    }
+
+    $scope.open_page_pooshak_nozadi = function(id){
+        console.log("you are the page : ",id)
+        $window.location.href = '#/pooshak_nozadi/'+String(id)
+    }
+
   });
-  
-      
+
+
 })
 
 
@@ -4127,7 +4210,7 @@ $scope.finish = function() {
 
 
 
-.controller('SefareshMardaneCtrl', function($scope,$state,$http) {
+.controller('SefareshMardaneCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -4137,15 +4220,22 @@ $scope.finish = function() {
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  
+
     $http.post(DjangoURL+"/kala/sefaresh_mardane/getall")
     .success(function(data){
         console.log(data);
     $scope.pooshaks = data.result
     })
+
+
   });
-  
-      
+
+
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/sefaresh_mardane/'+String(id)
+  }
+
 })
 
 .controller('SefareshMardaneDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state,$ionicPopup) {
@@ -4175,7 +4265,7 @@ $scope.finish = function() {
   }
   $scope.pooshak = storage.getItem("pooshak")
   console.log($scope.pooshak)
-  
+
   $http.post(DjangoURL+"/kala/sefaresh_mardane/getall")
     .success(function(data){
     console.log(data);
@@ -4194,7 +4284,7 @@ $scope.finish = function() {
       .success(function(data){
         if (JSON.stringify(data.result).indexOf($scope.pooshak.name) > -1){
           $scope.comment = true
-          
+
         }
       })
     }
@@ -4218,7 +4308,7 @@ $scope.finish = function() {
           })
 
         })
-      
+
     }
 
   $scope.screen_width = window.innerWidth
@@ -4233,7 +4323,7 @@ $scope.finish = function() {
 
   $scope.gotoexternallink = function(link){
     // size = 'width='+window.innerWidth+',height='+window.innerHeight
-    // window.open(link,'newwindow',size); 
+    // window.open(link,'newwindow',size);
     window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
@@ -4266,21 +4356,21 @@ $scope.finish = function() {
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala.num)
     })
-  
+
   $scope.edit_cart = function() {
     $scope.data = {};
     $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
     .success(function(data){
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
-        
+
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
@@ -4312,7 +4402,7 @@ $scope.finish = function() {
     })}
 
 
-  
+
   $scope.sefaresh = function(pooshak){
     $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
         setTimeout(() => {
@@ -4343,7 +4433,7 @@ $scope.finish = function() {
         // })
 
         // Send Message To Eitaa
-        
+
         $http.post(DjangoURL+'/send_message'
         ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
         .success(function(data){
@@ -4352,7 +4442,7 @@ $scope.finish = function() {
           }
         console.log(data)
         })
-        
+
 
       })
       .error(function () {
@@ -4399,7 +4489,7 @@ $scope.finish = function() {
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     $http.post(DjangoURL+"/cart/add",$scope.this_data)
       .success(function(data){
-        console.log(data)          
+        console.log(data)
       })
   }
   $scope.finished_buy = function(){
@@ -4424,7 +4514,7 @@ $scope.finish = function() {
 
 
 
-.controller('SefareshZananeCtrl', function($scope,$state,$http) {
+.controller('SefareshZananeCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -4434,15 +4524,19 @@ $scope.finish = function() {
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  
+
     $http.post(DjangoURL+"/kala/sefaresh_zanane/getall")
     .success(function(data){
         console.log(data);
     $scope.pooshaks = data.result
     })
   });
-  
-      
+
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/sefaresh_zanane/'+String(id)
+  }
+
 })
 
 .controller('SefareshZananeDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state,$ionicPopup) {
@@ -4472,7 +4566,7 @@ $scope.finish = function() {
   }
   $scope.pooshak = storage.getItem("pooshak")
   console.log($scope.pooshak)
-  
+
   $http.post(DjangoURL+"/kala/sefaresh_zanane/getall")
     .success(function(data){
     console.log(data);
@@ -4491,7 +4585,7 @@ $scope.finish = function() {
       .success(function(data){
         if (JSON.stringify(data.result).indexOf($scope.pooshak.name) > -1){
           $scope.comment = true
-          
+
         }
       })
     }
@@ -4515,7 +4609,7 @@ $scope.finish = function() {
           })
 
         })
-      
+
     }
 
   $scope.screen_width = window.innerWidth
@@ -4530,7 +4624,7 @@ $scope.finish = function() {
 
   $scope.gotoexternallink = function(link){
     // size = 'width='+window.innerWidth+',height='+window.innerHeight
-    // window.open(link,'newwindow',size); 
+    // window.open(link,'newwindow',size);
     window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
@@ -4563,21 +4657,21 @@ $scope.finish = function() {
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala.num)
     })
-  
+
   $scope.edit_cart = function() {
     $scope.data = {};
     $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
     .success(function(data){
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
-        
+
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
@@ -4609,7 +4703,7 @@ $scope.finish = function() {
     })}
 
 
-  
+
   $scope.sefaresh = function(pooshak){
     $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
         setTimeout(() => {
@@ -4640,7 +4734,7 @@ $scope.finish = function() {
         // })
 
         // Send Message To Eitaa
-        
+
         $http.post(DjangoURL+'/send_message'
         ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
         .success(function(data){
@@ -4649,7 +4743,7 @@ $scope.finish = function() {
           }
         console.log(data)
         })
-        
+
 
       })
       .error(function () {
@@ -4696,7 +4790,7 @@ $scope.finish = function() {
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     $http.post(DjangoURL+"/cart/add",$scope.this_data)
       .success(function(data){
-        console.log(data)          
+        console.log(data)
       })
   }
   $scope.finished_buy = function(){
@@ -4729,7 +4823,7 @@ $scope.finish = function() {
 
 
 
-.controller('SefareshDokhtaraneCtrl', function($scope,$state,$http) {
+.controller('SefareshDokhtaraneCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -4739,15 +4833,19 @@ $scope.finish = function() {
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  
+
     $http.post(DjangoURL+"/kala/sefaresh_dokhtarane/getall")
     .success(function(data){
         console.log(data);
     $scope.pooshaks = data.result
     })
   });
-  
-      
+
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/sefaresh_dokhtarane/'+String(id)
+  }
+
 })
 
 .controller('SefareshDokhtaraneDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state,$ionicPopup) {
@@ -4777,7 +4875,7 @@ $scope.finish = function() {
   }
   $scope.pooshak = storage.getItem("pooshak")
   console.log($scope.pooshak)
-  
+
   $http.post(DjangoURL+"/kala/sefaresh_dokhtarane/getall")
     .success(function(data){
     console.log(data);
@@ -4796,7 +4894,7 @@ $scope.finish = function() {
       .success(function(data){
         if (JSON.stringify(data.result).indexOf($scope.pooshak.name) > -1){
           $scope.comment = true
-          
+
         }
       })
     }
@@ -4820,7 +4918,7 @@ $scope.finish = function() {
           })
 
         })
-      
+
     }
 
   $scope.screen_width = window.innerWidth
@@ -4835,7 +4933,7 @@ $scope.finish = function() {
 
   $scope.gotoexternallink = function(link){
     // size = 'width='+window.innerWidth+',height='+window.innerHeight
-    // window.open(link,'newwindow',size); 
+    // window.open(link,'newwindow',size);
     window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
@@ -4868,21 +4966,21 @@ $scope.finish = function() {
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala.num)
     })
-  
+
   $scope.edit_cart = function() {
     $scope.data = {};
     $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
     .success(function(data){
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
-        
+
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
@@ -4914,7 +5012,7 @@ $scope.finish = function() {
     })}
 
 
-  
+
   $scope.sefaresh = function(pooshak){
     $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
         setTimeout(() => {
@@ -4945,14 +5043,14 @@ $scope.finish = function() {
         // })
 
         // Send Message To Eitaa
-        
+
         $http.post(DjangoURL+'/send_message'
         ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
         .success(function(data){
 
         console.log(data)
         })
-        
+
 
       })
       .error(function () {
@@ -4999,7 +5097,7 @@ $scope.finish = function() {
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     $http.post(DjangoURL+"/cart/add",$scope.this_data)
       .success(function(data){
-        console.log(data)          
+        console.log(data)
       })
   }
   $scope.finished_buy = function(){
@@ -5020,7 +5118,7 @@ $scope.finish = function() {
 
 
 
-.controller('SefareshPesaraneCtrl', function($scope,$state,$http) {
+.controller('SefareshPesaraneCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -5030,15 +5128,19 @@ $scope.finish = function() {
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  
+
     $http.post(DjangoURL+"/kala/sefaresh_pesarane/getall")
     .success(function(data){
         console.log(data);
     $scope.pooshaks = data.result
     })
   });
-  
-      
+
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/sefaresh_pesarane/'+String(id)
+  }
+
 })
 
 .controller('SefareshPesaraneDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state,$ionicPopup) {
@@ -5068,7 +5170,7 @@ $scope.finish = function() {
   }
   $scope.pooshak = storage.getItem("pooshak")
   console.log($scope.pooshak)
-  
+
   $http.post(DjangoURL+"/kala/sefaresh_pesarane/getall")
     .success(function(data){
     console.log(data);
@@ -5087,7 +5189,7 @@ $scope.finish = function() {
       .success(function(data){
         if (JSON.stringify(data.result).indexOf($scope.pooshak.name) > -1){
           $scope.comment = true
-          
+
         }
       })
     }
@@ -5111,7 +5213,7 @@ $scope.finish = function() {
           })
 
         })
-      
+
     }
 
   $scope.screen_width = window.innerWidth
@@ -5126,7 +5228,7 @@ $scope.finish = function() {
 
   $scope.gotoexternallink = function(link){
     // size = 'width='+window.innerWidth+',height='+window.innerHeight
-    // window.open(link,'newwindow',size); 
+    // window.open(link,'newwindow',size);
     window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
@@ -5159,21 +5261,21 @@ $scope.finish = function() {
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala.num)
     })
-  
+
   $scope.edit_cart = function() {
     $scope.data = {};
     $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
     .success(function(data){
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
-        
+
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
@@ -5205,7 +5307,7 @@ $scope.finish = function() {
     })}
 
 
-  
+
   $scope.sefaresh = function(pooshak){
     $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
         setTimeout(() => {
@@ -5236,7 +5338,7 @@ $scope.finish = function() {
         // })
 
         // Send Message To Eitaa
-        
+
         $http.post(DjangoURL+'/send_message'
         ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
         .success(function(data){
@@ -5245,7 +5347,7 @@ $scope.finish = function() {
           }
         console.log(data)
         })
-        
+
 
       })
       .error(function () {
@@ -5292,7 +5394,7 @@ $scope.finish = function() {
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     $http.post(DjangoURL+"/cart/add",$scope.this_data)
       .success(function(data){
-        console.log(data)          
+        console.log(data)
       })
   }
   $scope.finished_buy = function(){
@@ -5310,7 +5412,7 @@ $scope.finish = function() {
 
 
 
-.controller('SefareshNozadiCtrl', function($scope,$state,$http) {
+.controller('SefareshNozadiCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -5320,15 +5422,19 @@ $scope.finish = function() {
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  
+
     $http.post(DjangoURL+"/kala/sefaresh_nozadi/getall")
     .success(function(data){
         console.log(data);
     $scope.pooshaks = data.result
     })
   });
-  
-      
+
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/sefaresh_nozadi/'+String(id)
+  }
+
 })
 
 .controller('SefareshNozadiDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state,$ionicPopup) {
@@ -5358,7 +5464,7 @@ $scope.finish = function() {
   }
   $scope.pooshak = storage.getItem("pooshak")
   console.log($scope.pooshak)
-  
+
   $http.post(DjangoURL+"/kala/sefaresh_nozadi/getall")
     .success(function(data){
     console.log(data);
@@ -5377,7 +5483,7 @@ $scope.finish = function() {
       .success(function(data){
         if (JSON.stringify(data.result).indexOf($scope.pooshak.name) > -1){
           $scope.comment = true
-          
+
         }
       })
     }
@@ -5401,7 +5507,7 @@ $scope.finish = function() {
           })
 
         })
-      
+
     }
 
   $scope.screen_width = window.innerWidth
@@ -5416,7 +5522,7 @@ $scope.finish = function() {
 
   $scope.gotoexternallink = function(link){
     // size = 'width='+window.innerWidth+',height='+window.innerHeight
-    // window.open(link,'newwindow',size); 
+    // window.open(link,'newwindow',size);
     window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
@@ -5449,21 +5555,21 @@ $scope.finish = function() {
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala.num)
     })
-  
+
   $scope.edit_cart = function() {
     $scope.data = {};
     $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
     .success(function(data){
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
-        
+
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
@@ -5495,7 +5601,7 @@ $scope.finish = function() {
     })}
 
 
-  
+
   $scope.sefaresh = function(pooshak){
     $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
         setTimeout(() => {
@@ -5526,7 +5632,7 @@ $scope.finish = function() {
         // })
 
         // Send Message To Eitaa
-        
+
         $http.post(DjangoURL+'/send_message'
         ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
         .success(function(data){
@@ -5535,7 +5641,7 @@ $scope.finish = function() {
           }
         console.log(data)
         })
-        
+
 
       })
       .error(function () {
@@ -5582,7 +5688,7 @@ $scope.finish = function() {
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     $http.post(DjangoURL+"/cart/add",$scope.this_data)
       .success(function(data){
-        console.log(data)          
+        console.log(data)
       })
   }
   $scope.finished_buy = function(){
@@ -5600,7 +5706,7 @@ $scope.finish = function() {
 
 
 
-.controller('SefareshSayerCtrl', function($scope,$state,$http) {
+.controller('SefareshSayerCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -5610,15 +5716,20 @@ $scope.finish = function() {
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  
+
     $http.post(DjangoURL+"/kala/sefaresh_sayer/getall")
     .success(function(data){
         console.log(data);
     $scope.pooshaks = data.result
     })
   });
-  
-      
+
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/sefaresh_sayer/'+String(id)
+  }
+
+
 })
 
 .controller('SefareshSayerDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state,$ionicPopup) {
@@ -5648,7 +5759,7 @@ $scope.finish = function() {
   }
   $scope.pooshak = storage.getItem("pooshak")
   console.log($scope.pooshak)
-  
+
   $http.post(DjangoURL+"/kala/sefaresh_sayer/getall")
     .success(function(data){
     console.log(data);
@@ -5667,7 +5778,7 @@ $scope.finish = function() {
       .success(function(data){
         if (JSON.stringify(data.result).indexOf($scope.pooshak.name) > -1){
           $scope.comment = true
-          
+
         }
       })
     }
@@ -5691,7 +5802,7 @@ $scope.finish = function() {
           })
 
         })
-      
+
     }
 
   $scope.screen_width = window.innerWidth
@@ -5706,7 +5817,7 @@ $scope.finish = function() {
 
   $scope.gotoexternallink = function(link){
     // size = 'width='+window.innerWidth+',height='+window.innerHeight
-    // window.open(link,'newwindow',size); 
+    // window.open(link,'newwindow',size);
     window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
@@ -5739,21 +5850,21 @@ $scope.finish = function() {
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala.num)
     })
-  
+
   $scope.edit_cart = function() {
     $scope.data = {};
     $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
     .success(function(data){
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
-        
+
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
@@ -5785,7 +5896,7 @@ $scope.finish = function() {
     })}
 
 
-  
+
   $scope.sefaresh = function(pooshak){
     $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
         setTimeout(() => {
@@ -5816,7 +5927,7 @@ $scope.finish = function() {
         // })
 
         // Send Message To Eitaa
-        
+
         $http.post(DjangoURL+'/send_message'
         ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
         .success(function(data){
@@ -5825,7 +5936,7 @@ $scope.finish = function() {
           }
         console.log(data)
         })
-        
+
 
       })
       .error(function () {
@@ -5872,7 +5983,7 @@ $scope.finish = function() {
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     $http.post(DjangoURL+"/cart/add",$scope.this_data)
       .success(function(data){
-        console.log(data)          
+        console.log(data)
       })
   }
   $scope.finished_buy = function(){
@@ -5915,7 +6026,7 @@ $scope.finish = function() {
   }
   $scope.pooshak = storage.getItem("pooshak")
   console.log($scope.pooshak)
-  
+
   $http.post(DjangoURL+"/kala/pooshak/getall")
     .success(function(data){
     console.log(data);
@@ -5934,7 +6045,7 @@ $scope.finish = function() {
       .success(function(data){
         if (JSON.stringify(data.result).indexOf($scope.pooshak.name) > -1){
           $scope.comment = true
-          
+
         }
       })
     }
@@ -5958,7 +6069,7 @@ $scope.finish = function() {
           })
 
         })
-      
+
     }
 
   $scope.screen_width = window.innerWidth
@@ -5973,7 +6084,7 @@ $scope.finish = function() {
 
   $scope.gotoexternallink = function(link){
     // size = 'width='+window.innerWidth+',height='+window.innerHeight
-    // window.open(link,'newwindow',size); 
+    // window.open(link,'newwindow',size);
     window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
@@ -6006,21 +6117,21 @@ $scope.finish = function() {
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala.num)
     })
-  
+
   $scope.edit_cart = function() {
     $scope.data = {};
     $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
     .success(function(data){
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
-        
+
         return result.name == $scope.pooshak.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
@@ -6052,7 +6163,7 @@ $scope.finish = function() {
     })}
 
 
-  
+
   $scope.sefaresh = function(pooshak){
     $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
         setTimeout(() => {
@@ -6083,7 +6194,7 @@ $scope.finish = function() {
         // })
 
         // Send Message To Eitaa
-        
+
         $http.post(DjangoURL+'/send_message'
         ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
         .success(function(data){
@@ -6092,7 +6203,7 @@ $scope.finish = function() {
           }
         console.log(data)
         })
-        
+
 
       })
       .error(function () {
@@ -6139,7 +6250,7 @@ $scope.finish = function() {
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     $http.post(DjangoURL+"/cart/add",$scope.this_data)
       .success(function(data){
-        console.log(data)          
+        console.log(data)
       })
   }
   $scope.finished_buy = function(){
@@ -6158,17 +6269,17 @@ $scope.finish = function() {
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  
+
     $http.post(DjangoURL+"/kala/parcheh/getall")
     .success(function(data){
         console.log(data);
     $scope.parchehs = data.result
     })
-    
+
 
   });
-  
-      
+
+
 })
 
 .controller('ParchehDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state,$ionicPopup) {
@@ -6198,7 +6309,7 @@ $scope.finish = function() {
   }
   $scope.parcheh = storage.getItem("parcheh")
   console.log($scope.parcheh)
-  
+
   $http.post(DjangoURL+"/kala/parcheh/getall")
     .success(function(data){
     console.log(data);
@@ -6217,7 +6328,7 @@ $scope.finish = function() {
       .success(function(data){
         if (JSON.stringify(data.result).indexOf($scope.parcheh.name) > -1){
           $scope.comment = true
-          
+
         }
       })
     }
@@ -6241,7 +6352,7 @@ $scope.finish = function() {
           })
 
         })
-      
+
     }
 
   $scope.screen_width = window.innerWidth
@@ -6256,7 +6367,7 @@ $scope.finish = function() {
 
   $scope.gotoexternallink = function(link){
     // size = 'width='+window.innerWidth+',height='+window.innerHeight
-    // window.open(link,'newwindow',size); 
+    // window.open(link,'newwindow',size);
     window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
@@ -6289,21 +6400,21 @@ $scope.finish = function() {
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
         return result.name == $scope.parcheh.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala.num)
     })
-  
+
   $scope.edit_cart = function() {
     $scope.data = {};
     $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
     .success(function(data){
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
-        
+
         return result.name == $scope.parcheh.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
@@ -6335,7 +6446,7 @@ $scope.finish = function() {
     })}
 
 
-  
+
   $scope.sefaresh = function(pooshak){
     $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
         setTimeout(() => {
@@ -6366,7 +6477,7 @@ $scope.finish = function() {
         // })
 
         // Send Message To Eitaa
-        
+
         $http.post(DjangoURL+'/send_message'
         ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.parcheh.name+"\n\n  قیمت آن : "+$scope.parcheh.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
         .success(function(data){
@@ -6375,7 +6486,7 @@ $scope.finish = function() {
           }
         console.log(data)
         })
-        
+
 
       })
       .error(function () {
@@ -6422,7 +6533,7 @@ $scope.finish = function() {
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     $http.post(DjangoURL+"/cart/add",$scope.this_data)
       .success(function(data){
-        console.log(data)          
+        console.log(data)
       })
   }
   $scope.finished_buy = function(){
@@ -6441,7 +6552,7 @@ $scope.finish = function() {
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  
+
     $http.post(DjangoURL+"/kala/kharazi/getall")
     .success(function(data){
         console.log(data);
@@ -6457,10 +6568,10 @@ $scope.finish = function() {
         console.log(data);
     $scope.kharazi_lavazemtahrir = data.result
     })
-    
+
   });
-  
-      
+
+
 })
 
 .controller('KharaziDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state,$ionicPopup) {
@@ -6490,7 +6601,7 @@ $scope.finish = function() {
   }
   $scope.kharazi = storage.getItem("kharazi")
   console.log($scope.kharazi)
-  
+
   $http.post(DjangoURL+"/kala/kharazi/getall")
     .success(function(data){
     console.log(data);
@@ -6509,7 +6620,7 @@ $scope.finish = function() {
       .success(function(data){
         if (JSON.stringify(data.result).indexOf($scope.kharazi.name) > -1){
           $scope.comment = true
-          
+
         }
       })
     }
@@ -6533,7 +6644,7 @@ $scope.finish = function() {
           })
 
         })
-      
+
     }
 
   $scope.screen_width = window.innerWidth
@@ -6548,7 +6659,7 @@ $scope.finish = function() {
 
   $scope.gotoexternallink = function(link){
     // size = 'width='+window.innerWidth+',height='+window.innerHeight
-    // window.open(link,'newwindow',size); 
+    // window.open(link,'newwindow',size);
     window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
@@ -6581,21 +6692,21 @@ $scope.finish = function() {
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
         return result.name == $scope.kharazi.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala.num)
     })
-  
+
   $scope.edit_cart = function() {
     $scope.data = {};
     $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
     .success(function(data){
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
-        
+
         return result.name == $scope.kharazi.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
@@ -6627,7 +6738,7 @@ $scope.finish = function() {
     })}
 
 
-  
+
   $scope.sefaresh = function(pooshak){
     $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
         setTimeout(() => {
@@ -6658,7 +6769,7 @@ $scope.finish = function() {
         // })
 
         // Send Message To Eitaa
-        
+
         $http.post(DjangoURL+'/send_message'
         ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.kharazi.name+"\n\n  قیمت آن : "+$scope.kharazi.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
         .success(function(data){
@@ -6667,7 +6778,7 @@ $scope.finish = function() {
           }
         console.log(data)
         })
-        
+
 
       })
       .error(function () {
@@ -6714,7 +6825,7 @@ $scope.finish = function() {
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     $http.post(DjangoURL+"/cart/add",$scope.this_data)
       .success(function(data){
-        console.log(data)          
+        console.log(data)
       })
   }
   $scope.finished_buy = function(){
@@ -6733,7 +6844,7 @@ $scope.finish = function() {
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  
+
     $http.post(DjangoURL+"/kala/hejab_shal/getall")
     .success(function(data){
         console.log(data);
@@ -6760,8 +6871,8 @@ $scope.finish = function() {
     $scope.hejab_mask_pooshie = data.result
     })
   });
-  
-      
+
+
 })
 
 .controller('HejabDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state,$ionicPopup) {
@@ -6791,7 +6902,7 @@ $scope.finish = function() {
   }
   $scope.hejab = storage.getItem("parcheh")
   console.log($scope.hejab)
-  
+
   $http.post(DjangoURL+"/kala/hejab/getall")
     .success(function(data){
     console.log(data);
@@ -6810,7 +6921,7 @@ $scope.finish = function() {
       .success(function(data){
         if (JSON.stringify(data.result).indexOf($scope.hejab.name) > -1){
           $scope.comment = true
-          
+
         }
       })
     }
@@ -6834,7 +6945,7 @@ $scope.finish = function() {
           })
 
         })
-      
+
     }
 
   $scope.screen_width = window.innerWidth
@@ -6849,7 +6960,7 @@ $scope.finish = function() {
 
   $scope.gotoexternallink = function(link){
     // size = 'width='+window.innerWidth+',height='+window.innerHeight
-    // window.open(link,'newwindow',size); 
+    // window.open(link,'newwindow',size);
     window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.go_to_tel_id = function (){
@@ -6882,21 +6993,21 @@ $scope.finish = function() {
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
         return result.name == $scope.hejab.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala.num)
     })
-  
+
   $scope.edit_cart = function() {
     $scope.data = {};
     $http.post(DjangoURL+"/cart/getall","user="+String(getCookie("username")))
     .success(function(data){
       result = data.result
       $scope.this_kala =  data.result.filter(function(result) {
-        
+
         return result.name == $scope.hejab.name;
-        
+
       });
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
@@ -6928,7 +7039,7 @@ $scope.finish = function() {
     })}
 
 
-  
+
   $scope.sefaresh = function(pooshak){
     $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
         setTimeout(() => {
@@ -6959,7 +7070,7 @@ $scope.finish = function() {
         // })
 
         // Send Message To Eitaa
-        
+
         $http.post(DjangoURL+'/send_message'
         ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.kharazi.name+"\n\n  قیمت آن : "+$scope.kharazi.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
         .success(function(data){
@@ -6968,7 +7079,7 @@ $scope.finish = function() {
           }
         console.log(data)
         })
-        
+
 
       })
       .error(function () {
@@ -7015,7 +7126,7 @@ $scope.finish = function() {
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     $http.post(DjangoURL+"/cart/add",$scope.this_data)
       .success(function(data){
-        console.log(data)          
+        console.log(data)
       })
   }
   $scope.finished_buy = function(){
@@ -7040,7 +7151,7 @@ $scope.finish = function() {
 .controller('AboutmeCtrl', function($scope,$state) {
   $scope.gotoexternallink = function(link){
     // size = 'width='+window.innerWidth+',height='+window.innerHeight
-    // window.open(link,'newwindow',size); 
+    // window.open(link,'newwindow',size);
     window.open(link, '_system', 'location=yes'); return false;
   }
   $scope.back = function(){
