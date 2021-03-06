@@ -1,0 +1,171 @@
+	<ion-view dir="rtl" view-title="فروشگاه">
+		<title>فروشگاه</title>
+
+
+		<!-- <ion-tabs class="tabs-striped tabs-top tabs-icon-top tabs-color-active-positive">
+
+			<ion-tab title="حجاب مریم" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/tab/parcheh"">
+			  <ion-nav-view name="tab-parcheh"></ion-nav-view>
+			</ion-tab>
+			<ion-tab title="خرازی مریم" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" href="#/tab/parcheh"">
+				<ion-nav-view name="tab-parcheh"></ion-nav-view>
+			</ion-tab>
+
+			<ion-tab title="پارچه مریم" icon-off="ion-ios-book-outline" icon-on="ion-ios-book" href="#/tab/parcheh"">
+				<ion-nav-view name="tab-parcheh"></ion-nav-view>
+			</ion-tab>
+
+			<ion-tab title="پوشاک مریم" icon-off="ion-ios-book-outline" icon-on="ion-ios-book" href="#/tab/parcheh"">
+				<ion-nav-view name="tab-parcheh"></ion-nav-view>
+			</ion-tab>
+
+			</ion-tabs> -->
+			<ion-content scroll="true">
+			<div class="list" ng-controller="StoreCtrl">
+
+			  <a class="item item-icon-right" ng-click="pooshak_toggle()">
+				<i class="icon ion-woman"></i>
+			    <!--<i class="icon ion-woman"></i>-->
+			    پوشاک مریم<i id="pooshak-toggle-button" class="icon ion-arrow-left-b" style="transform: translate3d(-100px, 0px, 0px);font-size:17px"></i>
+			  </a>
+
+				<a name="pooshak_subset" class="item item-icon-right" id="pooshak_subset" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/pooshaks_mardane">
+					<i class="icon ion-woman"></i>
+					مردانه
+				</a>
+
+				<a name="pooshak_subset" class="item item-icon-right" id="pooshak_subset" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/pooshaks_zanane">
+					<i class="icon ion-woman"></i>
+					زنانه
+				</a>
+
+
+				<a name="pooshak_subset" class="item item-icon-right" id="pooshak_subset" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/pooshaks_dokhtarane">
+					<i class="icon ion-woman"></i>
+					دخترانه
+				</a>
+
+				<a name="pooshak_subset" class="item item-icon-right" id="pooshak_subset" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/pooshaks_pesarane">
+					<i class="icon ion-woman"></i>
+					پسرانه
+				</a>
+				
+				<a name="pooshak_subset" class="item item-icon-right" id="pooshak_subset" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/pooshaks_nozadi">
+					<i class="icon ion-woman"></i>
+					نوزاد
+				</a>
+
+				<a name="pooshak_subset" class="item item-icon-right" id="pooshak_subset" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/pooshaks">
+					<i class="icon ion-woman"></i>
+					همه موارد
+				</a>
+				
+			  <a class="item item-icon-right" ng-click="parcheh_toggle()">
+			    <i class="icon ion-social-buffer"></i>
+			    پارچه مریم<i id="parcheh-toggle-button" class="icon ion-arrow-left-b" style="transform: translate3d(-100px, 0px, 0px);font-size:17px"></i>
+			  </a>
+
+			  <a name="parcheh_subset" class="item item-icon-right" id="pooshak_subset" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/parchehs">
+					<i class="icon ion-woman"></i>
+					همه موارد
+				</a>
+
+			  <a class="item item-icon-right" ng-click="kharazi_toggle()">
+			    <i class="icon ion-scissors"></i>
+			    خرازی مریم<i id="kharazi-toggle-button" class="icon ion-arrow-left-b" style="transform: translate3d(-100px, 0px, 0px);font-size:17px"></i>
+			  </a>
+
+				<a name="kharazi_subset" class="item item-icon-right" id="zir_majmooe" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/kharazis_abzarkhayati">
+					<i class="icon ion-woman"></i>
+					ابزار خیاطی
+				</a>
+
+				<a name="kharazi_subset" class="item item-icon-right" id="zir_majmooe" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/kharazis_lavazemtahrir">
+					<i class="icon ion-woman"></i>
+					لوازم التحریر
+				</a>
+
+				<a name="kharazi_subset" class="item item-icon-right" id="zir_majmooe" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/kharazis">
+					<i class="icon ion-woman"></i>
+					همه موارد
+				</a>
+
+			  <a class="item item-icon-right" ng-click="hejab_toggle()">
+			    <i class="icon ion-woman"></i>
+			    حجاب مریم<i id="hejab-toggle-button" class="icon ion-arrow-left-b" style="transform: translate3d(-100px, 0px, 0px);font-size:17px"></i>
+			  </a>
+
+			  	<a name="hejab_subset" class="item item-icon-right" id="zir_majmooe" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/hejabs_chador">
+					<i class="icon ion-woman"></i>
+					چادر
+				</a>
+
+				<a name="hejab_subset" class="item item-icon-right" id="zir_majmooe" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/hejabs_shal">
+					<i class="icon ion-woman"></i>
+					شال
+				</a>
+				
+				<a name="hejab_subset" class="item item-icon-right" id="zir_majmooe" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/hejabs_roosari">
+					<i class="icon ion-woman"></i>
+					روسری
+				</a>
+
+				<a name="hejab_subset" class="item item-icon-right" id="zir_majmooe" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/hejabs_saghedast_dastkesh">
+					<i class="icon ion-woman"></i>
+					ساق دست و دستکش
+				</a>
+
+				<a name="hejab_subset" class="item item-icon-right" id="zir_majmooe" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/hejabs_mask_pooshie">
+					<i class="icon ion-woman"></i>
+					ماسک و پوشیه
+				</a>
+
+
+				<a name="hejab_subset" class="item item-icon-right" id="zir_majmooe" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/hejabs">
+					<i class="icon ion-woman"></i>
+					همه موارد
+				</a>
+			  
+
+				<a class="item item-icon-right" ng-click="sefaresh_toggle()">
+					<i class="icon ion-woman"></i>
+					<!--<i class="icon ion-woman"></i>-->
+					سفارش دوخت<i id="sefaresh-toggle-button" class="icon ion-arrow-left-b" style="transform: translate3d(-110px, 0px, 0px);font-size:17px"></i>
+				</a>
+
+				<a name="sefaresh_subset" class="item item-icon-right" id="sefaresh_subset" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/sefareshs_mardane">
+					<i class="icon ion-woman"></i>
+					مردانه
+				</a>
+
+				<a name="sefaresh_subset" class="item item-icon-right" id="sefaresh_subset" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/sefareshs_zanane">
+					<i class="icon ion-woman"></i>
+					زنانه
+				</a>
+
+
+				<a name="sefaresh_subset" class="item item-icon-right" id="sefaresh_subset" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/sefareshs_dokhtarane">
+					<i class="icon ion-woman"></i>
+					دخترانه
+				</a>
+
+				<a name="sefaresh_subset" class="item item-icon-right" id="sefaresh_subset" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/sefareshs_pesarane">
+					<i class="icon ion-woman"></i>
+					پسرانه
+				</a>
+				
+				<a name="sefaresh_subset" class="item item-icon-right" id="sefaresh_subset" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/sefareshs_nozadi">
+					<i class="icon ion-woman"></i>
+					نوزاد
+				</a>
+			  
+			  	<a name="sefaresh_subset" class="item item-icon-right" id="sefaresh_subset" style="display:none;transform: translate3d(-50px, 0px, 0px);"  href="#/sefareshs_sayer">
+					<i class="icon ion-woman"></i>
+					سایر موارد
+				</a>
+
+
+			</div>
+			</ion-content>
+
+</ion-view>
