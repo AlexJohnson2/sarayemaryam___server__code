@@ -1176,11 +1176,20 @@ angular.module('starter.controllers', [])
 
       $scope.edit = function(item) {
         $scope.data = {};
-      
+        $scope.name = item.name
+        $scope.text = item.text
+        $scope.img = item.img
+        $scope.num = item.num
+        $scope.amount = item.amount
+        $scope.data.name = item.name
+        $scope.data.text = item.text
+        $scope.data.img = item.img
+        $scope.data.num = item.num
+        $scope.data.amount = item.amount
         // An elaborate, custom popup
         $scope.myPopup = $ionicPopup.show({
-          // template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
-          templateUrl: 'edit-pooshaks-mardane.html',
+          template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name" value="{{name}}"><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text" value="{{text}}"></textarea><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img" value="{{img}}"><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num" value="{{num}}"><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount" value="{{amount}}">',
+          // templateUrl: 'templates/edit-pooshaks-dokhtarane.html',
           title: 'ویرایش',
           subTitle: '',
           scope: $scope,
@@ -1207,6 +1216,12 @@ angular.module('starter.controllers', [])
                 }
                 $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
                 $http.post(DjangoURL+"/kala/pooshak_dokhtarane/edit","id="+String(item.id)+"&name="+$scope.data.name+"&text="+$scope.data.text+"&img="+$scope.data.img+"&amount="+$scope.data.amount+"&num="+$scope.data.num+"&tag=دخترانه")
+                console.log(
+                $scope.data.name = item.name,
+                $scope.data.text = item.text,
+                $scope.data.img = item.img,
+                $scope.data.num = item.num,
+                $scope.data.amount = item.amount)
                 /*
 		.success(function(data){
                   console.log(data)
