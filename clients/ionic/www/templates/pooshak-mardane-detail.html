@@ -4,11 +4,11 @@
       <img src="{{pooshak.img}}" width={{img}}></center>
       <p style="text-align:right;">{{pooshak.text}}</p>
       <div style="height:50px"></div>
-      
+
     </ion-content>
 
     <div style="align-content: center;height: 75px;" class="bar bar-footer" ng-controller="PooshakMardaneDetailCtrl">
-    
+
       <a ng-hide="cart == true || unavailable == true" ng-click="add_to_cart()"><button class="button button-positive" style="width: {{button_screen}}px;">افزودن به سبد خرید</button></a>
       <a ng-hide="unavailable == false || comment == true" ng-click="add_to_kalas()"><button class="button button-assertive" style="width: {{button_screen}}px;">پیشنهاد موجود شدن</button></a>
       <a ng-show="comment == true"><button class="button button-positive" style="width: {{button_screen}}px;">پیشنهاد ارسال شد</button></a>

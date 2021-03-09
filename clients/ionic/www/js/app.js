@@ -97,7 +97,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     templateUrl: 'templates/tab-aboutme.html',
     controller: 'AboutmeCtrl'
   })
-  
+
   .state('help', {
     url: '/help',
     templateUrl: 'templates/tab-help.html',
@@ -120,7 +120,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     url: '/confirm',
     templateUrl: 'templates/tab-confirm.html',
     controller: 'ConfirmCtrl'
-  })  
+  })
 
 
 
@@ -143,7 +143,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   })
 
 
-  
+
   .state('pooshaksmardane', {
     url: '/pooshaks_mardane',
     templateUrl: 'templates/tab-pooshaks-mardane.html',
@@ -311,7 +311,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     templateUrl: 'templates/hejab-shal-detail.html',
     controller: 'HejabShalDetailCtrl'
   })
-  
+
   .state('hejabsroosari', {
     url: '/hejabs_roosari',
     templateUrl: 'templates/tab-hejab-roosari.html',
@@ -417,7 +417,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     controller: 'HejabDetailCtrl'
   })
 
-  
+
   ;
 
 
@@ -436,3 +436,4 @@ this_username = '';
 this_password = '';
 var storage = window.localStorage;
 storage.setItem(loggedin, false);
+storage.setItem("reload",false)
