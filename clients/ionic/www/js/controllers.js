@@ -1,79 +1,5 @@
 angular.module('starter.controllers', [])
 
-
-.controller('ChatsCtrl', function($scope) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
-  $scope.chats = [{
-    id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'img/ben.png'
-  }, {
-    id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'img/max.png'
-  }, {
-    id: 2,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'img/adam.jpg'
-  }, {
-    id: 3,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'img/perry.png'
-  }, {
-    id: 4,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'img/mike.png'
-  }];
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
-})
-
-.controller('ChatDetailCtrl', function($scope, $stateParams) {
-
-    $scope.chats = [{
-      id: 0,
-      name: 'Ben Sparrow',
-      lastText: 'You on your way?',
-      face: 'img/ben.png'
-    }, {
-      id: 1,
-      name: 'Max Lynx',
-      lastText: 'Hey, it\'s me',
-      face: 'img/max.png'
-    }, {
-      id: 2,
-      name: 'Adam Bradleyson',
-      lastText: 'I should buy a boat',
-      face: 'img/adam.jpg'
-    }, {
-      id: 3,
-      name: 'Perry Governor',
-      lastText: 'Look at my mukluks!',
-      face: 'img/perry.png'
-    }, {
-      id: 4,
-      name: 'Mike Harrington',
-      lastText: 'This is wicked good ice cream.',
-      face: 'img/mike.png'
-    }];
-
-  $scope.chat = $scope.chats[$stateParams.chatId]
-})
-
-
 .controller('LearnCtrl', function($scope,$state,$ionicLoading,$ionicPopup,$http) {
   if (document.cookie.indexOf("username") > -1){
     if (getCookie("username") == ""){
@@ -144,16 +70,6 @@ angular.module('starter.controllers', [])
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-    // console.log(storage.getItem("reload"));
-    // if (storage.getItem("reload")=="false"){
-    //     window.location.reload();
-    //     window.location.reload();
-    //
-    //     location.reload();
-    //     location.reload();
-    //     location.reload();
-    //     storage.setItem("reload",true)
-    // }
   });
 
   $scope.img_height = window.innerHeight-(window.innerHeight/4)
@@ -202,17 +118,13 @@ angular.module('starter.controllers', [])
       .success(function(data){
         console.log(data)
         $scope.kalas = data.result
+        if (data.result.length == 0){
+          $scope.cart = false
+        }
 
       })
     $scope.cart = true
     $scope.this_data = "user="+String(getCookie("username"))
-    $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-    $http.post(DjangoURL+"/cart/getall", $scope.this_data)
-    .success(function(data){
-      if (data.result.length == 0){
-        $scope.cart = false
-      }
-    })
 
   });
 
@@ -335,6 +247,7 @@ $scope.finished_buy = function(post_data){
   // $ionicLoading.show({ template: '<ion-icon class="ion-icon ion-looping" animation="fade-in"></ion-icon> <p dir="rtl">سفارشات شما به مسئول فروش در پیام رسان ایتا ارسال شد. در حال انتقال به آیدی مسئول فروش...</p>', noBackdrop: true, duration: 3000 }).then(function(){$scope.gotoexternallink("https://eitaa.com/salambarf");});
   $http.post(DjangoURL+"/send_message","text=سبد خرید : "+"\n\n آیدی : "+$scope.this_user_tel_id+"\n\nشماره : "+$scope.this_user_phone+"\n\nآدرس : "+$scope.this_user_address+"\n\nکد پستی : "+$scope.this_post_code+"\n\nنحوه دریافت کالا :"+post_data)
   $scope.this_data = "user="+$scope.username
+
   setTimeout(() => {
   $http.post(DjangoURL+"/cart/getall", $scope.this_data)
   .success(function(data){
@@ -354,12 +267,12 @@ $scope.finished_buy = function(post_data){
       $scope.showAlert = function() {
         var alertPopup = $ionicPopup.alert({
           title: 'انتقال به آیدی مسئول فروش',
-          template: '<p dir="rtl" style="line-height : 150%;font-size:23px;">سبد خرید و سفارشات شما به مسئول فروش در پیام رسان ایتا ارسال شد. برای انتقال به آیدی ایتای مسئول فروش روی دکمه زیر کلیک کنید.</p><a onclick="window.open(\'https://eitaa.com/salambarf\', \'_system\', \'location=yes\'); return false;">انتقال به آیدی مسئول فروش</a>',
-          buttons: [] //{text:'انتقال به آیدی مسئول فروش',type:'button-positive'}
+          template: '<p dir="rtl" style="line-height : 150%;font-size:23px;">سبد خرید و سفارشات شما به مسئول فروش در پیام رسان ایتا ارسال شد. برای انتقال به آیدی ایتای مسئول فروش روی دکمه زیر کلیک کنید.</p>',
+          buttons: [{text:'انتقال به آیدی مسئول فروش',type:'button-positive'}] //{text:'انتقال به آیدی مسئول فروش',type:'button-positive'}
         });
 
         alertPopup.then(function(res) {
-          console.log("finish!!!")
+          window.open('https://eitaa.com/salambarf', '_system', 'location=yes'); return false;
         });
         setTimeout(() => {
           alertPopup.close();
@@ -431,13 +344,13 @@ $scope.finish = function() {
   // template: '<input type="radio" id="male" name="gender" value="male"><label for="male">Male</label><br><input type="radio" id="female" name="gender" value="female"><label for="female">Female</label><br><input type="radio" id="other" name="gender" value="other"><label for="other">Other</label>',
     // template: '<p dir="rtl">نحوه دریافت کالا را انتخاب کنید.</p><ion-list><label for="post_in_this">ارسال به شهرستان ها<br>هزینه : 10000 تومان</label><input id="" type="radio" ng-model="data.serverSide" value="post_in_this" ng-value="item.value"></ion-list>',
     // <ion-radio-group></ion-radio-group><ion-radio class="radio radio-inline radio-gray " ng-model="data.post" ng-value="\'post_in_this\'" checked><p dir="rtl">ارسال به مجتمع اساتید<br>هزینه : رایگان🤩</p></ion-radio><ion-radio ng-model="data.post" ng-value="\'post_in_qom\'"><p dir="rtl">ارسال به درون شهر قم<br>هزینه : 3000 تومان</p></ion-radio><ion-radio ng-model="data.post" ng-value="\'post_out_qom\'"><p dir="rtl">ارسال به پردیسان قم<br>هزینه : 5000 تومان</p></ion-radio><ion-radio ng-model="data.post" ng-value="\'post_out_city\'"><p dir="rtl">ارسال به شهرستان ها<br>هزینه : 10000 تومان</p></ion-radio></ion-radio-group>
-    title: 'ویرایش',
+    title: 'انتخاب نحوه تحویل کالا',
     subTitle: '',
     scope: $scope,
     buttons: [
       { text: 'انصراف' },
       {
-        text: '<b>اعمال</b>',
+        text: '<b>انتخاب</b>',
         type: 'button-positive',
         onTap: function(e) {
           if ($scope.data.post == "post_in_this"){
@@ -491,11 +404,6 @@ $scope.finish = function() {
             $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
             $http.post(DjangoURL+"/cart/delete", $scope.this_data)
             .success(function(data){
-              $scope.this_data = "id="+kala.id+"&num="+kala.num
-              add_url = "/kala/"+kala.group+"/add_num"
-              console.log($scope.this_data,add_url)
-              $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-              $http.post(DjangoURL+add_url, $scope.this_data)
               console.log(data)
               $state.reload()
               $state.reload()
@@ -557,7 +465,7 @@ $scope.finish = function() {
             document.cookie = "address=;"
             document.cookie = "post_code=;"
             $window.location.href = '#/signin'
-
+            $window.location.reload()
           }
         }
       ]
@@ -652,20 +560,7 @@ $scope.finish = function() {
         $state.go('tab.home',{})
       }
     }
-    // console.log(storage.getItem("reload"));
-    // if (!storage.getItem("reload")){
-    //     window.location.reload();
-    //     window.location.reload();
-    //
-    //     location.reload();
-    //     location.reload();
-    //     location.reload();
-    //     storage.setItem("reload",false)
-    // }
-
-})
-  $scope.reload = false
-
+  })
   $state.reload()
   $scope.back = function(){
       history.back()
@@ -679,13 +574,16 @@ $scope.finish = function() {
         $ionicLoading.show({ template: '<ion-icon class="ion-icon ion-looping" animation="fade-in"></ion-icon><p dir="rtl">  شما با موفقیت به سیستم وارد شدید. </p>', noBackdrop: true, duration: 1300 });
         loggedin = true
         // $state.go('tab-store')
-        $window.location.href = '#/tab/home'
+
         document.cookie = "username="+$scope.username
         document.cookie = "password="+$scope.password
         document.cookie = "phonenumber="+data.this_phone
         document.cookie = "tel_id="+data.tel_id
         document.cookie = "address="+data.this_address
         document.cookie = "post_code="+data.post_code
+        $window.location.href = '#/tab/home'
+        location.reload()
+        $state.reload()
 
       }
       else{
@@ -696,6 +594,14 @@ $scope.finish = function() {
     .error(function(){
       $ionicLoading.show({ template: '<ion-icon class="ion-icon ion-looping" animation="fade-in"></ion-icon>  در ورود شما به سیستم مشکلی پیش آمده است. لطفا اینترنت خود را چک کنید.', noBackdrop: true, duration: 2200 });
     })
+    $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+    $http.post(DjangoURL + '/account/checkuserwithpassword',
+                'username='+$scope.username+'&password='+$scope.password)
+                .success(function(data){location.reload();$state.reload()})
+    $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+    $http.post(DjangoURL + '/account/checkuserwithpassword',
+                'username='+$scope.username+'&password='+$scope.password)
+                .success(function(data){location.reload();$state.reload()})
   }
 })
 
@@ -782,7 +688,7 @@ $scope.finish = function() {
 
 
 
-.controller('PooshaksِMardaneCtrl', function($scope,$state,$http) {
+.controller('PooshaksِMardaneCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -800,8 +706,10 @@ $scope.finish = function() {
     })
   });
 
-  $scope.nextpage = "#/pooshak_mardane/1"
-
+    $scope.open_page = function(id){
+        console.log("you are the page : ",id)
+        $window.location.href = '#/pooshak_mardane/'+String(id)
+    }
 
 })
 
@@ -812,12 +720,17 @@ $scope.finish = function() {
         $state.go('signin',{})
       }
     }
-
+    if (document.cookie.indexOf("username") == -1){
+      $state.go('signin',{})
+    }
     $http.post(DjangoURL+"/kala/pooshak_mardane/getall")
     .success(function(data){
-    
+    console.log(data);
     $scope.pooshak = data.result[$stateParams.pooshakmardaneId-1]
-
+    console.log($stateParams)
+    console.log($stateParams.pooshakmardaneId-1)
+    console.log(data.result)
+    console.log("pooooooshaaaaak is :  ",$scope.pooshak)
     $scope.comment = false
     $scope.unavailable = false
     if ($scope.pooshak.num == "ناموجود"){
@@ -846,8 +759,13 @@ $scope.finish = function() {
     })
   });
     // $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
-    // $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
 
+    $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
+
+    $scope.open_page = function(id){
+      // location.href = "#/hejab_chador/"+String(id)
+      window.location.href = "#/pooshak_mardane/"+String(id)
+    }
 
     $http.post(DjangoURL+"/kala/pooshak_mardane/getall")
     .success(function(data){
@@ -863,6 +781,8 @@ $scope.finish = function() {
   }
   $scope.pooshak = storage.getItem("pooshak")
   console.log($scope.pooshak)
+
+
 
     $scope.add_to_kalas = function(){
       $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
@@ -1065,7 +985,7 @@ $scope.finish = function() {
 
 })
 
-.controller('PooshaksِDokhtaraneCtrl', function($scope,$state,$http) {
+.controller('PooshaksِDokhtaraneCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -1082,7 +1002,10 @@ $scope.finish = function() {
     $scope.pooshaks = data.result
     })
   });
-
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/pooshak_dokhtarane/'+String(id)
+  }
 
 })
 
@@ -1098,7 +1021,7 @@ $scope.finish = function() {
     }
   });
     // $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
-    // $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
+    $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
 
 
     $http.post(DjangoURL+"/kala/pooshak_dokhtarane/getall")
@@ -1346,7 +1269,7 @@ $scope.finish = function() {
 
 })
 
-.controller('PooshaksِZananeCtrl', function($scope,$state,$http) {
+.controller('PooshaksِZananeCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -1364,6 +1287,10 @@ $scope.finish = function() {
     })
   });
 
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/pooshak_zanane/'+String(id)
+  }
 
 })
 
@@ -1379,7 +1306,7 @@ $scope.finish = function() {
     }
   });
     // $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
-    // $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
+    $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
 
 
     $http.post(DjangoURL+"/kala/pooshak_zanane/getall")
@@ -1574,11 +1501,6 @@ $scope.finish = function() {
         })
 
 
-      })
-      .error(function () {
-        console.log("error")
-      })
-  }
   console.log("iiiiiittttttteeeeemmmmm iiiiisssss :  ",$scope.pooshak.num)
 
   $scope.num = 1
@@ -1628,7 +1550,7 @@ $scope.finish = function() {
 
 })
 
-.controller('PooshaksِPesaraneCtrl', function($scope,$state,$http) {
+.controller('PooshaksِPesaraneCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -1646,6 +1568,10 @@ $scope.finish = function() {
     })
   });
 
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/pooshak_pesarane/'+String(id)
+  }
 
 })
 
@@ -1661,7 +1587,7 @@ $scope.finish = function() {
     }
   });
     // $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
-    // $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
+    $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
 
 
     $http.post(DjangoURL+"/kala/pooshak_pesarane/getall")
@@ -1859,11 +1785,6 @@ $scope.finish = function() {
         })
 
 
-      })
-      .error(function () {
-        console.log("error")
-      })
-  }
   console.log("iiiiiittttttteeeeemmmmm iiiiisssss :  ",$scope.pooshak.num)
 
   $scope.num = 1
@@ -1913,7 +1834,7 @@ $scope.finish = function() {
 
 })
 
-.controller('PooshaksِNozadiCtrl', function($scope,$state,$http) {
+.controller('PooshaksِNozadiCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -1930,7 +1851,10 @@ $scope.finish = function() {
     $scope.pooshaks = data.result
     })
   });
-
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/pooshak_nozadi/'+String(id)
+  }
 
 })
 
@@ -1946,7 +1870,7 @@ $scope.finish = function() {
     }
   });
     // $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
-    // $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
+    $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
 
 
     $http.post(DjangoURL+"/kala/pooshak_nozadi/getall")
@@ -2194,7 +2118,7 @@ $scope.finish = function() {
 
 })
 
-.controller('HejabChadorCtrl', function($scope,$state,$http) {
+.controller('HejabChadorCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -2211,7 +2135,10 @@ $scope.finish = function() {
     $scope.pooshaks = data.result
     })
   });
-
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/hejab_chador/'+String(id)
+  }
 
 })
 
@@ -2227,7 +2154,7 @@ $scope.finish = function() {
     }
   });
     // $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
-    // $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
+    $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
 
 
     $http.post(DjangoURL+"/kala/hejab_chador/getall")
@@ -2475,7 +2402,7 @@ $scope.finish = function() {
 
 })
 
-.controller('HejabShalCtrl', function($scope,$state,$http) {
+.controller('HejabShalCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -2493,7 +2420,10 @@ $scope.finish = function() {
     })
   });
 
-
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/hejab_shal/'+String(id)
+  }
 })
 
 .controller('HejabShalDetailCtrl', function($scope, $stateParams,$http,$ionicLoading,$state,$ionicPopup) {
@@ -2508,7 +2438,7 @@ $scope.finish = function() {
     }
   });
     // $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
-    // $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
+    $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
 
 
     $http.post(DjangoURL+"/kala/hejab_shal/getall")
@@ -2756,7 +2686,7 @@ $scope.finish = function() {
 
 })
 
-.controller('HejabRoosariCtrl', function($scope,$state,$http) {
+.controller('HejabRoosariCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -2774,6 +2704,11 @@ $scope.finish = function() {
     })
   });
 
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/hejab_roosari/'+String(id)
+  }
+
 
 })
 
@@ -2789,7 +2724,7 @@ $scope.finish = function() {
     }
   });
     // $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
-    // $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
+    $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
 
 
     $http.post(DjangoURL+"/kala/hejab_roosari/getall")
@@ -3037,7 +2972,7 @@ $scope.finish = function() {
 
 })
 
-.controller('HejabSaghedastdastkeshCtrl', function($scope,$state,$http) {
+.controller('HejabSaghedastdastkeshCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -3055,6 +2990,10 @@ $scope.finish = function() {
     })
   });
 
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/hejab_saghedast_dastkesh/'+String(id)
+  }
 
 })
 
@@ -3070,7 +3009,7 @@ $scope.finish = function() {
     }
   });
     // $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
-    // $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
+    $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
 
 
     $http.post(DjangoURL+"/kala/hejab_saghedast_dastkesh/getall")
@@ -3318,7 +3257,7 @@ $scope.finish = function() {
 
 })
 
-.controller('HejabMaskpooshieCtrl', function($scope,$state,$http) {
+.controller('HejabMaskpooshieCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -3336,6 +3275,10 @@ $scope.finish = function() {
     })
   });
 
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/hejab_mask_pooshie/'+String(id)
+  }
 
 })
 
@@ -3351,7 +3294,7 @@ $scope.finish = function() {
     }
   });
     // $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
-    // $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
+    $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
 
 
     $http.post(DjangoURL+"/kala/hejab_mask_pooshie/getall")
@@ -3599,7 +3542,7 @@ $scope.finish = function() {
 
 })
 
-.controller('KharaziAbzarkhayatiCtrl', function($scope,$state,$http) {
+.controller('KharaziAbzarkhayatiCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -3617,6 +3560,10 @@ $scope.finish = function() {
     })
   });
 
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/kharazi_abzarkhayati/'+String(id)
+  }
 
 })
 
@@ -3632,7 +3579,7 @@ $scope.finish = function() {
     }
   });
     // $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
-    // $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
+    $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
 
 
     $http.post(DjangoURL+"/kala/kharazi_abzarkhayati/getall")
@@ -3880,7 +3827,7 @@ $scope.finish = function() {
 
 })
 
-.controller('KharaziLavazemtahrirCtrl', function($scope,$state,$http) {
+.controller('KharaziLavazemtahrirCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -3898,6 +3845,10 @@ $scope.finish = function() {
     })
   });
 
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/kharazi_lavazemtahrir/'+String(id)
+  }
 
 })
 
@@ -3913,7 +3864,7 @@ $scope.finish = function() {
     }
   });
     // $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
-    // $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
+    $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
 
 
     $http.post(DjangoURL+"/kala/kharazi_lavazemtahrir/getall")
@@ -4163,7 +4114,7 @@ $scope.finish = function() {
 
 })
 
-.controller('PooshaksCtrl', function($scope,$state,$http) {
+.controller('PooshaksCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -4199,6 +4150,32 @@ $scope.finish = function() {
         console.log(data);
     $scope.pooshak_nozadi = data.result
     })
+
+    $scope.open_page_pooshak_zanane = function(id){
+        console.log("you are the page : ",id)
+        $window.location.href = '#/pooshak_zanane/'+String(id)
+    }
+
+    $scope.open_page_pooshak_mardane = function(id){
+        console.log("you are the page : ",id)
+        $window.location.href = '#/pooshak_mardane/'+String(id)
+    }
+
+    $scope.open_page_pooshak_dokhtarane = function(id){
+        console.log("you are the page : ",id)
+        $window.location.href = '#/pooshak_dokhtarane/'+String(id)
+    }
+
+    $scope.open_page_pooshak_pesarane = function(id){
+        console.log("you are the page : ",id)
+        $window.location.href = '#/pooshak_pesarane/'+String(id)
+    }
+
+    $scope.open_page_pooshak_nozadi = function(id){
+        console.log("you are the page : ",id)
+        $window.location.href = '#/pooshak_nozadi/'+String(id)
+    }
+
   });
 
 
@@ -4220,7 +4197,7 @@ $scope.finish = function() {
 
 
 
-.controller('SefareshMardaneCtrl', function($scope,$state,$http) {
+.controller('SefareshMardaneCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -4236,8 +4213,15 @@ $scope.finish = function() {
         console.log(data);
     $scope.pooshaks = data.result
     })
+
+
   });
 
+
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/sefaresh_mardane/'+String(id)
+  }
 
 })
 
@@ -4253,7 +4237,7 @@ $scope.finish = function() {
     }
   });
     // $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
-    // $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
+    $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
 
 
     $http.post(DjangoURL+"/kala/sefaresh_mardane/getall")
@@ -4517,7 +4501,7 @@ $scope.finish = function() {
 
 
 
-.controller('SefareshZananeCtrl', function($scope,$state,$http) {
+.controller('SefareshZananeCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -4535,6 +4519,10 @@ $scope.finish = function() {
     })
   });
 
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/sefaresh_zanane/'+String(id)
+  }
 
 })
 
@@ -4550,7 +4538,7 @@ $scope.finish = function() {
     }
   });
     // $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
-    // $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
+    $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
 
 
     $http.post(DjangoURL+"/kala/sefaresh_zanane/getall")
@@ -4822,7 +4810,7 @@ $scope.finish = function() {
 
 
 
-.controller('SefareshDokhtaraneCtrl', function($scope,$state,$http) {
+.controller('SefareshDokhtaraneCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -4840,6 +4828,10 @@ $scope.finish = function() {
     })
   });
 
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/sefaresh_dokhtarane/'+String(id)
+  }
 
 })
 
@@ -4855,7 +4847,7 @@ $scope.finish = function() {
     }
   });
     // $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
-    // $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
+    $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
 
 
     $http.post(DjangoURL+"/kala/sefaresh_dokhtarane/getall")
@@ -5113,7 +5105,7 @@ $scope.finish = function() {
 
 
 
-.controller('SefareshPesaraneCtrl', function($scope,$state,$http) {
+.controller('SefareshPesaraneCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -5131,6 +5123,10 @@ $scope.finish = function() {
     })
   });
 
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/sefaresh_pesarane/'+String(id)
+  }
 
 })
 
@@ -5146,7 +5142,7 @@ $scope.finish = function() {
     }
   });
     // $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
-    // $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
+    $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
 
 
     $http.post(DjangoURL+"/kala/sefaresh_pesarane/getall")
@@ -5403,7 +5399,7 @@ $scope.finish = function() {
 
 
 
-.controller('SefareshNozadiCtrl', function($scope,$state,$http) {
+.controller('SefareshNozadiCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -5421,6 +5417,10 @@ $scope.finish = function() {
     })
   });
 
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/sefaresh_nozadi/'+String(id)
+  }
 
 })
 
@@ -5436,7 +5436,7 @@ $scope.finish = function() {
     }
   });
     // $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
-    // $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
+    $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
 
 
     $http.post(DjangoURL+"/kala/sefaresh_nozadi/getall")
@@ -5693,7 +5693,7 @@ $scope.finish = function() {
 
 
 
-.controller('SefareshSayerCtrl', function($scope,$state,$http) {
+.controller('SefareshSayerCtrl', function($scope,$state,$http,$window) {
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -5711,6 +5711,11 @@ $scope.finish = function() {
     })
   });
 
+  $scope.open_page = function(id){
+      console.log("you are the page : ",id)
+      $window.location.href = '#/sefaresh_sayer/'+String(id)
+  }
+
 
 })
 
@@ -5726,7 +5731,7 @@ $scope.finish = function() {
     }
   });
     // $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
-    // $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
+    $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
 
 
     $http.post(DjangoURL+"/kala/sefaresh_sayer/getall")
@@ -5993,7 +5998,7 @@ $scope.finish = function() {
     }
   });
     // $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
-    // $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
+    $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
 
 
     $http.post(DjangoURL+"/kala/pooshak/getall")
@@ -6276,7 +6281,7 @@ $scope.finish = function() {
     }
   });
     // $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
-    // $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
+    $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
 
 
     $http.post(DjangoURL+"/kala/parcheh/getall")
@@ -6568,7 +6573,7 @@ $scope.finish = function() {
     }
   });
     // $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
-    // $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
+    $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
 
 
     $http.post(DjangoURL+"/kala/kharazi/getall")
@@ -6869,7 +6874,7 @@ $scope.finish = function() {
     }
   });
     // $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
-    // $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
+    $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
 
 
     $http.post(DjangoURL+"/kala/hejab/getall")

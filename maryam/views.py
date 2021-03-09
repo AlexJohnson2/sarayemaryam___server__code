@@ -12,7 +12,7 @@ from django.http import JsonResponse
 import os
 import requests
 from json import JSONEncoder
-
+from persiantools import digits
 
 
 # account views
@@ -105,13 +105,7 @@ def get_all_pooshak(request):
     count = 0
     for pooshak in Pooshak.objects.filter():
         count += 1
-        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';all.append(this_kala{0})".format(count,
-                                                                                                                                                                                                                                                pooshak.name,
-                                                                                                                                                                                                                                                pooshak.text,
-                                                                                                                                                                                                                                                pooshak.amount,
-                                                                                                                                                                                                                                                "http://193.176.243.61:8080/media/"+str(pooshak.img),
-                                                                                                                                                                                                                                                pooshak.id,
-                                                                                                                                                                                                                                                pooshak.num))
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';all.append(this_kala{0})".format(count,pooshak.name,pooshak.text,pooshak.amount,"http://193.176.243.61:8080/media/"+str(pooshak.img),pooshak.id,pooshak.num))
 
     return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
 @csrf_exempt
@@ -123,13 +117,7 @@ def get_all_parcheh(request):
     count = 0
     for parcheh in Parcheh.objects.all():
         count += 1
-        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}';all.append(this_kala{0})".format(count,
-                                                                                                                                                                                                                                                parcheh.name,
-                                                                                                                                                                                                                                                parcheh.text,
-                                                                                                                                                                                                                                                parcheh.amount,
-                                                                                                                                                                                                                                                "http://193.176.243.61:8080/media/"+str(parcheh.img),
-                                                                                                                                                                                                                                                parcheh.id,
-                                                                                                                                                                                                                                                parcheh.num))
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}';all.append(this_kala{0})".format(count,parcheh.name,parcheh.text,parcheh.amount,"http://193.176.243.61:8080/media/"+str(parcheh.img),parcheh.id,parcheh.num))
 
     return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
 @csrf_exempt
@@ -1172,9 +1160,9 @@ def add_num_pooshak(request):
         old_num = this_kala[0].num
         if old_num=="ناموجود":
             old_num = 0
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         else:
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         this_kala.update(num=new_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
@@ -1191,9 +1179,9 @@ def add_num_hejab(request):
         old_num = this_kala[0].num
         if old_num=="ناموجود":
             old_num = 0
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         else:
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         this_kala.update(num=new_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
@@ -1209,9 +1197,9 @@ def add_num_parcheh(request):
         old_num = this_kala[0].num
         if old_num=="ناموجود":
             old_num = 0
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         else:
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         this_kala.update(num=new_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
@@ -1227,9 +1215,9 @@ def add_num_kharazi(request):
         old_num = this_kala[0].num
         if old_num=="ناموجود":
             old_num = 0
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         else:
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         this_kala.update(num=new_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
@@ -1244,9 +1232,9 @@ def add_num_pooshak_mardane(request):
         old_num = this_kala[0].num
         if old_num=="ناموجود":
             old_num = 0
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         else:
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         this_kala.update(num=new_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
@@ -1261,9 +1249,9 @@ def add_num_pooshak_zanane(request):
         old_num = this_kala[0].num
         if old_num=="ناموجود":
             old_num = 0
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         else:
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         this_kala.update(num=new_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
@@ -1278,9 +1266,9 @@ def add_num_pooshak_dokhtarane(request):
         old_num = this_kala[0].num
         if old_num=="ناموجود":
             old_num = 0
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         else:
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         this_kala.update(num=new_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
@@ -1295,9 +1283,9 @@ def add_num_pooshak_pesarane(request):
         old_num = this_kala[0].num
         if old_num=="ناموجود":
             old_num = 0
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         else:
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         this_kala.update(num=new_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
@@ -1312,9 +1300,9 @@ def add_num_pooshak_nozadi(request):
         old_num = this_kala[0].num
         if old_num=="ناموجود":
             old_num = 0
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         else:
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         this_kala.update(num=new_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
@@ -1329,9 +1317,9 @@ def add_num_hejab_chador(request):
         old_num = this_kala[0].num
         if old_num=="ناموجود":
             old_num = 0
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         else:
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         this_kala.update(num=new_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
@@ -1346,9 +1334,9 @@ def add_num_hejab_shal(request):
         old_num = this_kala[0].num
         if old_num=="ناموجود":
             old_num = 0
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         else:
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         this_kala.update(num=new_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
@@ -1364,9 +1352,9 @@ def add_num_hejab_roosari(request):
         old_num = this_kala[0].num
         if old_num=="ناموجود":
             old_num = 0
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         else:
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         this_kala.update(num=new_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
@@ -1382,9 +1370,9 @@ def add_num_hejab_saghedast_dastkesh(request):
         old_num = this_kala[0].num
         if old_num=="ناموجود":
             old_num = 0
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         else:
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         this_kala.update(num=new_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
@@ -1399,9 +1387,9 @@ def add_num_hejab_mask_pooshie(request):
         old_num = this_kala[0].num
         if old_num=="ناموجود":
             old_num = 0
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         else:
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         this_kala.update(num=new_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
@@ -1416,9 +1404,9 @@ def add_num_kharazi_abzarkhayati(request):
         old_num = this_kala[0].num
         if old_num=="ناموجود":
             old_num = 0
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         else:
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         this_kala.update(num=new_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
@@ -1433,9 +1421,9 @@ def add_num_kharazi_lavazemtahrir(request):
         old_num = this_kala[0].num
         if old_num=="ناموجود":
             old_num = 0
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         else:
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         this_kala.update(num=new_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
@@ -1459,9 +1447,9 @@ def add_num_sefaresh_mardane(request):
         old_num = this_kala[0].num
         if old_num=="ناموجود":
             old_num = 0
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         else:
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         this_kala.update(num=new_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
@@ -1476,9 +1464,9 @@ def add_num_sefaresh_zanane(request):
         old_num = this_kala[0].num
         if old_num=="ناموجود":
             old_num = 0
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         else:
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         this_kala.update(num=new_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
@@ -1493,9 +1481,9 @@ def add_num_sefaresh_dokhtarane(request):
         old_num = this_kala[0].num
         if old_num=="ناموجود":
             old_num = 0
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         else:
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         this_kala.update(num=new_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
@@ -1510,9 +1498,9 @@ def add_num_sefaresh_pesarane(request):
         old_num = this_kala[0].num
         if old_num=="ناموجود":
             old_num = 0
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         else:
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         this_kala.update(num=new_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
@@ -1527,9 +1515,9 @@ def add_num_sefaresh_nozadi(request):
         old_num = this_kala[0].num
         if old_num=="ناموجود":
             old_num = 0
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         else:
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         this_kala.update(num=new_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
@@ -1544,9 +1532,9 @@ def add_num_sefaresh_sayer(request):
         old_num = this_kala[0].num
         if old_num=="ناموجود":
             old_num = 0
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         else:
-            new_num = int(old_num)+int(data['num'])
+            new_num = int(digits.en_to_fa(old_num))+digits.en_to_fa(int(data['num']))
         this_kala.update(num=new_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
