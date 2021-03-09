@@ -437,3 +437,4 @@ this_password = '';
 var storage = window.localStorage;
 storage.setItem(loggedin, false);
 storage.setItem("reload",false)
+var version = "1.0"

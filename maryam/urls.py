@@ -180,5 +180,7 @@ urlpatterns = [
     url(r'^comments$',views.get_comments),
     url(r'^delete_comments$',views.delete_comments),
 
+    url(r'^get_update$',views.get_update),
+
 ]
 app_name = "maryam"

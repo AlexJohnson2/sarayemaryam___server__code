@@ -2072,3 +2072,19 @@ def delete_comments(request):
     for comment in Comment.objects.filter(name=data['name']):
         comment.delete()
     return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+
+
+@csrf_exempt
+def get_update(request):
+    new_update = {}
+    count = 0
+    try:
+        updates = Update.objects.all()[0]
+        new_update['version'] = updates.version
+        new_update['name'] = updates.name
+        new_update['link'] = updates.link
+        new_update_list = updates.new
+        new_update['new'] = new_update_list.split(";")
+    except:
+        new_update = "Not New Update"
+    return JsonResponse({'status':'ok','result': new_update},encoder=JSONEncoder)

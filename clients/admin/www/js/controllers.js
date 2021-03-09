@@ -488,6 +488,7 @@ angular.module('starter.controllers', [])
         // An elaborate, custom popup
         $scope.myPopup = $ionicPopup.show({
           template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
+          // templateUrl: 'edit-pooshaks-mardane.html',
           title: 'ویرایش',
           subTitle: '',
           scope: $scope,
@@ -1178,7 +1179,8 @@ angular.module('starter.controllers', [])
       
         // An elaborate, custom popup
         $scope.myPopup = $ionicPopup.show({
-          template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
+          // template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
+          templateUrl: 'edit-pooshaks-mardane.html',
           title: 'ویرایش',
           subTitle: '',
           scope: $scope,

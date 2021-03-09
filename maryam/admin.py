@@ -26,6 +26,11 @@ class cart(ImportExportModelAdmin):
 class user(ImportExportModelAdmin):
     pass
 
+@admin.register(Update)
+class cart(ImportExportModelAdmin):
+    pass
+
+
 
 @admin.register(Pooshak_mardane)
 class user(ImportExportModelAdmin):

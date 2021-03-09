@@ -60,7 +60,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('HomeCtrl',function($scope,$state){
+.controller('HomeCtrl',function($scope,$state,$ionicPopup,$http){
   $scope.$on('$ionicView.enter', function(e) {
     if (document.cookie.indexOf("username") > -1){
       if (getCookie("username") == ""){
@@ -71,6 +71,39 @@ angular.module('starter.controllers', [])
       $state.go('signin',{})
     }
   });
+  console.log("الان میاد")
+  $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+  $http.post(DjangoURL+"/get_update")
+    .success(function(data){
+      console.log(data)
+        if (data.result != "Not New Update"){
+          $scope.data = {};
+          $scope.news = data.result.new
+          // $scope.news = $scope.new.replace("-","\n")
+          // $scope.news = ['a','b','c']
+        // An elaborate, custom popup
+        $scope.myPopup = $ionicPopup.show({
+          template: '<center><img src="img/update.png" height="84px" width="84px"><p dir="rtl">قابلیت های نسخه جدید:</p><p ng-repeat="new in news">{{new}}- </p></center>',
+          title: 'آپدیت جدید',
+          subTitle: '',
+          scope: $scope,
+          buttons: [
+            { text: 'انصراف' },
+            {
+              text: '<b>دریافت نسخه جدید</b>',
+              type: 'button-positive',
+              onTap: function(e) {
+                
+                window.open(data.result.link, '_system', 'location=yes'); return false;
+                
+                $state.reload()
+              }
+            }
+          ]
+        })
+        }
+        }
+    )
 
   $scope.img_height = window.innerHeight-(window.innerHeight/4)
   $scope.img_width = window.innerWidth-(window.innerWidth/4)
@@ -424,7 +457,79 @@ $scope.finish = function() {
     }
 })
 
-.controller('AccountCtrl', function($scope,$window,$state,$http,$ionicPopup,$ionicLoading) {
+.controller('AccountCtrl', function($scope,$window,$state,$http,$ionicPopup,$ionicLoading,$ionicModal) {
+
+  $scope.username = String(getCookie("username"))
+    $scope.password = String(getCookie("password"))
+    console.log($scope.username)
+    $scope.this_user_phone = String(getCookie("phonenumber"))
+    $scope.this_user_tel_id = String(getCookie("tel_id"))
+    $scope.this_user_address = String(getCookie("address"))
+    $scope.this_post_code = String(getCookie("post_code"))
+
+
+  $ionicModal.fromTemplateUrl('expense-edit-modal.html', {
+    scope: $scope,
+    animation: 'slide-in-left',//'slide-left-right', 'slide-in-up', 'slide-right-left'
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+
+  $scope.openModal = function() {
+    $scope.username = String(getCookie("username"))
+    $scope.password = String(getCookie("password"))
+    console.log($scope.username)
+    $scope.this_user_phone = String(getCookie("phonenumber"))
+    $scope.this_user_tel_id = String(getCookie("tel_id"))
+    $scope.this_user_address = String(getCookie("address"))
+    $scope.this_post_code = String(getCookie("post_code"))
+    $scope.modal.show();
+  };
+  $scope.submitExpenseModal = function() {
+    $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+    $http.post(
+        bestoonURL + '/edit/expense/',
+        'token=' + token + '&text=' + $scope.editexpense.text + '&amount=' + $scope.editexpense.amount + '&id=' + $scope.editexpense.pk
+      )
+      .success(function(data) {
+
+        // show a TOAST
+        $scope.modal.hide();
+        // update the expenses part, containing the new one
+        $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+        $http.post(bestoonURL + '/q/expenses/', 'token='+token).success(function(data) {
+            $scope.expenses = JSON.parse(data);
+          }).error(function() {
+            $scope.message = 'erorr reading previous expenses' //TODO: show some error to user       console.log('error on request')
+        })
+      })
+      .error(function() {
+        $scope.message = 'خطا در ذخیره اطلاعات. بعدا دوباره تلاش کنید' //TODO: show some error to user
+        console.log('error while submitting expense')
+      })
+  };
+  $scope.closeModal = function() {
+    $scope.modal.hide();
+  };
+  // Cleanup the modal when we're done with it!
+  $scope.$on('$destroy', function() {
+    $scope.modal.remove();
+  });
+  // Execute action on hide modal
+  $scope.$on('modal.hidden', function() {
+    // Execute action
+  });
+  // Execute action on remove modal
+  $scope.$on('modal.removed', function() {
+    // Execute action
+  });
+
+
+
+
+
+
   $scope.back = function(){
       history.back()
   }
@@ -489,16 +594,75 @@ $scope.finish = function() {
     $scope.this_post_code = String(getCookie("post_code"))
     // console.log($scope.this_user_address)
   });
+  $scope.data = {};
+  $scope.account_edit = function() {
+    if ($scope.data.username == undefined){
+      $scope.data.username = $scope.username
+    }
+    if ($scope.data.password == undefined){
+      $scope.data.password = $scope.password
+    }
+    if ($scope.data.tel_id == undefined){
+      $scope.data.tel_id = $scope.this_user_tel_id
+    }
+    if ($scope.data.phonenumber == undefined){
+      $scope.data.phonenumber = $scope.this_user_phone
+    }
+    if ($scope.data.address == undefined){
+      $scope.data.address = $scope.this_user_address
+    }
+    if ($scope.data.post_code == undefined){
+      $scope.data.post_code = $scope.this_post_code
+    }
+    $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+    $http.post(DjangoURL+"/account/edit","old_username="+$scope.username+"&new_username="+$scope.data.username+"&new_password="+$scope.data.password+"&new_phonenumber="+$scope.data.phonenumber+"&new_tel_id="+$scope.data.tel_id+"&new_address="+$scope.data.address+"&new_post_code="+$scope.data.post_code)
+    .success(function(data){
+      console.log(data.result)
+
+      document.cookie = "username="+data.result['new_username']
+      document.cookie = "password="+data.result['new_password']
+      document.cookie = "phonenumber="+data.result['new_phonenumber']
+      document.cookie = "tel_id="+data.result['new_tel_id']
+      document.cookie = "address="+data.result['new_address']
+      document.cookie = "post_code="+data.result['new_post_code']
+
+      $state.reload()
+      $state.reload()
+      $state.reload()
+    })
+/*
+.success(function(data){
+      console.log(data)
+$ionicLoading.show({template: "<p dir='rtl'>در حال ویرایش ... </p>", noBackdrop: true, duration: 700});
+$state.reload()
+    })*/
+  $state.reload()
+  }
 
   $scope.edit_account = function() {
     $scope.data = {};
-
+    $scope.data.username = String(getCookie("username"))
+    $scope.data.password = String(getCookie("password"))
+    console.log($scope.username)
+    $scope.data.phonenumber = parseInt(getCookie("phonenumber"))
+    $scope.data.tel_id = String(getCookie("tel_id"))
+    $scope.data.address = String(getCookie("address"))
+    $scope.data.post_code = parseInt(getCookie("post_code"))
+    $scope.username = String(getCookie("username"))
+    $scope.password = String(getCookie("password"))
+    console.log($scope.username)
+    $scope.this_user_phone = String(getCookie("phonenumber"))
+    $scope.this_user_tel_id = String(getCookie("tel_id"))
+    $scope.this_user_address = String(getCookie("address"))
+    $scope.this_post_code = String(getCookie("post_code"))
     // An elaborate, custom popup
     $scope.myPopup = $ionicPopup.show({
-      template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام کاربری جدید:</p><input type="text" ng-model="data.username"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">رمز عبور جدید: </p><input type="text" ng-model="data.password"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">شماره تلفن جدید:</p><input type="text" ng-model="data.phonenumber"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آیدی ایتای جدید:</p><input type="text" ng-model="data.tel_id"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس جدید:</p><input type="text" ng-model="data.address"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">کد پستی جدید:</p><input type="text" ng-model="data.post_code"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
+      scope: $scope,
+      templateUrl: 'templates/edit-account.html',
+      // template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام کاربری جدید:</p><input type="text" ng-model="data.username" value={{username}}><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">رمز عبور جدید: </p><input type="text" ng-model="data.password"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">شماره تلفن جدید:</p><input type="text" ng-model="data.phonenumber"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آیدی ایتای جدید:</p><input type="text" ng-model="data.tel_id"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس جدید:</p><input type="text" ng-model="data.address"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">کد پستی جدید:</p><input type="text" ng-model="data.post_code"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
       title: 'ویرایش',
       subTitle: '',
-      scope: $scope,
+      
       buttons: [
         { text: 'انصراف' },
         {
@@ -534,7 +698,7 @@ $scope.finish = function() {
               document.cookie = "tel_id="+data.result['new_tel_id']
               document.cookie = "address="+data.result['new_address']
               document.cookie = "post_code="+data.result['new_post_code']
-
+              $state.reload()
               $state.reload()
               $state.reload()
               $state.reload()
@@ -862,8 +1026,9 @@ $scope.finish = function() {
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
       console.log($scope.this_kala['num'])
+      $scope.num = parseInt($scope.this_kala[0].num)
     })
-    $scope.num = parseInt($scope.this_kala[0].num)
+    
     // An elaborate, custom popup
     $scope.myPopup = $ionicPopup.show({
       template: '<center><ion-button class="button button-positive" ng-click="remove_from_num()" style="display:inline;font-size:30px;">-</ion-button><p id="number" style="display:inline;font-size:20px;padding-top:50px"> {{num}} </p><ion-button class="button button-positive" ng-click="add_to_num()" style="display:inline;font-size:30px;">+</ion-button></center>',
@@ -1146,8 +1311,9 @@ $scope.finish = function() {
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
       console.log($scope.this_kala['num'])
+      $scope.num = parseInt($scope.this_kala[0].num)
     })
-    $scope.num = parseInt($scope.this_kala[0].num)
+    
     // An elaborate, custom popup
     $scope.myPopup = $ionicPopup.show({
       template: '<center><ion-button class="button button-positive" ng-click="remove_from_num()" style="display:inline;font-size:30px;">-</ion-button><p id="number" style="display:inline;font-size:20px;padding-top:50px"> {{num}} </p><ion-button class="button button-positive" ng-click="add_to_num()" style="display:inline;font-size:30px;">+</ion-button></center>',
@@ -1431,8 +1597,9 @@ $scope.finish = function() {
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
       console.log($scope.this_kala['num'])
+      $scope.num = parseInt($scope.this_kala[0].num)
     })
-    $scope.num = parseInt($scope.this_kala[0].num)
+    
     // An elaborate, custom popup
     $scope.myPopup = $ionicPopup.show({
       template: '<center><ion-button class="button button-positive" ng-click="remove_from_num()" style="display:inline;font-size:30px;">-</ion-button><p id="number" style="display:inline;font-size:20px;padding-top:50px"> {{num}} </p><ion-button class="button button-positive" ng-click="add_to_num()" style="display:inline;font-size:30px;">+</ion-button></center>',
@@ -1499,7 +1666,7 @@ $scope.finish = function() {
           }
         console.log(data)
         })
-
+      })}
 
   console.log("iiiiiittttttteeeeemmmmm iiiiisssss :  ",$scope.pooshak.num)
 
@@ -1716,8 +1883,9 @@ $scope.finish = function() {
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
       console.log($scope.this_kala['num'])
+      $scope.num = parseInt($scope.this_kala[0].num)
     })
-    $scope.num = parseInt($scope.this_kala[0].num)
+    
     // An elaborate, custom popup
     $scope.myPopup = $ionicPopup.show({
       template: '<center><ion-button class="button button-positive" ng-click="remove_from_num()" style="display:inline;font-size:30px;">-</ion-button><p id="number" style="display:inline;font-size:20px;padding-top:50px"> {{num}} </p><ion-button class="button button-positive" ng-click="add_to_num()" style="display:inline;font-size:30px;">+</ion-button></center>',
@@ -1783,6 +1951,7 @@ $scope.finish = function() {
           }
         console.log(data)
         })
+      })}
 
 
   console.log("iiiiiittttttteeeeemmmmm iiiiisssss :  ",$scope.pooshak.num)
@@ -1995,8 +2164,9 @@ $scope.finish = function() {
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
       console.log($scope.this_kala['num'])
+      $scope.num = parseInt($scope.this_kala[0].num)
     })
-    $scope.num = parseInt($scope.this_kala[0].num)
+    
     // An elaborate, custom popup
     $scope.myPopup = $ionicPopup.show({
       template: '<center><ion-button class="button button-positive" ng-click="remove_from_num()" style="display:inline;font-size:30px;">-</ion-button><p id="number" style="display:inline;font-size:20px;padding-top:50px"> {{num}} </p><ion-button class="button button-positive" ng-click="add_to_num()" style="display:inline;font-size:30px;">+</ion-button></center>',
@@ -2279,8 +2449,9 @@ $scope.finish = function() {
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
       console.log($scope.this_kala['num'])
+      $scope.num = parseInt($scope.this_kala[0].num)
     })
-    $scope.num = parseInt($scope.this_kala[0].num)
+    
     // An elaborate, custom popup
     $scope.myPopup = $ionicPopup.show({
       template: '<center><ion-button class="button button-positive" ng-click="remove_from_num()" style="display:inline;font-size:30px;">-</ion-button><p id="number" style="display:inline;font-size:20px;padding-top:50px"> {{num}} </p><ion-button class="button button-positive" ng-click="add_to_num()" style="display:inline;font-size:30px;">+</ion-button></center>',
@@ -2563,8 +2734,9 @@ $scope.finish = function() {
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
       console.log($scope.this_kala['num'])
+      $scope.num = parseInt($scope.this_kala[0].num)
     })
-    $scope.num = parseInt($scope.this_kala[0].num)
+    
     // An elaborate, custom popup
     $scope.myPopup = $ionicPopup.show({
       template: '<center><ion-button class="button button-positive" ng-click="remove_from_num()" style="display:inline;font-size:30px;">-</ion-button><p id="number" style="display:inline;font-size:20px;padding-top:50px"> {{num}} </p><ion-button class="button button-positive" ng-click="add_to_num()" style="display:inline;font-size:30px;">+</ion-button></center>',
@@ -2849,8 +3021,9 @@ $scope.finish = function() {
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
       console.log($scope.this_kala['num'])
+      $scope.num = parseInt($scope.this_kala[0].num)
     })
-    $scope.num = parseInt($scope.this_kala[0].num)
+    
     // An elaborate, custom popup
     $scope.myPopup = $ionicPopup.show({
       template: '<center><ion-button class="button button-positive" ng-click="remove_from_num()" style="display:inline;font-size:30px;">-</ion-button><p id="number" style="display:inline;font-size:20px;padding-top:50px"> {{num}} </p><ion-button class="button button-positive" ng-click="add_to_num()" style="display:inline;font-size:30px;">+</ion-button></center>',
@@ -3134,8 +3307,9 @@ $scope.finish = function() {
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
       console.log($scope.this_kala['num'])
+      $scope.num = parseInt($scope.this_kala[0].num)
     })
-    $scope.num = parseInt($scope.this_kala[0].num)
+    
     // An elaborate, custom popup
     $scope.myPopup = $ionicPopup.show({
       template: '<center><ion-button class="button button-positive" ng-click="remove_from_num()" style="display:inline;font-size:30px;">-</ion-button><p id="number" style="display:inline;font-size:20px;padding-top:50px"> {{num}} </p><ion-button class="button button-positive" ng-click="add_to_num()" style="display:inline;font-size:30px;">+</ion-button></center>',
@@ -3419,8 +3593,9 @@ $scope.finish = function() {
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
       console.log($scope.this_kala['num'])
+      $scope.num = parseInt($scope.this_kala[0].num)
     })
-    $scope.num = parseInt($scope.this_kala[0].num)
+    
     // An elaborate, custom popup
     $scope.myPopup = $ionicPopup.show({
       template: '<center><ion-button class="button button-positive" ng-click="remove_from_num()" style="display:inline;font-size:30px;">-</ion-button><p id="number" style="display:inline;font-size:20px;padding-top:50px"> {{num}} </p><ion-button class="button button-positive" ng-click="add_to_num()" style="display:inline;font-size:30px;">+</ion-button></center>',
@@ -3704,8 +3879,9 @@ $scope.finish = function() {
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
       console.log($scope.this_kala['num'])
+      $scope.num = parseInt($scope.this_kala[0].num)
     })
-    $scope.num = parseInt($scope.this_kala[0].num)
+    
     // An elaborate, custom popup
     $scope.myPopup = $ionicPopup.show({
       template: '<center><ion-button class="button button-positive" ng-click="remove_from_num()" style="display:inline;font-size:30px;">-</ion-button><p id="number" style="display:inline;font-size:20px;padding-top:50px"> {{num}} </p><ion-button class="button button-positive" ng-click="add_to_num()" style="display:inline;font-size:30px;">+</ion-button></center>',
@@ -3991,8 +4167,9 @@ $scope.finish = function() {
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
       console.log($scope.this_kala['num'])
+      $scope.num = parseInt($scope.this_kala[0].num)
     })
-    $scope.num = parseInt($scope.this_kala[0].num)
+    
     // An elaborate, custom popup
     $scope.myPopup = $ionicPopup.show({
       template: '<center><ion-button class="button button-positive" ng-click="remove_from_num()" style="display:inline;font-size:30px;">-</ion-button><p id="number" style="display:inline;font-size:20px;padding-top:50px"> {{num}} </p><ion-button class="button button-positive" ng-click="add_to_num()" style="display:inline;font-size:30px;">+</ion-button></center>',
@@ -4362,8 +4539,9 @@ $scope.finish = function() {
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
       console.log($scope.this_kala['num'])
+      $scope.num = parseInt($scope.this_kala[0].num)
     })
-    $scope.num = parseInt($scope.this_kala[0].num)
+    
     // An elaborate, custom popup
     $scope.myPopup = $ionicPopup.show({
       template: '<center><ion-button class="button button-positive" ng-click="remove_from_num()" style="display:inline;font-size:30px;">-</ion-button><p id="number" style="display:inline;font-size:20px;padding-top:50px"> {{num}} </p><ion-button class="button button-positive" ng-click="add_to_num()" style="display:inline;font-size:30px;">+</ion-button></center>',
@@ -4663,8 +4841,9 @@ $scope.finish = function() {
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
       console.log($scope.this_kala['num'])
+      $scope.num = parseInt($scope.this_kala[0].num)
     })
-    $scope.num = parseInt($scope.this_kala[0].num)
+    
     // An elaborate, custom popup
     $scope.myPopup = $ionicPopup.show({
       template: '<center><ion-button class="button button-positive" ng-click="remove_from_num()" style="display:inline;font-size:30px;">-</ion-button><p id="number" style="display:inline;font-size:20px;padding-top:50px"> {{num}} </p><ion-button class="button button-positive" ng-click="add_to_num()" style="display:inline;font-size:30px;">+</ion-button></center>',
@@ -4972,8 +5151,9 @@ $scope.finish = function() {
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
       console.log($scope.this_kala['num'])
+      $scope.num = parseInt($scope.this_kala[0].num)
     })
-    $scope.num = parseInt($scope.this_kala[0].num)
+    
     // An elaborate, custom popup
     $scope.myPopup = $ionicPopup.show({
       template: '<center><ion-button class="button button-positive" ng-click="remove_from_num()" style="display:inline;font-size:30px;">-</ion-button><p id="number" style="display:inline;font-size:20px;padding-top:50px"> {{num}} </p><ion-button class="button button-positive" ng-click="add_to_num()" style="display:inline;font-size:30px;">+</ion-button></center>',
@@ -5267,8 +5447,9 @@ $scope.finish = function() {
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
       console.log($scope.this_kala['num'])
+      $scope.num = parseInt($scope.this_kala[0].num)
     })
-    $scope.num = parseInt($scope.this_kala[0].num)
+    
     // An elaborate, custom popup
     $scope.myPopup = $ionicPopup.show({
       template: '<center><ion-button class="button button-positive" ng-click="remove_from_num()" style="display:inline;font-size:30px;">-</ion-button><p id="number" style="display:inline;font-size:20px;padding-top:50px"> {{num}} </p><ion-button class="button button-positive" ng-click="add_to_num()" style="display:inline;font-size:30px;">+</ion-button></center>',
@@ -5561,8 +5742,9 @@ $scope.finish = function() {
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
       console.log($scope.this_kala['num'])
+      $scope.num = parseInt($scope.this_kala[0].num)
     })
-    $scope.num = parseInt($scope.this_kala[0].num)
+    
     // An elaborate, custom popup
     $scope.myPopup = $ionicPopup.show({
       template: '<center><ion-button class="button button-positive" ng-click="remove_from_num()" style="display:inline;font-size:30px;">-</ion-button><p id="number" style="display:inline;font-size:20px;padding-top:50px"> {{num}} </p><ion-button class="button button-positive" ng-click="add_to_num()" style="display:inline;font-size:30px;">+</ion-button></center>',
@@ -5856,8 +6038,9 @@ $scope.finish = function() {
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
       console.log($scope.this_kala['num'])
+      $scope.num = parseInt($scope.this_kala[0].num)
     })
-    $scope.num = parseInt($scope.this_kala[0].num)
+    
     // An elaborate, custom popup
     $scope.myPopup = $ionicPopup.show({
       template: '<center><ion-button class="button button-positive" ng-click="remove_from_num()" style="display:inline;font-size:30px;">-</ion-button><p id="number" style="display:inline;font-size:20px;padding-top:50px"> {{num}} </p><ion-button class="button button-positive" ng-click="add_to_num()" style="display:inline;font-size:30px;">+</ion-button></center>',
@@ -6123,8 +6306,9 @@ $scope.finish = function() {
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
       console.log($scope.this_kala['num'])
+      $scope.num = parseInt($scope.this_kala[0].num)
     })
-    $scope.num = parseInt($scope.this_kala[0].num)
+    
     // An elaborate, custom popup
     $scope.myPopup = $ionicPopup.show({
       template: '<center><ion-button class="button button-positive" ng-click="remove_from_num()" style="display:inline;font-size:30px;">-</ion-button><p id="number" style="display:inline;font-size:20px;padding-top:50px"> {{num}} </p><ion-button class="button button-positive" ng-click="add_to_num()" style="display:inline;font-size:30px;">+</ion-button></center>',
@@ -6406,8 +6590,9 @@ $scope.finish = function() {
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
       console.log($scope.this_kala['num'])
+      $scope.num = parseInt($scope.this_kala[0].num)
     })
-    $scope.num = parseInt($scope.this_kala[0].num)
+    
     // An elaborate, custom popup
     $scope.myPopup = $ionicPopup.show({
       template: '<center><ion-button class="button button-positive" ng-click="remove_from_num()" style="display:inline;font-size:30px;">-</ion-button><p id="number" style="display:inline;font-size:20px;padding-top:50px"> {{num}} </p><ion-button class="button button-positive" ng-click="add_to_num()" style="display:inline;font-size:30px;">+</ion-button></center>',
@@ -6698,8 +6883,9 @@ $scope.finish = function() {
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
       console.log($scope.this_kala['num'])
+      $scope.num = parseInt($scope.this_kala[0].num)
     })
-    $scope.num = parseInt($scope.this_kala[0].num)
+    
     // An elaborate, custom popup
     $scope.myPopup = $ionicPopup.show({
       template: '<center><ion-button class="button button-positive" ng-click="remove_from_num()" style="display:inline;font-size:30px;">-</ion-button><p id="number" style="display:inline;font-size:20px;padding-top:50px"> {{num}} </p><ion-button class="button button-positive" ng-click="add_to_num()" style="display:inline;font-size:30px;">+</ion-button></center>',
@@ -6999,8 +7185,9 @@ $scope.finish = function() {
       console.log($scope.this_kala)
       console.log($scope.this_kala[0].num)
       console.log($scope.this_kala['num'])
+      $scope.num = parseInt($scope.this_kala[0].num)
     })
-    $scope.num = parseInt($scope.this_kala[0].num)
+    
     // An elaborate, custom popup
     $scope.myPopup = $ionicPopup.show({
       template: '<center><ion-button class="button button-positive" ng-click="remove_from_num()" style="display:inline;font-size:30px;">-</ion-button><p id="number" style="display:inline;font-size:20px;padding-top:50px"> {{num}} </p><ion-button class="button button-positive" ng-click="add_to_num()" style="display:inline;font-size:30px;">+</ion-button></center>',
