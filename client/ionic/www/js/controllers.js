@@ -118,17 +118,13 @@ angular.module('starter.controllers', [])
       .success(function(data){
         console.log(data)
         $scope.kalas = data.result
+        if (data.result.length == 0){
+          $scope.cart = false
+        }
         
       })
     $scope.cart = true
     $scope.this_data = "user="+String(getCookie("username"))
-    $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-    $http.post(DjangoURL+"/cart/getall", $scope.this_data)
-    .success(function(data){
-      if (data.result.length == 0){
-        $scope.cart = false
-      }
-    })
 
   });
 
@@ -251,10 +247,6 @@ $scope.finished_buy = function(post_data){
   // $ionicLoading.show({ template: '<ion-icon class="ion-icon ion-looping" animation="fade-in"></ion-icon> <p dir="rtl">سفارشات شما به مسئول فروش در پیام رسان ایتا ارسال شد. در حال انتقال به آیدی مسئول فروش...</p>', noBackdrop: true, duration: 3000 }).then(function(){$scope.gotoexternallink("https://eitaa.com/salambarf");});
   $http.post(DjangoURL+"/send_message","text=سبد خرید : "+"\n\n آیدی : "+$scope.this_user_tel_id+"\n\nشماره : "+$scope.this_user_phone+"\n\nآدرس : "+$scope.this_user_address+"\n\nکد پستی : "+$scope.this_post_code+"\n\nنحوه دریافت کالا :"+post_data)
   $scope.this_data = "user="+$scope.username
-  setTimeout(() => {  
-  $http.post(DjangoURL+"/cart/getall", $scope.this_data)
-  .success(function(data){
-    if (data.result.length != 0){
       for (i in data.result){
         $scope.this_data = 'text='+"سلام. \n\n"+"\n\nنام محصول : "+data.result[i]['name']+"\n\n  قیمت آن : "+data.result[i]['amount']+"\n\n آدرس سفارش: "+data.result[i]['kala_address']+"\n\n و تعداد آن:  "+data.result[i]['num']
         $http.post(DjangoURL+"/send_message",$scope.this_data)
@@ -270,21 +262,18 @@ $scope.finished_buy = function(post_data){
       $scope.showAlert = function() {
         var alertPopup = $ionicPopup.alert({
           title: 'انتقال به آیدی مسئول فروش',
-          template: '<p dir="rtl" style="line-height : 150%;font-size:23px;">سبد خرید و سفارشات شما به مسئول فروش در پیام رسان ایتا ارسال شد. برای انتقال به آیدی ایتای مسئول فروش روی دکمه زیر کلیک کنید.</p><a onclick="window.open(\'https://eitaa.com/salambarf\', \'_system\', \'location=yes\'); return false;">انتقال به آیدی مسئول فروش</a>',
-          buttons: [] //{text:'انتقال به آیدی مسئول فروش',type:'button-positive'}
+          template: '<p dir="rtl" style="line-height : 150%;font-size:23px;">سبد خرید و سفارشات شما به مسئول فروش در پیام رسان ایتا ارسال شد. برای انتقال به آیدی ایتای مسئول فروش روی دکمه زیر کلیک کنید.</p>',
+          buttons: [{text:'انتقال به آیدی مسئول فروش',type:'button-positive'}] //{text:'انتقال به آیدی مسئول فروش',type:'button-positive'}
         });
      
         alertPopup.then(function(res) {
-          console.log("finish!!!")
+          window.open('https://eitaa.com/salambarf', '_system', 'location=yes'); return false;
         });
         setTimeout(() => {
           alertPopup.close();
         }, 5000);
       };
       $scope.showAlert()
-      
-    }
-  });}, 1200);
   $state.reload();
   $state.reload();
   $state.reload();
@@ -347,13 +336,13 @@ $scope.finish = function() {
   // template: '<input type="radio" id="male" name="gender" value="male"><label for="male">Male</label><br><input type="radio" id="female" name="gender" value="female"><label for="female">Female</label><br><input type="radio" id="other" name="gender" value="other"><label for="other">Other</label>',
     // template: '<p dir="rtl">نحوه دریافت کالا را انتخاب کنید.</p><ion-list><label for="post_in_this">ارسال به شهرستان ها<br>هزینه : 10000 تومان</label><input id="" type="radio" ng-model="data.serverSide" value="post_in_this" ng-value="item.value"></ion-list>',
     // <ion-radio-group></ion-radio-group><ion-radio class="radio radio-inline radio-gray " ng-model="data.post" ng-value="\'post_in_this\'" checked><p dir="rtl">ارسال به مجتمع اساتید<br>هزینه : رایگان🤩</p></ion-radio><ion-radio ng-model="data.post" ng-value="\'post_in_qom\'"><p dir="rtl">ارسال به درون شهر قم<br>هزینه : 3000 تومان</p></ion-radio><ion-radio ng-model="data.post" ng-value="\'post_out_qom\'"><p dir="rtl">ارسال به پردیسان قم<br>هزینه : 5000 تومان</p></ion-radio><ion-radio ng-model="data.post" ng-value="\'post_out_city\'"><p dir="rtl">ارسال به شهرستان ها<br>هزینه : 10000 تومان</p></ion-radio></ion-radio-group>
-    title: 'ویرایش',
+    title: 'انتخاب نحوه تحویل کالا',
     subTitle: '',
     scope: $scope,
     buttons: [
       { text: 'انصراف' },
       {
-        text: '<b>اعمال</b>',
+        text: '<b>انتخاب</b>',
         type: 'button-positive',
         onTap: function(e) {
           if ($scope.data.post == "post_in_this"){
@@ -407,11 +396,6 @@ $scope.finish = function() {
             $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
             $http.post(DjangoURL+"/cart/delete", $scope.this_data)
             .success(function(data){
-              $scope.this_data = "id="+kala.id+"&num="+kala.num
-              add_url = "/kala/"+kala.group+"/add_num"
-              console.log($scope.this_data,add_url)
-              $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-              $http.post(DjangoURL+add_url, $scope.this_data)
               console.log(data)
               $state.reload()
               $state.reload()
@@ -751,8 +735,13 @@ $scope.finish = function() {
     })
   });
     // $ionicLoading.show({template: "<p dir='rtl'> در حال بارگذاری... </p>", noBackdrop: true, duration: 700});
+    
     $ionicLoading.show({template: "<ion-spinner class='spinner-energized' icon='dots'></ion-spinner>", noBackdrop: false, duration: 700});
 
+    $scope.open_page = function(id){
+      // location.href = "#/hejab_chador/"+String(id)
+      window.location.href = "#/pooshak_mardane/"+String(id)
+    }
 
     $http.post(DjangoURL+"/kala/pooshak_mardane/getall")
     .success(function(data){
@@ -1439,53 +1428,7 @@ $scope.finish = function() {
     })}
 
 
-  
-  $scope.sefaresh = function(pooshak){
-    $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
-        setTimeout(() => {
-          $ionicLoading.show({template: $scope.message_template, noBackdrop: true, duration: 1500});
-        }, 1500);
-      $scope.this_username = String(getCookie("username"))
-      $scope.this_password = String(getCookie("password"))
 
-      $http.post(DjangoURL + '/account/checkuserwithpassword','username='+$scope.this_username+'&password='+$scope.this_password)
-      .success(function(data){
-        $scope.this_tel_id = data.tel_id
-        storage.removeItem('this_tel_id')
-        $state.reload()
-        storage.setItem('this_tel_id',$scope.this_tel_id)
-
-        $scope.this_address = String(getCookie("assress"))
-        // Send Message To Telegram
-
-        // $http.post('https://api.telegram.org/bot1480674202:AAEuY1mfVI2LMSszabJM0nZni5CjpzhLCVA/sendmessage'
-        // ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone+'&chat_id='+'134200837')
-        // .success(function(data){
-        //
-        // console.log(data)
-        // $scope.message_template =  '<p dir="rtl">پیام شما در تلگرام به مسئول فروش ارسال شد. در اسرع وقت پاسگو خواهیم بود.</p>'
-        // setTimeout(() => {
-        //   $ionicLoading.show({template: $scope.message_template, noBackdrop: true, duration: 3700});
-        // }, 1500);
-        // })
-
-        // Send Message To Eitaa
-        
-        $http.post(DjangoURL+'/send_message'
-        ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
-        .success(function(data){
-          if (true){
-            setTimeout(() => { $scope.gotoexternallink("https://eitaa.com/salambarf"); }, 4200);
-          }
-        console.log(data)
-        })
-        
-
-      })
-      .error(function () {
-        console.log("error")
-      })
-  }
   console.log("iiiiiittttttteeeeemmmmm iiiiisssss :  ",$scope.pooshak.num)
 
   $scope.num = 1
@@ -1725,52 +1668,7 @@ $scope.finish = function() {
 
 
   
-  $scope.sefaresh = function(pooshak){
-    $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
-        setTimeout(() => {
-          $ionicLoading.show({template: $scope.message_template, noBackdrop: true, duration: 1500});
-        }, 1500);
-      $scope.this_username = String(getCookie("username"))
-      $scope.this_password = String(getCookie("password"))
 
-      $http.post(DjangoURL + '/account/checkuserwithpassword','username='+$scope.this_username+'&password='+$scope.this_password)
-      .success(function(data){
-        $scope.this_tel_id = data.tel_id
-        storage.removeItem('this_tel_id')
-        $state.reload()
-        storage.setItem('this_tel_id',$scope.this_tel_id)
-
-        $scope.this_address = String(getCookie("assress"))
-        // Send Message To Telegram
-
-        // $http.post('https://api.telegram.org/bot1480674202:AAEuY1mfVI2LMSszabJM0nZni5CjpzhLCVA/sendmessage'
-        // ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone+'&chat_id='+'134200837')
-        // .success(function(data){
-        //
-        // console.log(data)
-        // $scope.message_template =  '<p dir="rtl">پیام شما در تلگرام به مسئول فروش ارسال شد. در اسرع وقت پاسگو خواهیم بود.</p>'
-        // setTimeout(() => {
-        //   $ionicLoading.show({template: $scope.message_template, noBackdrop: true, duration: 3700});
-        // }, 1500);
-        // })
-
-        // Send Message To Eitaa
-        
-        $http.post(DjangoURL+'/send_message'
-        ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
-        .success(function(data){
-          if (true){
-            setTimeout(() => { $scope.gotoexternallink("https://eitaa.com/salambarf"); }, 4200);
-          }
-        console.log(data)
-        })
-        
-
-      })
-      .error(function () {
-        console.log("error")
-      })
-  }
   console.log("iiiiiittttttteeeeemmmmm iiiiisssss :  ",$scope.pooshak.num)
 
   $scope.num = 1
@@ -2006,52 +1904,6 @@ $scope.finish = function() {
 
 
   
-  $scope.sefaresh = function(pooshak){
-    $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
-        setTimeout(() => {
-          $ionicLoading.show({template: $scope.message_template, noBackdrop: true, duration: 1500});
-        }, 1500);
-      $scope.this_username = String(getCookie("username"))
-      $scope.this_password = String(getCookie("password"))
-
-      $http.post(DjangoURL + '/account/checkuserwithpassword','username='+$scope.this_username+'&password='+$scope.this_password)
-      .success(function(data){
-        $scope.this_tel_id = data.tel_id
-        storage.removeItem('this_tel_id')
-        $state.reload()
-        storage.setItem('this_tel_id',$scope.this_tel_id)
-
-        $scope.this_address = String(getCookie("assress"))
-        // Send Message To Telegram
-
-        // $http.post('https://api.telegram.org/bot1480674202:AAEuY1mfVI2LMSszabJM0nZni5CjpzhLCVA/sendmessage'
-        // ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone+'&chat_id='+'134200837')
-        // .success(function(data){
-        //
-        // console.log(data)
-        // $scope.message_template =  '<p dir="rtl">پیام شما در تلگرام به مسئول فروش ارسال شد. در اسرع وقت پاسگو خواهیم بود.</p>'
-        // setTimeout(() => {
-        //   $ionicLoading.show({template: $scope.message_template, noBackdrop: true, duration: 3700});
-        // }, 1500);
-        // })
-
-        // Send Message To Eitaa
-        
-        $http.post(DjangoURL+'/send_message'
-        ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
-        .success(function(data){
-          if (true){
-            setTimeout(() => { $scope.gotoexternallink("https://eitaa.com/salambarf"); }, 4200);
-          }
-        console.log(data)
-        })
-        
-
-      })
-      .error(function () {
-        console.log("error")
-      })
-  }
   console.log("iiiiiittttttteeeeemmmmm iiiiisssss :  ",$scope.pooshak.num)
 
   $scope.num = 1
@@ -2287,52 +2139,6 @@ $scope.finish = function() {
 
 
   
-  $scope.sefaresh = function(pooshak){
-    $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
-        setTimeout(() => {
-          $ionicLoading.show({template: $scope.message_template, noBackdrop: true, duration: 1500});
-        }, 1500);
-      $scope.this_username = String(getCookie("username"))
-      $scope.this_password = String(getCookie("password"))
-
-      $http.post(DjangoURL + '/account/checkuserwithpassword','username='+$scope.this_username+'&password='+$scope.this_password)
-      .success(function(data){
-        $scope.this_tel_id = data.tel_id
-        storage.removeItem('this_tel_id')
-        $state.reload()
-        storage.setItem('this_tel_id',$scope.this_tel_id)
-
-        $scope.this_address = String(getCookie("assress"))
-        // Send Message To Telegram
-
-        // $http.post('https://api.telegram.org/bot1480674202:AAEuY1mfVI2LMSszabJM0nZni5CjpzhLCVA/sendmessage'
-        // ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone+'&chat_id='+'134200837')
-        // .success(function(data){
-        //
-        // console.log(data)
-        // $scope.message_template =  '<p dir="rtl">پیام شما در تلگرام به مسئول فروش ارسال شد. در اسرع وقت پاسگو خواهیم بود.</p>'
-        // setTimeout(() => {
-        //   $ionicLoading.show({template: $scope.message_template, noBackdrop: true, duration: 3700});
-        // }, 1500);
-        // })
-
-        // Send Message To Eitaa
-        
-        $http.post(DjangoURL+'/send_message'
-        ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
-        .success(function(data){
-          if (true){
-            setTimeout(() => { $scope.gotoexternallink("https://eitaa.com/salambarf"); }, 4200);
-          }
-        console.log(data)
-        })
-        
-
-      })
-      .error(function () {
-        console.log("error")
-      })
-  }
   console.log("iiiiiittttttteeeeemmmmm iiiiisssss :  ",$scope.pooshak.num)
 
   $scope.num = 1
@@ -2568,52 +2374,6 @@ $scope.finish = function() {
 
 
   
-  $scope.sefaresh = function(pooshak){
-    $scope.message_template =  '<p dir="rtl"> پیام شما در ایتا  به مسئول فروش ارسال شد. در اسرع وقت پاسخگو خواهیم بود . در حال انتقال به آیدی مسئول فروش ...</p>'
-        setTimeout(() => {
-          $ionicLoading.show({template: $scope.message_template, noBackdrop: true, duration: 1500});
-        }, 1500);
-      $scope.this_username = String(getCookie("username"))
-      $scope.this_password = String(getCookie("password"))
-
-      $http.post(DjangoURL + '/account/checkuserwithpassword','username='+$scope.this_username+'&password='+$scope.this_password)
-      .success(function(data){
-        $scope.this_tel_id = data.tel_id
-        storage.removeItem('this_tel_id')
-        $state.reload()
-        storage.setItem('this_tel_id',$scope.this_tel_id)
-
-        $scope.this_address = String(getCookie("assress"))
-        // Send Message To Telegram
-
-        // $http.post('https://api.telegram.org/bot1480674202:AAEuY1mfVI2LMSszabJM0nZni5CjpzhLCVA/sendmessage'
-        // ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone+'&chat_id='+'134200837')
-        // .success(function(data){
-        //
-        // console.log(data)
-        // $scope.message_template =  '<p dir="rtl">پیام شما در تلگرام به مسئول فروش ارسال شد. در اسرع وقت پاسگو خواهیم بود.</p>'
-        // setTimeout(() => {
-        //   $ionicLoading.show({template: $scope.message_template, noBackdrop: true, duration: 3700});
-        // }, 1500);
-        // })
-
-        // Send Message To Eitaa
-        
-        $http.post(DjangoURL+'/send_message'
-        ,'text='+"سلام. \n\n"+"  آیدی سفاش دهنده : "+data.tel_id+"\n\nنام محصول : "+$scope.pooshak.name+"\n\n  قیمت آن : "+$scope.pooshak.amount+"\n\nو آدرس سفارش دهنده : "+$scope.this_address+"\n\n آدرس سفارش: "+$scope.this_url+"\n\nشماره تلفن : "+data.this_phone)
-        .success(function(data){
-          if (true){
-            setTimeout(() => { $scope.gotoexternallink("https://eitaa.com/salambarf"); }, 4200);
-          }
-        console.log(data)
-        })
-        
-
-      })
-      .error(function () {
-        console.log("error")
-      })
-  }
   console.log("iiiiiittttttteeeeemmmmm iiiiisssss :  ",$scope.pooshak.num)
 
   $scope.num = 1
