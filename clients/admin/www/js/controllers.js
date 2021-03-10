@@ -2,13 +2,6 @@ angular.module('starter.controllers', [])
 
 
 .controller('SigninCtrl', function($scope,$http,$ionicLoading,$state,$window) {
-  $scope.$on('$ionicView.enter', function(e) {
-    if (document.cookie.indexOf("username") > -1){
-      if (!getCookie("username") == ""){
-        $state.go('tab.home',{})
-      }
-    }
-  })
   $state.reload()
   $scope.back = function(){
       history.back()
@@ -333,11 +326,6 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('StoreCtrl', function($scope,$state) {
-    $scope.gotopage = function () {
-    $state.go('parcheh',{});
-    }
-})
 
 .controller('StoreCtrl', function($scope,$state,$http,$ionicLoading,$ionicPopup) {
 
@@ -1047,10 +1035,20 @@ angular.module('starter.controllers', [])
 
       $scope.edit = function(item) {
         $scope.data = {};
-      
+        $scope.name = item.name
+        $scope.text = item.text
+        $scope.img = item.img.slice(33,String(item.img.length))
+        $scope.num = item.num
+        $scope.amount = item.amount
+        $scope.data.name = item.name
+        $scope.data.text = item.text
+        $scope.data.img = item.img.slice(33,String(item.img.length))
+        $scope.data.num = item.num
+        $scope.data.amount = item.amount
         // An elaborate, custom popup
         $scope.myPopup = $ionicPopup.show({
-          template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
+          template: '<div dir="rtl"><p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name" value="{{name}}"><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text" value="{{text}}"></textarea><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img" value="{{img}}"><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num" value="{{num}}"><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount" value="{{amount}}"></div>',
+          // templateUrl: 'templates/edit-pooshaks-dokhtarane.html',
           title: 'ویرایش',
           subTitle: '',
           scope: $scope,
@@ -1178,17 +1176,17 @@ angular.module('starter.controllers', [])
         $scope.data = {};
         $scope.name = item.name
         $scope.text = item.text
-        $scope.img = item.img
+        $scope.img = item.img.slice(33,String(item.img.length))
         $scope.num = item.num
         $scope.amount = item.amount
         $scope.data.name = item.name
         $scope.data.text = item.text
-        $scope.data.img = item.img
+        $scope.data.img = item.img.slice(33,String(item.img.length))
         $scope.data.num = item.num
         $scope.data.amount = item.amount
         // An elaborate, custom popup
         $scope.myPopup = $ionicPopup.show({
-          template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name" value="{{name}}"><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text" value="{{text}}"></textarea><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img" value="{{img}}"><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num" value="{{num}}"><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount" value="{{amount}}">',
+          template: '<div dir="rtl"><p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name" value="{{name}}"><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text" value="{{text}}"></textarea><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img" value="{{img}}"><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num" value="{{num}}"><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount" value="{{amount}}"></div>',
           // templateUrl: 'templates/edit-pooshaks-dokhtarane.html',
           title: 'ویرایش',
           subTitle: '',
@@ -1318,10 +1316,20 @@ angular.module('starter.controllers', [])
 
       $scope.edit = function(item) {
         $scope.data = {};
-      
+        $scope.name = item.name
+        $scope.text = item.text
+        $scope.img = item.img.slice(33,String(item.img.length))
+        $scope.num = item.num
+        $scope.amount = item.amount
+        $scope.data.name = item.name
+        $scope.data.text = item.text
+        $scope.data.img = item.img.slice(33,String(item.img.length))
+        $scope.data.num = item.num
+        $scope.data.amount = item.amount
         // An elaborate, custom popup
         $scope.myPopup = $ionicPopup.show({
-          template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
+          template: '<div dir="rtl"><p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name" value="{{name}}"><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text" value="{{text}}"></textarea><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img" value="{{img}}"><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num" value="{{num}}"><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount" value="{{amount}}"></div>',
+          // templateUrl: 'templates/edit-pooshaks-dokhtarane.html',
           title: 'ویرایش',
           subTitle: '',
           scope: $scope,
@@ -1447,10 +1455,20 @@ angular.module('starter.controllers', [])
 
       $scope.edit = function(item) {
         $scope.data = {};
-      
+        $scope.name = item.name
+        $scope.text = item.text
+        $scope.img = item.img.slice(33,String(item.img.length))
+        $scope.num = item.num
+        $scope.amount = item.amount
+        $scope.data.name = item.name
+        $scope.data.text = item.text
+        $scope.data.img = item.img.slice(33,String(item.img.length))
+        $scope.data.num = item.num
+        $scope.data.amount = item.amount
         // An elaborate, custom popup
         $scope.myPopup = $ionicPopup.show({
-          template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
+          template: '<div dir="rtl"><p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name" value="{{name}}"><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text" value="{{text}}"></textarea><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img" value="{{img}}"><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num" value="{{num}}"><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount" value="{{amount}}"></div>',
+          // templateUrl: 'templates/edit-pooshaks-dokhtarane.html',
           title: 'ویرایش',
           subTitle: '',
           scope: $scope,
@@ -1575,10 +1593,20 @@ angular.module('starter.controllers', [])
 
       $scope.edit = function(item) {
         $scope.data = {};
-      
+        $scope.name = item.name
+        $scope.text = item.text
+        $scope.img = item.img.slice(33,String(item.img.length))
+        $scope.num = item.num
+        $scope.amount = item.amount
+        $scope.data.name = item.name
+        $scope.data.text = item.text
+        $scope.data.img = item.img.slice(33,String(item.img.length))
+        $scope.data.num = item.num
+        $scope.data.amount = item.amount
         // An elaborate, custom popup
         $scope.myPopup = $ionicPopup.show({
-          template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
+          template: '<div dir="rtl"><p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name" value="{{name}}"><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text" value="{{text}}"></textarea><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img" value="{{img}}"><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num" value="{{num}}"><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount" value="{{amount}}"></div>',
+          // templateUrl: 'templates/edit-pooshaks-dokhtarane.html',
           title: 'ویرایش',
           subTitle: '',
           scope: $scope,
@@ -1703,10 +1731,20 @@ angular.module('starter.controllers', [])
 
       $scope.edit = function(item) {
         $scope.data = {};
-      
+        $scope.name = item.name
+        $scope.text = item.text
+        $scope.img = item.img.slice(33,String(item.img.length))
+        $scope.num = item.num
+        $scope.amount = item.amount
+        $scope.data.name = item.name
+        $scope.data.text = item.text
+        $scope.data.img = item.img.slice(33,String(item.img.length))
+        $scope.data.num = item.num
+        $scope.data.amount = item.amount
         // An elaborate, custom popup
         $scope.myPopup = $ionicPopup.show({
-          template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
+          template: '<div dir="rtl"><p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name" value="{{name}}"><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text" value="{{text}}"></textarea><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img" value="{{img}}"><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num" value="{{num}}"><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount" value="{{amount}}"></div>',
+          // templateUrl: 'templates/edit-pooshaks-dokhtarane.html',
           title: 'ویرایش',
           subTitle: '',
           scope: $scope,
@@ -1831,10 +1869,20 @@ angular.module('starter.controllers', [])
 
       $scope.edit = function(item) {
         $scope.data = {};
-      
+        $scope.name = item.name
+        $scope.text = item.text
+        $scope.img = item.img.slice(33,String(item.img.length))
+        $scope.num = item.num
+        $scope.amount = item.amount
+        $scope.data.name = item.name
+        $scope.data.text = item.text
+        $scope.data.img = item.img.slice(33,String(item.img.length))
+        $scope.data.num = item.num
+        $scope.data.amount = item.amount
         // An elaborate, custom popup
         $scope.myPopup = $ionicPopup.show({
-          template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
+          template: '<div dir="rtl"><p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name" value="{{name}}"><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text" value="{{text}}"></textarea><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img" value="{{img}}"><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num" value="{{num}}"><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount" value="{{amount}}"></div>',
+          // templateUrl: 'templates/edit-pooshaks-dokhtarane.html',
           title: 'ویرایش',
           subTitle: '',
           scope: $scope,
@@ -1958,10 +2006,20 @@ angular.module('starter.controllers', [])
 
       $scope.edit = function(item) {
         $scope.data = {};
-      
+        $scope.name = item.name
+        $scope.text = item.text
+        $scope.img = item.img.slice(33,String(item.img.length))
+        $scope.num = item.num
+        $scope.amount = item.amount
+        $scope.data.name = item.name
+        $scope.data.text = item.text
+        $scope.data.img = item.img.slice(33,String(item.img.length))
+        $scope.data.num = item.num
+        $scope.data.amount = item.amount
         // An elaborate, custom popup
         $scope.myPopup = $ionicPopup.show({
-          template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
+          template: '<div dir="rtl"><p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name" value="{{name}}"><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text" value="{{text}}"></textarea><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img" value="{{img}}"><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num" value="{{num}}"><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount" value="{{amount}}"></div>',
+          // templateUrl: 'templates/edit-pooshaks-dokhtarane.html',
           title: 'ویرایش',
           subTitle: '',
           scope: $scope,
@@ -2085,10 +2143,20 @@ angular.module('starter.controllers', [])
 
       $scope.edit = function(item) {
         $scope.data = {};
-      
+        $scope.name = item.name
+        $scope.text = item.text
+        $scope.img = item.img.slice(33,String(item.img.length))
+        $scope.num = item.num
+        $scope.amount = item.amount
+        $scope.data.name = item.name
+        $scope.data.text = item.text
+        $scope.data.img = item.img.slice(33,String(item.img.length))
+        $scope.data.num = item.num
+        $scope.data.amount = item.amount
         // An elaborate, custom popup
         $scope.myPopup = $ionicPopup.show({
-          template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
+          template: '<div dir="rtl"><p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name" value="{{name}}"><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text" value="{{text}}"></textarea><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img" value="{{img}}"><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num" value="{{num}}"><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount" value="{{amount}}"></div>',
+          // templateUrl: 'templates/edit-pooshaks-dokhtarane.html',
           title: 'ویرایش',
           subTitle: '',
           scope: $scope,
@@ -2213,10 +2281,20 @@ angular.module('starter.controllers', [])
 
       $scope.edit = function(item) {
         $scope.data = {};
-      
+        $scope.name = item.name
+        $scope.text = item.text
+        $scope.img = item.img.slice(33,String(item.img.length))
+        $scope.num = item.num
+        $scope.amount = item.amount
+        $scope.data.name = item.name
+        $scope.data.text = item.text
+        $scope.data.img = item.img.slice(33,String(item.img.length))
+        $scope.data.num = item.num
+        $scope.data.amount = item.amount
         // An elaborate, custom popup
         $scope.myPopup = $ionicPopup.show({
-          template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
+          template: '<div dir="rtl"><p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name" value="{{name}}"><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text" value="{{text}}"></textarea><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img" value="{{img}}"><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num" value="{{num}}"><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount" value="{{amount}}"></div>',
+          // templateUrl: 'templates/edit-pooshaks-dokhtarane.html',
           title: 'ویرایش',
           subTitle: '',
           scope: $scope,
@@ -2341,10 +2419,20 @@ angular.module('starter.controllers', [])
 
     $scope.edit = function(item) {
       $scope.data = {};
-    
-      // An elaborate, custom popup
-      $scope.myPopup = $ionicPopup.show({
-        template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
+        $scope.name = item.name
+        $scope.text = item.text
+        $scope.img = item.img.slice(33,String(item.img.length))
+        $scope.num = item.num
+        $scope.amount = item.amount
+        $scope.data.name = item.name
+        $scope.data.text = item.text
+        $scope.data.img = item.img.slice(33,String(item.img.length))
+        $scope.data.num = item.num
+        $scope.data.amount = item.amount
+        // An elaborate, custom popup
+        $scope.myPopup = $ionicPopup.show({
+          template: '<div dir="rtl"><p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name" value="{{name}}"><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text" value="{{text}}"></textarea><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img" value="{{img}}"><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num" value="{{num}}"><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount" value="{{amount}}"></div>',
+          // templateUrl: 'templates/edit-pooshaks-dokhtarane.html',
         title: 'ویرایش',
         subTitle: '',
         scope: $scope,
@@ -2469,10 +2557,20 @@ angular.module('starter.controllers', [])
 
     $scope.edit = function(item) {
       $scope.data = {};
-    
-      // An elaborate, custom popup
-      $scope.myPopup = $ionicPopup.show({
-        template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
+        $scope.name = item.name
+        $scope.text = item.text
+        $scope.img = item.img.slice(33,String(item.img.length))
+        $scope.num = item.num
+        $scope.amount = item.amount
+        $scope.data.name = item.name
+        $scope.data.text = item.text
+        $scope.data.img = item.img.slice(33,String(item.img.length))
+        $scope.data.num = item.num
+        $scope.data.amount = item.amount
+        // An elaborate, custom popup
+        $scope.myPopup = $ionicPopup.show({
+          template: '<div dir="rtl"><p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name" value="{{name}}"><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text" value="{{text}}"></textarea><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img" value="{{img}}"><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num" value="{{num}}"><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount" value="{{amount}}"></div>',
+          // templateUrl: 'templates/edit-pooshaks-dokhtarane.html',
         title: 'ویرایش',
         subTitle: '',
         scope: $scope,
@@ -2769,10 +2867,20 @@ angular.module('starter.controllers', [])
 
     $scope.edit = function(item) {
       $scope.data = {};
-    
-      // An elaborate, custom popup
-      $scope.myPopup = $ionicPopup.show({
-        template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
+        $scope.name = item.name
+        $scope.text = item.text
+        $scope.img = item.img.slice(33,String(item.img.length))
+        $scope.num = item.num
+        $scope.amount = item.amount
+        $scope.data.name = item.name
+        $scope.data.text = item.text
+        $scope.data.img = item.img.slice(33,String(item.img.length))
+        $scope.data.num = item.num
+        $scope.data.amount = item.amount
+        // An elaborate, custom popup
+        $scope.myPopup = $ionicPopup.show({
+          template: '<div dir="rtl"><p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name" value="{{name}}"><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text" value="{{text}}"></textarea><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img" value="{{img}}"><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num" value="{{num}}"><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount" value="{{amount}}"></div>',
+          // templateUrl: 'templates/edit-pooshaks-dokhtarane.html',
         title: 'ویرایش',
         subTitle: '',
         scope: $scope,
@@ -2892,9 +3000,20 @@ angular.module('starter.controllers', [])
 
     $scope.edit = function(item) {
       $scope.data = {};
-    
-      $scope.myPopup = $ionicPopup.show({
-        template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
+        $scope.name = item.name
+        $scope.text = item.text
+        $scope.img = item.img.slice(33,String(item.img.length))
+        $scope.num = item.num
+        $scope.amount = item.amount
+        $scope.data.name = item.name
+        $scope.data.text = item.text
+        $scope.data.img = item.img.slice(33,String(item.img.length))
+        $scope.data.num = item.num
+        $scope.data.amount = item.amount
+        // An elaborate, custom popup
+        $scope.myPopup = $ionicPopup.show({
+          template: '<div dir="rtl"><p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name" value="{{name}}"><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text" value="{{text}}"></textarea><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img" value="{{img}}"><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num" value="{{num}}"><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount" value="{{amount}}"></div>',
+          // templateUrl: 'templates/edit-pooshaks-dokhtarane.html',
         title: 'ویرایش',
         subTitle: '',
         scope: $scope,
@@ -3043,9 +3162,20 @@ angular.module('starter.controllers', [])
 
     $scope.edit = function(item) {
       $scope.data = {};
-    
-      $scope.myPopup = $ionicPopup.show({
-        template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
+        $scope.name = item.name
+        $scope.text = item.text
+        $scope.img = item.img.slice(33,String(item.img.length))
+        $scope.num = item.num
+        $scope.amount = item.amount
+        $scope.data.name = item.name
+        $scope.data.text = item.text
+        $scope.data.img = item.img.slice(33,String(item.img.length))
+        $scope.data.num = item.num
+        $scope.data.amount = item.amount
+        // An elaborate, custom popup
+        $scope.myPopup = $ionicPopup.show({
+          template: '<div dir="rtl"><p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name" value="{{name}}"><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text" value="{{text}}"></textarea><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img" value="{{img}}"><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num" value="{{num}}"><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount" value="{{amount}}"></div>',
+          // templateUrl: 'templates/edit-pooshaks-dokhtarane.html',
         title: 'ویرایش',
         subTitle: '',
         scope: $scope,
@@ -3172,9 +3302,20 @@ angular.module('starter.controllers', [])
 
     $scope.edit = function(item) {
       $scope.data = {};
-    
-      $scope.myPopup = $ionicPopup.show({
-        template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
+        $scope.name = item.name
+        $scope.text = item.text
+        $scope.img = item.img.slice(33,String(item.img.length))
+        $scope.num = item.num
+        $scope.amount = item.amount
+        $scope.data.name = item.name
+        $scope.data.text = item.text
+        $scope.data.img = item.img.slice(33,String(item.img.length))
+        $scope.data.num = item.num
+        $scope.data.amount = item.amount
+        // An elaborate, custom popup
+        $scope.myPopup = $ionicPopup.show({
+          template: '<div dir="rtl"><p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name" value="{{name}}"><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text" value="{{text}}"></textarea><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img" value="{{img}}"><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num" value="{{num}}"><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount" value="{{amount}}"></div>',
+          // templateUrl: 'templates/edit-pooshaks-dokhtarane.html',
         title: 'ویرایش',
         subTitle: '',
         scope: $scope,
@@ -3297,9 +3438,20 @@ angular.module('starter.controllers', [])
 
     $scope.edit = function(item) {
       $scope.data = {};
-    
-      $scope.myPopup = $ionicPopup.show({
-        template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
+        $scope.name = item.name
+        $scope.text = item.text
+        $scope.img = item.img.slice(33,String(item.img.length))
+        $scope.num = item.num
+        $scope.amount = item.amount
+        $scope.data.name = item.name
+        $scope.data.text = item.text
+        $scope.data.img = item.img.slice(33,String(item.img.length))
+        $scope.data.num = item.num
+        $scope.data.amount = item.amount
+        // An elaborate, custom popup
+        $scope.myPopup = $ionicPopup.show({
+          template: '<div dir="rtl"><p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name" value="{{name}}"><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text" value="{{text}}"></textarea><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img" value="{{img}}"><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num" value="{{num}}"><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount" value="{{amount}}"></div>',
+          // templateUrl: 'templates/edit-pooshaks-dokhtarane.html',
         title: 'ویرایش',
         subTitle: '',
         scope: $scope,
@@ -3422,9 +3574,20 @@ angular.module('starter.controllers', [])
 
     $scope.edit = function(item) {
       $scope.data = {};
-    
-      $scope.myPopup = $ionicPopup.show({
-        template: '<p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text"></textarea><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount"><p dir="rtl" style="color:red;font-size:13px">اگر این مقدار خالی بماند، با مقدار قبلی جایگزین می شود.</p>',
+        $scope.name = item.name
+        $scope.text = item.text
+        $scope.img = item.img.slice(33,String(item.img.length))
+        $scope.num = item.num
+        $scope.amount = item.amount
+        $scope.data.name = item.name
+        $scope.data.text = item.text
+        $scope.data.img = item.img.slice(33,String(item.img.length))
+        $scope.data.num = item.num
+        $scope.data.amount = item.amount
+        // An elaborate, custom popup
+        $scope.myPopup = $ionicPopup.show({
+          template: '<div dir="rtl"><p style="text-align:center">مشخصات جدید را وارد کنید</p><br><p dir="rtl">نام:</p><input type="text" ng-model="data.name" value="{{name}}"><br><p dir="rtl">توضیحات:</p><textarea style="height:100px" ng-model="data.text" value="{{text}}"></textarea><br><p dir="rtl">آدرس عکس:</p><input type="text" ng-model="data.img" value="{{img}}"><br><p dir="rtl">موجودی:</p><input type="text" ng-model="data.num" value="{{num}}"><br><p dir="rtl">قیمت:</p><input type="text" ng-model="data.amount" value="{{amount}}"></div>',
+          // templateUrl: 'templates/edit-pooshaks-dokhtarane.html',
         title: 'ویرایش',
         subTitle: '',
         scope: $scope,

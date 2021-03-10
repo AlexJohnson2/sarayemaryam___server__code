@@ -816,7 +816,7 @@ def edit_parcheh(request):
         this_img = data['img']
         this_amount = data['amount']
         this_num = data['num']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,tag=data['tag'])
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -831,7 +831,7 @@ def edit_pooshak(request):
     this_img = data['img']
     this_amount = data['amount']
     this_num = data['num']
-    this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,tag=data['tag'])
+    this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
     return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     # except:
     #     return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -846,7 +846,7 @@ def edit_hejab(request):
         this_img = data['img']
         this_amount = data['amount']
         this_num = data['num']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,tag=data['tag'])
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -861,7 +861,7 @@ def edit_kharazi(request):
         this_img = data['img']
         this_amount = data['amount']
         this_num = data['num']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,tag=data['tag'])
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -876,7 +876,7 @@ def edit_pooshak_mardane(request):
         this_img = data['img']
         this_amount = data['amount']
         this_num = data['num']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,tag=data['tag'])
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -892,7 +892,7 @@ def edit_pooshak_zanane(request):
         this_img = data['img']
         this_amount = data['amount']
         this_num = data['num']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,tag=data['tag'])
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -907,7 +907,7 @@ def edit_pooshak_dokhtarane(request):
         this_img = data['img']
         this_amount = data['amount']
         this_num = data['num']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,tag=data['tag'])
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -922,7 +922,7 @@ def edit_pooshak_pesarane(request):
         this_img = data['img']
         this_amount = data['amount']
         this_num = data['num']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,tag=data['tag'])
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -937,7 +937,7 @@ def edit_pooshak_nozadi(request):
         this_img = data['img']
         this_amount = data['amount']
         this_num = data['num']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,tag=data['tag'])
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -952,7 +952,7 @@ def edit_hejab_chador(request):
         this_img = data['img']
         this_amount = data['amount']
         this_num = data['num']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,tag=data['tag'])
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -967,7 +967,7 @@ def edit_hejab_shal(request):
         this_img = data['img']
         this_amount = data['amount']
         this_num = data['num']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,tag=data['tag'])
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -982,7 +982,7 @@ def edit_hejab_roosari(request):
         this_img = data['img']
         this_amount = data['amount']
         this_num = data['num']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,tag=data['tag'])
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -997,7 +997,7 @@ def edit_hejab_saghedast_dastkesh(request):
         this_img = data['img']
         this_amount = data['amount']
         this_num = data['num']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,tag=data['tag'])
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -1012,7 +1012,7 @@ def edit_hejab_mask_pooshie(request):
         this_img = data['img']
         this_amount = data['amount']
         this_num = data['num']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,tag=data['tag'])
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -1028,7 +1028,7 @@ def edit_kharazi_abzarkhayati(request):
         this_img = data['img']
         this_amount = data['amount']
         this_num = data['num']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,tag=data['tag'])
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -1043,7 +1043,7 @@ def edit_kharazi_lavazemtahrir(request):
         this_img = data['img']
         this_amount = data['amount']
         this_num = data['num']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,tag=data['tag'])
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -1065,7 +1065,7 @@ def edit_sefaresh_mardane(request):
         this_img = data['img']
         this_amount = data['amount']
         this_num = data['num']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,tag=data['tag'])
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -1081,7 +1081,7 @@ def edit_sefaresh_zanane(request):
         this_img = data['img']
         this_amount = data['amount']
         this_num = data['num']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,tag=data['tag'])
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -1096,7 +1096,7 @@ def edit_sefaresh_dokhtarane(request):
         this_img = data['img']
         this_amount = data['amount']
         this_num = data['num']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,tag=data['tag'])
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -1111,7 +1111,7 @@ def edit_sefaresh_pesarane(request):
         this_img = data['img']
         this_amount = data['amount']
         this_num = data['num']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,tag=data['tag'])
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -1126,7 +1126,7 @@ def edit_sefaresh_nozadi(request):
         this_img = data['img']
         this_amount = data['amount']
         this_num = data['num']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,tag=data['tag'])
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)
@@ -1141,7 +1141,7 @@ def edit_sefaresh_sayer(request):
         this_img = data['img']
         this_amount = data['amount']
         this_num = data['num']
-        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,tag=data['tag'])
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
         return JsonResponse({'status':'ok'},encoder=JSONEncoder)
     except:
         return JsonResponse({'status':'error'},encoder=JSONEncoder)

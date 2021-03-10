@@ -70,40 +70,89 @@ angular.module('starter.controllers', [])
     if (document.cookie.indexOf("username") == -1){
       $state.go('signin',{})
     }
-  });
-  console.log("الان میاد")
+
+    console.log("الان میاد")
   $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
   $http.post(DjangoURL+"/get_update")
     .success(function(data){
       console.log(data)
         if (data.result != "Not New Update"){
-          $scope.data = {};
-          $scope.news = data.result.new
-          // $scope.news = $scope.new.replace("-","\n")
-          // $scope.news = ['a','b','c']
-        // An elaborate, custom popup
-        $scope.myPopup = $ionicPopup.show({
-          template: '<center><img src="img/update.png" height="84px" width="84px"><p dir="rtl">قابلیت های نسخه جدید:</p><p ng-repeat="new in news">{{new}}- </p></center>',
-          title: 'آپدیت جدید',
-          subTitle: '',
-          scope: $scope,
-          buttons: [
-            { text: 'انصراف' },
-            {
-              text: '<b>دریافت نسخه جدید</b>',
-              type: 'button-positive',
-              onTap: function(e) {
-                
-                window.open(data.result.link, '_blank', 'location=yes'); return false;
-                
-                $state.reload()
-              }
-            }
-          ]
-        })
+          $scope.update = true
+          
         }
         }
     )
+
+  $scope.update_app = function(){
+    $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+      $http.post(DjangoURL+"/get_update")
+      .success(function(data){
+        console.log(data)
+        $scope.news = data.result.new
+        console.log($scope.news)
+      
+
+      $scope.myPopup = $ionicPopup.show({
+        template: '<center><img src="img/update.png" height="84px" width="84px"><p dir="rtl">قابلیت های نسخه جدید:</p><p ng-repeat="new in news">{{new}}- </p></center>',
+        title: 'آپدیت جدید',
+        subTitle: '',
+        scope: $scope,
+        buttons: [
+          { text: 'انصراف' },
+          {
+            text: '<b>دریافت نسخه جدید</b>',
+            type: 'button-positive',
+            onTap: function(e) {
+              
+              window.open(data.result.link, '_blank', 'location=yes'); return false;
+              
+              $state.reload()
+            }
+          }
+        ]
+      })
+    })
+
+  }
+  $scope.update = function(){
+      console.log("this is function")
+      $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+      $http.post(DjangoURL+"/get_update")
+        .success(function(data){
+          console.log(data)
+          $scope.data = {};
+              $scope.news = data.result.new
+              console.log($scope.news)
+              // $scope.news = $scope.new.replace("-","\n")
+              // $scope.news = ['a','b','c']
+            // An elaborate, custom popup
+            $scope.myPopup = $ionicPopup.show({
+              template: '<center><img src="img/update.png" height="84px" width="84px"><p dir="rtl">قابلیت های نسخه جدید:</p><p ng-repeat="new in news">{{new}}- </p></center>',
+              title: 'آپدیت جدید',
+              subTitle: '',
+              scope: $scope,
+              buttons: [
+                { text: 'انصراف' },
+                {
+                  text: '<b>دریافت نسخه جدید</b>',
+                  type: 'button-positive',
+                  onTap: function(e) {
+                    
+                    window.open(data.result.link, '_blank', 'location=yes'); return false;
+                    
+                    $state.reload()
+                  }
+                }
+              ]
+            })
+          })
+      
+    }
+
+  
+
+  });
+  
 
   $scope.img_height = window.innerHeight-(window.innerHeight/4)
   $scope.img_width = window.innerWidth-(window.innerWidth/4)
@@ -746,7 +795,6 @@ $state.reload()
         document.cookie = "address="+data.this_address
         document.cookie = "post_code="+data.post_code
         $window.location.href = '#/tab/home'
-        location.reload()
         $state.reload()
 
       }
@@ -1257,7 +1305,7 @@ $state.reload()
   $scope.this_url = LocalURL+$scope.this_url_with_http.substring(LocalURL.length, $scope.this_url_with_http.length);
   $scope.message_template = ''
 
-  $$scope.gotoexternallink = function(link){
+  $scope.gotoexternallink = function(link){
     // size = 'width='+window.innerWidth+',height='+window.innerHeight
     // window.open(link,'newwindow',size);
     window.open(link, '_blank', 'location=yes'); return false;
