@@ -1241,7 +1241,7 @@ angular.module('starter.controllers', [])
     $http.post(DjangoURL+"/kala/pooshak_dokhtarane/getall")
     .success(function(data){
     console.log(data);
-    $scope.pooshak = data.result[$stateParams.pooshakzananeId-1]
+    $scope.pooshak = data.result[$stateParams.pooshakdokhtaraneId-1]
     })
 
   $scope.back = function(){
