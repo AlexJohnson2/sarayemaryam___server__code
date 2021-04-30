@@ -2,6 +2,7 @@
 
 This is simple app made with Ionic v1 API with Ionic CLI 6.11.0.
 
+
 Build:
 
 npm i

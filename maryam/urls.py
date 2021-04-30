@@ -14,6 +14,7 @@ urlpatterns = [
     url('send_message',views.send_message),
     url('send_comment',views.send_comment),
     url('send_signup_class',views.send_signup_class),
+    url('send_verify_code', views.send_verify_code),
     
     url(r'^kala/pooshak/getall$',views.get_all_pooshak),
     url(r'^kala/pooshak/add$',views.add_new_pooshak),
@@ -42,6 +43,30 @@ urlpatterns = [
     url(r'^kala/kharazi/delete$',views.delete_kharazi),
     url(r'^kala/kharazi/add_num$',views.add_num_kharazi),
     url(r'^kala/kharazi/remove_num$',views.remove_num_kharazi),
+
+
+    url(r'^kala/pishnahad_vizhe/getall$',views.get_all_pishnahad_vizhe),
+    url(r'^kala/pishnahad_vizhe/edit$',views.edit_pishnahad_vizhe),
+    url(r'^kala/pishnahad_vizhe/add$',views.add_new_pishnahad_vizhe),
+    url(r'^kala/pishnahad_vizhe/delete$',views.delete_pishnahad_vizhe),
+    #url(r'^kala/pishnahad_vizhe/add_num$',views.add_num_pishnahad_vizhe),
+    url(r'^kala/pishnahad_vizhe/remove_num$',views.remove_num_pishnahad_vizhe),
+
+    url(r'^kala/users_kalas/getall$',views.get_all_users_kalas),
+    url(r'^kala/users_kalas/edit$',views.edit_users_kalas),
+    url(r'^kala/users_kalas/add$',views.add_new_users_kalas),
+    url(r'^kala/users_kalas/delete$',views.delete_users_kalas),
+    #url(r'^kala/users_kalas/add_num$',views.add_num_pishnahad_vizhe),
+    url(r'^kala/users_kalas/remove_num$',views.remove_num_users_kalas),
+
+
+    url(r'^kala/zivar_alat/getall$',views.get_all_zivar_alat),
+    url(r'^kala/zivar_alat/edit$',views.edit_zivar_alat),
+    url(r'^kala/zivar_alat/add$',views.add_new_zivar_alat),
+    url(r'^kala/zivar_alat/delete$',views.delete_zivar_alat),
+    #url(r'^kala/zivar_alat/add_num$',views.add_num_zivar_alat),
+    url(r'^kala/zivar_alat/remove_num$',views.remove_num_zivar_alat),
+
 
     url(r'^kala/pooshak_mardane/getall$',views.get_all_pooshak_mardane),
     url(r'^kala/pooshak_mardane/edit$',views.edit_pooshak_mardane),
@@ -169,6 +194,12 @@ urlpatterns = [
     url(r'^kala/sefaresh_sayer/add_num$',views.add_num_sefaresh_sayer),
     url(r'^kala/sefaresh_sayer/remove_num$',views.remove_num_sefaresh_sayer),
 
+    url(r'^kala/haraji/getall$',views.get_all_haraji),
+    url(r'^kala/haraji/add$',views.add_new_haraji),
+    url(r'^kala/haraji/edit$',views.edit_haraji),
+    url(r'^kala/haraji/delete$',views.delete_haraji),
+    # url(r'^kala/haraji/add_num$'),
+    # url(r'^kala/haraji/remove_num$')
 
     url(r'^cart/add$',views.add_to_cart),
     url(r'^cart/delete$',views.delete_from_cart),
@@ -181,6 +212,29 @@ urlpatterns = [
     url(r'^delete_comments$',views.delete_comments),
 
     url(r'^get_update$',views.get_update),
+    
+    url(r'^tarikhche_kharid/getall$',views.get_all_tarikhche_kharid),
+    url(r'^tarikhche_kharid/add$',views.add_new_tarikhche_kharid),
+    url(r'^tarikhche_kharid/ok_level_amadeh_sazi$',views.ok_level_amadeh_sazi),
+    url(r'^tarikhche_kharid/ok_level_tahvil_post$',views.ok_level_tahvil_post),
+    url(r'^tarikhche_kharid/getall_admin$', views.get_all_tarikhche_kharid_admin),
+    
+    url(r'^signupclass/add$',views.add_signup_class),
+    url(r'^signupclass/getall$',views.get_all_signup_class),
+
+    url(r'payment/get_authority', views.get_authority),
+
+    url(r'^pay/verify$',views.verify_pay),
+
+    url('^this_admin$', views.admin_index),
+    url('^this_admin/icons.html$', views.admin_icons),
+    url('^this_admin/dashboard.html$', views.admin_index),
+    url('^this_admin/login.html$', views.admin_login),
+    url('^this_admin/map.html$', views.admin_map),
+    url('^this_admin/maps.html$', views.admin_maps),
+    url('^this_admin/profile.html$', views.admin_profile),
+    url('^this_admin/register.html$', views.admin_register),
+    url('^this_admin/tables.html$', views.admin_tables),
 
 ]
 app_name = "maryam"

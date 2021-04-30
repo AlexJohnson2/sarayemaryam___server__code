@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'j44ka))s(5pqpsgx5r@vzau$sno-3@k3%pcu%y75pp5fw=a)f1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -120,8 +120,9 @@ USE_L10N = True
 
 USE_TZ = True
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/site/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'site/media')
+# MEDIA_ROOT = os.path.join(MEDIA_ROOT, 'media')
 
 FILE_UPLOAD_HANDLERS = ("django_excel.ExcelMemoryFileUploadHandler",
                           "django_excel.TemporaryExcelFileUploadHandler")

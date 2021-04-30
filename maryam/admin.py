@@ -2,9 +2,37 @@ from django.contrib import admin
 from .models import *
 from import_export.admin import ImportExportModelAdmin
 
+
+@admin.register(Users_kalas)
+class users_kalas(ImportExportModelAdmin):
+    pass
+
+@admin.register(Zivar_Alat)
+class tarikhche_kharid(ImportExportModelAdmin):
+    pass
+
+@admin.register(Pishnahad_Vizhe)
+class tarikhche_kharid(ImportExportModelAdmin):
+    pass
+
+
+@admin.register(Tarikhche_kharid)
+class tarikhche_kharid(ImportExportModelAdmin):
+    pass
+
 @admin.register(User)
 class user(ImportExportModelAdmin):
     pass
+
+@admin.register(Haraji)
+class haraji(ImportExportModelAdmin):
+    pass
+
+
+@admin.register(SignupClass)
+class signupclass(ImportExportModelAdmin):
+    pass
+
 @admin.register(Pooshak)
 class pooshak(ImportExportModelAdmin):
     pass

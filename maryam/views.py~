@@ -1,0 +1,1777 @@
+from .models import *
+from .forms import ImageForm
+
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse,HttpResponseBadRequest
+from django import forms
+from django.conf import settings
+from django.shortcuts import render, redirect
+from django.shortcuts import render
+from django.http import JsonResponse
+
+import os
+import requests
+from json import JSONEncoder
+from persiantools import digits
+import json
+from suds.client import Client
+
+@csrf_exempt
+def get_all_haraji(request):
+    all = []
+    count = 0
+    for haraj in Haraji.objects.all():
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['color_size']={7};this_kala{0}['number']='{0}';all.append(this_kala{0})".format(count,haraj.name,haraj.text,haraj.amount,"http://193.176.243.61/media/"+str(haraj.img),haraj.id,haraj.num,haraj.color_size))
+
+    return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
+
+@csrf_exempt
+def add_new_haraji(request):
+    """
+    try:
+    """ 
+    data = request.POST
+    Haraji.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],color_size=json.loads(str(data['color_size'])))
+    return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    """
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+    """
+
+@csrf_exempt
+def delete_haraji(request):
+    try:
+        data = request.POST
+        Haraji.objects.filter(id=int(data['id'])).delete()
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def edit_haraji(request):
+    try:
+        data = request.POST
+        this_kala = Haraji.objects.filter(id=int(data['id']))
+        this_name = data['name']
+        this_text = data['text']
+        this_img = data['img']
+        this_amount = data['amount']
+        this_num = data['num']
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num)
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+
+# account views
+
+
+
+@csrf_exempt
+def register(request):
+    """
+    function for register on the system 
+    """
+    print(request.POST)
+    if 'username' in request.POST and 'password' in request.POST and 'phonenumber' in request.POST and 'tel_id' in request.POST:
+        try:
+            get_users = User.objects.filter(username=request.POST['username']).get()
+            return JsonResponse({'status':'error','result':'repetitious user'},encoder=JSONEncoder)
+        except:
+            try:
+                get_users = User.objects.filter(phone_number=request.POST['phonenumber']).get()
+                return JsonResponse({'status':'error','result':'repetitious phonenumber'},encoder=JSONEncoder)
+            except:
+                User.objects.create(username=request.POST['username'],password=request.POST['password'],phone_number=request.POST['phonenumber'],tel_id=request.POST['tel_id'],address=request.POST['address'],post_code=request.POST['post_code'])
+                return JsonResponse({'status':'ok','result':request.POST},encoder=JSONEncoder)
+
+            else:
+                return JsonResponse({'status':'error'},encoder=JSONEncoder)
+    else:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def check_user_with_password(request):
+    """
+    function for check user with passeord and return other user datas
+    """
+    try:
+        this_tel_id = User.objects.filter(username=request.POST['username'],password=request.POST['password'])[0].tel_id
+        this_phone = User.objects.filter(username=request.POST['username'],password=request.POST['password'])[0].phone_number
+        this_address = User.objects.filter(username=request.POST['username'],password=request.POST['password'])[0].address
+        this_post_code = User.objects.filter(username=request.POST['username'],password=request.POST['password'])[0].post_code
+        return JsonResponse({'status':'ok','result':request.POST,'tel_id':this_tel_id,'this_phone':this_phone,'this_address':this_address,'post_code':this_post_code},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def checkadmin(request):
+    try:
+        user = Admin_user.objects.filter(username=request.POST['username'],password=request.POST['password']).get()
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+
+@csrf_exempt
+def edit_account(request):
+    """
+        function for edit account on the system 
+    """
+    
+    try:
+    
+        data = request.POST
+        this_user = User.objects.filter(username=data['old_username'])    
+    
+        try:
+    
+            if data['old_username']!=data['new_username']:
+                new_username = User.objects.filter(username=data['new_username']).get()
+                return JsonResponse({'status':'error','result':'repetitious user'},encoder=JSONEncoder)
+            else:
+                this_is_true_command_._this_command_for_error_to_run_except
+    
+        except:
+            try:
+    
+                print(data['old_phonenumber'])
+                if data['old_phonenumber']!=data['new_phonenumber']:
+                    new_username = User.objects.filter(phone_number=data['new_phonenumber']).get()
+                    return JsonResponse({'status':'error','result':'repetitious phonenumber'},encoder=JSONEncoder)
+                else:
+                    this_is_true_command_._this_command_for_error_to_run_except
+    
+            except:
+                new_username = data['new_username']
+                new_password = data['new_password']
+                new_phonenumber = data['new_phonenumber']
+                new_tel_id = data['new_tel_id']
+                new_address = data['new_address']
+                new_post_code = data['new_post_code']
+                this_user.update(username=new_username,password=new_password,phone_number=new_phonenumber,tel_id=new_tel_id,address=new_address,post_code=new_post_code)
+            return JsonResponse({'status':'ok','result':data},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+    
+@csrf_exempt
+def delete_account(request):
+    """
+        function for account from system
+    """
+    try:
+        data = request.POST
+        this_user = User.objects.filter(username=data['username'],password=data['password']).delete()
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+
+
+# get all kalas
+
+@csrf_exempt
+def get_all_pooshak(request):
+    """
+        function for get all pooshak
+    """
+    all = []
+    count = 0
+    for pooshak in Pooshak_mardane.objects.filter():
+        num = -1
+        all_num = 0
+        try:
+            for i in pooshak.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,pooshak.name,pooshak.text,pooshak.amount,"http://193.176.243.61/media/"+str(pooshak.img),pooshak.id,all_num//2,pooshak.group,pooshak.color_size))
+    count = 0
+    for pooshak in Pooshak_zanane.objects.filter():
+        num = -1
+        all_num = 0
+        try:
+            for i in pooshak.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass
+
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,pooshak.name,pooshak.text,pooshak.amount,"http://193.176.243.61/media/"+str(pooshak.img),pooshak.id,all_num//2,pooshak.group,pooshak.color_size))
+    count = 0
+    for pooshak in Pooshak_pesarane.objects.filter():
+        num = -1
+        all_num = 0
+        try:
+            for i in pooshak.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass
+
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,pooshak.name,pooshak.text,pooshak.amount,"http://193.176.243.61/media/"+str(pooshak.img),pooshak.id,all_num//2,pooshak.group,pooshak.color_size))
+    count = 0
+    for pooshak in Pooshak_dokhtarane.objects.filter():
+        num = -1
+        all_num = 0
+        try:
+            for i in pooshak.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,pooshak.name,pooshak.text,pooshak.amount,"http://193.176.243.61/media/"+str(pooshak.img),pooshak.id,all_num//2,pooshak.group,pooshak.color_size))
+    count = 0
+    for pooshak in Pooshak_nozadi.objects.filter():
+        num = -1
+        all_num = 0
+        try:
+            for i in pooshak.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass
+
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,pooshak.name,pooshak.text,pooshak.amount,"http://193.176.243.61/media/"+str(pooshak.img),pooshak.id,all_num//2,pooshak.group,pooshak.color_size))
+
+    return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
+@csrf_exempt
+def get_all_parcheh(request):
+    """
+        function for get all parcheh
+    """
+    all = []
+    count = 0
+    for parcheh in Parcheh.objects.all():
+        num = -1
+        all_num = 0
+        try:
+            for i in parcheh.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass
+        
+        
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,parcheh.name,parcheh.text,parcheh.amount,"http://193.176.243.61/media/"+str(parcheh.img),parcheh.id,all_num//2,parcheh.group,parcheh.color_size))
+
+    return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
+@csrf_exempt
+def get_all_hejab(request):
+    """
+        function for get all parcheh
+    """
+    all = []
+    count = 0
+    for hejab in Hejab_chador.objects.all():
+        num = -1
+        all_num = 0
+        try:
+            for i in hejab.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass
+        
+        
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}'i;this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,hejab.name,hejab.text,hejab.amount,"http://193.176.243.61/media/"+str(hejab.img),hejab.id,hejab.num,hejab.group,hejab.color_size))
+    count = 0
+    for hejab in Hejab_mask_pooshie.objects.all():
+        num = -1
+        all_num = 0
+        try:
+            for i in hejab.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass
+
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,hejab.name,hejab.text,hejab.amount,"http://193.176.243.61/media/"+str(hejab.img),hejab.id,hejab.num,hejab.group,hejab.color_size))
+    count = 0
+    for hejab in Hejab_roosari.objects.all():
+        num = -1
+        all_num = 0
+        try:
+            for i in hejab.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass
+
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,hejab.name,hejab.text,hejab.amount,"http://193.176.243.61/media/"+str(hejab.img),hejab.id,hejab.num,hejab.group,hejab.color_size))
+    count = 0
+    for hejab in Hejab_saghedast_dastkesh.objects.all():
+        num = -1
+        all_num = 0
+        try:
+            for i in hejab.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass
+        
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,hejab.name,hejab.text,hejab.amount,"http://193.176.243.61/media/"+str(hejab.img),hejab.id,hejab.num,hejab.group,hejab.color_size))
+    count = 0
+    for hejab in Hejab_shal.objects.all():
+        num = -1
+        all_num = 0
+        try:
+            for i in hejab.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass
+
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,hejab.name,hejab.text,hejab.amount,"http://193.176.243.61/media/"+str(hejab.img),hejab.id,hejab.num,hejab.group,hejab.color_size))
+
+    return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
+@csrf_exempt
+def get_all_kharazi(request):
+    """
+        function for get all kharazi
+    """
+    all = []
+    count = 0
+    for kharazi in Kharazi_abzarkhayati.objects.all():
+        num = -1
+        all_num = 0
+        try:
+            for i in kharazi.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass
+
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,kharazi.name,kharazi.text,kharazi.amount,"http://193.176.243.61/media/"+str(kharazi.img),kharazi.id,kharazi.num,kharazi.group,kharazi.color_size))
+    count = 0
+    for kharazi in Kharazi_lavazemtahrir.objects.all(): 
+        num = -1
+        all_num = 0
+        try:
+            for i in kharazi.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass
+
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,kharazi.name,kharazi.text,kharazi.amount,"http://193.176.243.61/media/"+str(kharazi.img),kharazi.id,kharazi.num,kharazi.group,kharazi.color_size))
+
+    return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
+
+@csrf_exempt
+def get_all_pooshak_mardane(request):
+    """
+        function for get all kharazi
+    """
+    all = []
+    count = 0
+    for kala in Pooshak_mardane.objects.all():        
+        num = -1
+        all_num = 0
+        try:
+            for i in kala.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass
+
+
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,kala.name,kala.text,kala.amount,"http://193.176.243.61/media/"+str(kala.img),kala.id,all_num//2,kala.group,kala.color_size))
+
+    return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
+
+@csrf_exempt
+def get_all_pooshak_zanane(request):
+    """
+        function for get all kharazi
+    """
+    all = []
+    count = 0
+    for kala in Pooshak_zanane.objects.all():
+        num = -1
+        all_num = 0
+        try:
+            for i in kala.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass            
+                
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,kala.name,kala.text,kala.amount,"http://193.176.243.61/media/"+str(kala.img),kala.id,all_num//2,kala.group,kala.color_size))
+
+    return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
+
+@csrf_exempt
+def get_all_pooshak_dokhtarane(request):
+    """
+        function for get all kharazi
+    """
+    all = []
+    count = 0
+    for kala in Pooshak_dokhtarane.objects.all():
+        num = -1
+        all_num = 0
+        try:
+            for i in kala.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass
+                    
+                
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,kala.name,kala.text,kala.amount,"http://193.176.243.61/media/"+str(kala.img),kala.id,all_num//2,kala.group,kala.color_size))
+        
+    return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
+
+@csrf_exempt
+def get_all_pooshak_pesarane(request):
+    """
+        function for get all kharazi
+    """
+    all = []
+    count = 0
+    for kala in Pooshak_pesarane.objects.all():
+        num = -1
+        all_num = 0
+        try:
+            for i in kala.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass            
+                
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,kala.name,kala.text,kala.amount,"http://193.176.243.61/media/"+str(kala.img),kala.id,all_num//2,kala.group,kala.color_size))
+        
+    return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
+
+@csrf_exempt
+def get_all_pooshak_nozadi(request):
+    """
+        function for get all kharazi
+    """
+    all = []
+    count = 0
+    for kala in Pooshak_nozadi.objects.all():
+        num = -1
+        all_num = 0
+        if True:
+            for i in kala.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        """except:
+            pass 
+           """     
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,kala.name,kala.text,kala.amount,"http://193.176.243.61/media/"+str(kala.img),kala.id,all_num//2,kala.group,kala.color_size))
+        
+       
+    return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
+
+@csrf_exempt
+def get_all_hejab_chador(request):
+    """
+        function for get all kharazi
+    """
+    all = []
+    count = 0
+    for kala in Hejab_chador.objects.all():
+        num = -1
+        all_num = 0
+        try:
+            for i in kala.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass 
+                
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,kala.name,kala.text,kala.amount,"http://193.176.243.61/media/"+str(kala.img),kala.id,all_num//2,kala.group,kala.color_size))
+        
+    return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
+
+@csrf_exempt
+def get_all_hejab_shal(request):
+    """
+        function for get all kharazi
+    """
+    all = []
+    count = 0
+    for kala in Hejab_shal.objects.all():
+        num = -1
+        all_num = 0
+        try:
+            for i in kala.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass            
+                
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,kala.name,kala.text,kala.amount,"http://193.176.243.61/media/"+str(kala.img),kala.id,all_num//2,kala.group,kala.color_size))
+        
+
+    return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
+
+
+@csrf_exempt
+def get_all_hejab_roosari(request):
+    """
+        function for get all kharazi
+    """
+    all = []
+    count = 0
+    for kala in Hejab_roosari.objects.all():
+        num = -1
+        all_num = 0
+        try:
+            for i in kala.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass             
+                
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,kala.name,kala.text,kala.amount,"http://193.176.243.61/media/"+str(kala.img),kala.id,all_num//2,kala.group,kala.color_size))
+        
+    return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
+
+@csrf_exempt
+def get_all_hejab_saghedast_dastkesh(request):
+    """
+        function for get all kharazi
+    """
+    all = []
+    count = 0
+    for kala in Hejab_saghedast_dastkesh.objects.all():
+        num = -1
+        all_num = 0
+        try:
+            for i in kala.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass            
+                
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,kala.name,kala.text,kala.amount,"http://193.176.243.61/media/"+str(kala.img),kala.id,all_num//2,kala.group,kala.color_size))
+        
+    return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
+
+
+@csrf_exempt
+def get_all_hejab_mask_pooshie(request):
+    """
+        function for get all kharazi
+    """
+    all = []
+    count = 0
+    for kala in Hejab_mask_pooshie.objects.all():
+        num = -1
+        all_num = 0
+        try:
+            for i in kala.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass            
+                
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,kala.name,kala.text,kala.amount,"http://193.176.243.61/media/"+str(kala.img),kala.id,all_num//2,kala.group,kala.color_size))
+        
+    return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
+
+@csrf_exempt
+def get_all_kharazi_abzarkhayati(request):
+    """
+        function for get all kharazi
+    """
+    all = []
+    count = 0
+    for kala in Kharazi_abzarkhayati.objects.all():
+        num = -1
+        all_num = 0
+        try:
+            for i in kala.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass            
+                
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,kala.name,kala.text,kala.amount,"http://193.176.243.61/media/"+str(kala.img),kala.id,all_num//2,kala.group,kala.color_size))
+        
+    return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
+
+@csrf_exempt
+def get_all_kharazi_lavazemtahrir(request):
+    """
+        function for get all kharazi
+    """
+    all = []
+    count = 0
+    for kala in Kharazi_lavazemtahrir.objects.all():
+        num = -1
+        all_num = 0
+        try:
+            for i in kala.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass            
+                
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,kala.name,kala.text,kala.amount,"http://193.176.243.61/media/"+str(kala.img),kala.id,all_num//2,kala.group,kala.color_size))
+        
+    return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
+
+
+
+
+@csrf_exempt
+def get_all_sefaresh_mardane(request):
+    """
+        function for get all kharazi
+    """
+    all = []
+    count = 0
+    for kala in Sefaresh_mardane.objects.all():
+        num = -1
+        all_num = 0
+        try:
+            for i in kala.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass
+                
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,kala.name,kala.text,kala.amount,"http://193.176.243.61/media/"+str(kala.img),kala.id,all_num//2,kala.group,kala.color_size))
+        
+    return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
+
+@csrf_exempt
+def get_all_sefaresh_zanane(request):
+    """
+        function for get all kharazi
+    """
+    all = []
+    count = 0
+    for kala in Sefaresh_zanane.objects.all():
+        num = -1
+        all_num = 0
+        try:
+            for i in kala.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass            
+                
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,kala.name,kala.text,kala.amount,"http://193.176.243.61/media/"+str(kala.img),kala.id,all_num//2,kala.group,kala.color_size))
+        
+    return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
+
+@csrf_exempt
+def get_all_sefaresh_dokhtarane(request):
+    """
+        function for get all kharazi
+    """
+    all = []
+    count = 0
+    for kala in Sefaresh_dokhtarane.objects.all():
+        num = -1
+        all_num = 0
+        try:
+            for i in kala.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass            
+                
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,kala.name,kala.text,kala.amount,"http://193.176.243.61/media/"+str(kala.img),kala.id,all_num//2,kala.group,kala.color_size))
+        
+    return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
+
+@csrf_exempt
+def get_all_sefaresh_pesarane(request):
+    """
+        function for get all kharazi
+    """
+    all = []
+    count = 0
+    for kala in Sefaresh_pesarane.objects.all():
+        num = -1
+        all_num = 0
+        try:
+            for i in kala.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass            
+                
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,kala.name,kala.text,kala.amount,"http://193.176.243.61/media/"+str(kala.img),kala.id,all_num//2,kala.group,kala.color_size))
+        
+    return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
+
+@csrf_exempt
+def get_all_sefaresh_nozadi(request):
+    """
+        function for get all kharazi
+    """
+    all = []
+    count = 0
+    for kala in Sefaresh_nozadi.objects.all():
+        num = -1
+        all_num = 0
+        try:
+            for i in kala.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass            
+                
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,kala.name,kala.text,kala.amount,"http://193.176.243.61/media/"+str(kala.img),kala.id,all_num//2,kala.group,kala.color_size))
+        
+    return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
+
+@csrf_exempt
+def get_all_sefaresh_sayer(request):
+    """
+        function for get all kharazi
+    """
+    all = []
+    count = 0
+    for kala in Sefaresh_sayer.objects.all():
+        num = -1
+        all_num = 0
+        try:
+            for i in kala.color_size["result"]:
+                try:
+                    for j in i:
+                        num=-1
+                        # print(i["size"][num])
+                        try:
+                            for r in range(0,len(i["size"][num])-1): 
+                                num+=1 
+                                print(i["size"])
+                                # print(i["size"][num]["num"])
+                                all_num+=int(i["size"][num]["num"])
+                        except:
+                            pass
+                except:
+                    pass
+            print(all_num//2)
+        except:
+            pass            
+                
+        count += 1
+        exec("this_kala{0}=".format(count)+"{}"+";this_kala{0}['id']={5};this_kala{0}['group']='{7}';this_kala{0}['name']='{1}';this_kala{0}['text']='{2}';this_kala{0}['amount']='{3}';this_kala{0}['img']='{4}';this_kala{0}['num']='{6}';this_kala{0}['number']='{0}';this_kala{0}['color_size']={8};all.append(this_kala{0})".format(count,kala.name,kala.text,kala.amount,"http://193.176.243.61/media/"+str(kala.img),kala.id,all_num//2,kala.group,kala.color_size))
+        
+    return JsonResponse({'status':'ok','result': all},encoder=JSONEncoder)
+
+
+
+
+# add new kalas views
+
+
+@csrf_exempt
+def add_new_parcheh(request):
+    """
+    try:
+        data = request.POST
+        Parcheh.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],color_size=data["color_size"])
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+    """
+    if True:
+        data = request.POST
+        print(data["color_size"])
+        print()
+        Parcheh.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+@csrf_exempt
+def add_new_pooshak(request):
+    try:
+        data = request.POST
+        Pooshak.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],color_size=data["color_size"])
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+    
+@csrf_exempt
+def add_new_hejab(request):
+    try:
+        data = request.POST
+        Hejab.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],color_size=data["color_size"])
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+    
+@csrf_exempt
+def add_new_kharazi(request):
+    try:
+        data = request.POST
+        Kharazi.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],color_size=data["color_size"])
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+
+@csrf_exempt
+def add_new_pooshak_mardane(request):
+    """
+    try:
+    """
+    if True:
+        data = request.POST
+        print(data["color_size"])
+        print()
+        Pooshak_mardane.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    """
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+"""
+@csrf_exempt
+def add_new_pooshak_zanane(request):
+    try:
+        data = request.POST
+        Pooshak_zanane.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def add_new_pooshak_dokhtarane(request):
+    try:
+        data = request.POST
+        Pooshak_dokhtarane.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def add_new_pooshak_pesarane(request):
+    try:
+        data = request.POST
+        Pooshak_pesarane.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def add_new_pooshak_nozadi(request):
+    try:
+        data = request.POST
+        Pooshak_nozadi.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def add_new_hejab_chador(request):
+    try:
+        data = request.POST
+        Hejab_chador.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def add_new_hejab_shal(request):
+    try:
+        data = request.POST
+        Hejab_shal.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def add_new_hejab_roosari(request):
+    try:
+        data = request.POST
+        Hejab_roosari.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def add_new_hejab_saghedast_dastkesh(request):
+    try:
+        data = request.POST
+        Hejab_saghedast_dastkesh.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def add_new_hejab_mask_pooshie(request):
+    try:
+        data = request.POST
+        Hejab_mask_pooshie.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def add_new_kharazi_abzarkhayati(request):
+    try:
+        data = request.POST
+        Kharazi_abzarkhayati.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def add_new_kharazi_lavazemtahrir(request):
+    try:
+        data = request.POST
+        Kharazi_lavazemtahrir.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+
+
+
+
+
+
+@csrf_exempt
+def add_new_sefaresh_mardane(request):
+    try:
+        data = request.POST
+        Sefaresh_mardane.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def add_new_sefaresh_zanane(request):
+    try:
+        data = request.POST
+        Sefaresh_zanane.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def add_new_sefaresh_dokhtarane(request):
+    try:
+        data = request.POST
+        Sefaresh_dokhtarane.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def add_new_sefaresh_pesarane(request):
+    try:
+        data = request.POST
+        Sefaresh_pesarane.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def add_new_sefaresh_nozadi(request):
+    try:
+        data = request.POST
+        Sefaresh_nozadi.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def add_new_sefaresh_sayer(request):
+    try:
+        data = request.POST
+        Sefaresh_sayer.objects.create(name=data['name'],text=data['text'],img=data['img'],amount=data['amount'],num=data['num'],color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+
+
+# delete models.object functions  
+
+@csrf_exempt
+def delete_parcheh(request):
+    try:
+        data = request.POST
+        Parcheh.objects.filter(id=int(data['id'])).delete()
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+    
+@csrf_exempt
+def delete_pooshak(request):
+    try:
+        data = request.POST
+        Pooshak.objects.filter(id=int(data['id'])).delete()
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+    
+@csrf_exempt
+def delete_hejab(request):
+    try:
+        data = request.POST
+        Hejab.objects.filter(id=int(data['id'])).delete()
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+    
+@csrf_exempt
+def delete_kharazi(request):
+    try:
+        data = request.POST
+        Kharazi.objects.filter(id=int(data['id'])).delete()
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+    
+@csrf_exempt
+def delete_pooshak_mardane(request):
+    try:
+        data = request.POST
+        Pooshak_mardane.objects.filter(id=int(data['id'])).delete()
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+    
+@csrf_exempt
+def delete_pooshak_zanane(request):
+    try:
+        data = request.POST
+        Pooshak_zanane.objects.filter(id=int(data['id'])).delete()
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+    
+@csrf_exempt
+def delete_pooshak_dokhtarane(request):
+    try:
+        data = request.POST
+        Pooshak_dokhtarane.objects.filter(id=int(data['id'])).delete()
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def delete_pooshak_pesarane(request):
+    try:
+        data = request.POST
+        Pooshak_pesarane.objects.filter(id=int(data['id'])).delete()
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def delete_pooshak_nozadi(request):
+    try:
+        data = request.POST
+        Pooshak_nozadi.objects.filter(id=int(data['id'])).delete()
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def delete_hejab_chador(request):
+    try:
+        data = request.POST
+        Hejab_chador.objects.filter(id=int(data['id'])).delete()
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def delete_hejab_shal(request):
+    try:
+        data = request.POST
+        Hejab_shal.objects.filter(id=int(data['id'])).delete()
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+
+@csrf_exempt
+def delete_hejab_roosari(request):
+    try:
+        data = request.POST
+        Hejab_roosari.objects.filter(id=int(data['id'])).delete()
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def delete_hejab_saghedast_dastkesh(request):
+    try:
+        data = request.POST
+        Hejab_saghedast_dastkesh.objects.filter(id=int(data['id'])).delete()
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def delete_hejab_mask_pooshie(request):
+    try:
+        data = request.POST
+        Hejab_mask_pooshie.objects.filter(id=int(data['id'])).delete()
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+
+@csrf_exempt
+def delete_kharazi_abzarkhayati(request):
+    try:
+        data = request.POST
+        Kharazi_abzarkhayati.objects.filter(id=int(data['id'])).delete()
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def delete_kharazi_lavazemtahrir(request):
+    try:
+        data = request.POST
+        Kharazi_lavazemtahrir.objects.filter(id=int(data['id'])).delete()
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+    
+    
+
+
+
+@csrf_exempt
+def delete_sefaresh_mardane(request):
+    try:
+        data = request.POST
+        Sefaresh_mardane.objects.filter(id=int(data['id'])).delete()
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+    
+@csrf_exempt
+def delete_sefaresh_zanane(request):
+    try:
+        data = request.POST
+        Sefaresh_zanane.objects.filter(id=int(data['id'])).delete()
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+    
+@csrf_exempt
+def delete_sefaresh_dokhtarane(request):
+    try:
+        data = request.POST
+        Sefaresh_dokhtarane.objects.filter(id=int(data['id'])).delete()
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def delete_sefaresh_pesarane(request):
+    try:
+        data = request.POST
+        Sefaresh_pesarane.objects.filter(id=int(data['id'])).delete()
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def delete_sefaresh_nozadi(request):
+    try:
+        data = request.POST
+        Sefaresh_nozadi.objects.filter(id=int(data['id'])).delete()
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def delete_sefaresh_sayer(request):
+    try:
+        data = request.POST
+        Sefaresh_sayer.objects.filter(id=int(data['id'])).delete()
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+
+# edit models.object functions  
+    
+@csrf_exempt
+def edit_parcheh(request):
+    try:
+        data = request.POST
+        this_kala = Parcheh.objects.filter(id=int(data['id']))
+        this_name = data['name']
+        this_text = data['text']
+        this_img = data['img']
+        this_amount = data['amount']
+        this_num = data['num']
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+    
+@csrf_exempt
+def edit_pooshak(request):
+    # try:
+    data = request.POST
+    this_kala = Pooshak.objects.filter(id=int(data['id']))
+    this_name = data['name']
+    this_text = data['text']
+    this_img = data['img']
+    this_amount = data['amount']
+    this_num = data['num']
+    this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,color_size=json.loads(str(data['color_size'])))
+    return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    # except:
+    #     return JsonResponse({'status':'error'},encoder=JSONEncoder)
+    
+@csrf_exempt
+def edit_hejab(request):
+    try:
+        data = request.POST
+        this_kala = Hejab.objects.filter(id=int(data['id']))
+        this_name = data['name']
+        this_text = data['text']
+        this_img = data['img']
+        this_amount = data['amount']
+        this_num = data['num']
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+    
+@csrf_exempt
+def edit_kharazi(request):
+    try:
+        data = request.POST
+        this_kala = Kharazi.objects.filter(id=int(data['id']))
+        this_name = data['name']
+        this_text = data['text']
+        this_img = data['img']
+        this_amount = data['amount']
+        this_num = data['num']
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+    
+@csrf_exempt
+def edit_pooshak_mardane(request):
+    try:
+        data = request.POST
+        this_kala = Pooshak_mardane.objects.filter(id=int(data['id']))
+        this_name = data['name']
+        this_text = data['text']
+        this_img = data['img']
+        this_amount = data['amount']
+        this_num = data['num']
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+
+@csrf_exempt
+def edit_pooshak_zanane(request):
+    try:
+        data = request.POST
+        this_kala = Pooshak_zanane.objects.filter(id=int(data['id']))
+        this_name = data['name']
+        this_text = data['text']
+        this_img = data['img']
+        this_amount = data['amount']
+        this_num = data['num']
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def edit_pooshak_dokhtarane(request):
+    try:
+        data = request.POST
+        this_kala = Pooshak_dokhtarane.objects.filter(id=int(data['id']))
+        this_name = data['name']
+        this_text = data['text']
+        this_img = data['img']
+        this_amount = data['amount']
+        this_num = data['num']
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def edit_pooshak_pesarane(request):
+    try:
+        data = request.POST
+        this_kala = Pooshak_pesarane.objects.filter(id=int(data['id']))
+        this_name = data['name']
+        this_text = data['text']
+        this_img = data['img']
+        this_amount = data['amount']
+        this_num = data['num']
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def edit_pooshak_nozadi(request):
+    try:
+        data = request.POST
+        this_kala = Pooshak_nozadi.objects.filter(id=int(data['id']))
+        this_name = data['name']
+        this_text = data['text']
+        this_img = data['img']
+        this_amount = data['amount']
+        this_num = data['num']
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def edit_hejab_chador(request):
+    try:
+        data = request.POST
+        this_kala = Hejab_chador.objects.filter(id=int(data['id']))
+        this_name = data['name']
+        this_text = data['text']
+        this_img = data['img']
+        this_amount = data['amount']
+        this_num = data['num']
+        this_kala.update(name=this_name,text=this_text,img=this_img,amount=this_amount,num=this_num,color_size=json.loads(str(data['color_size'])))
+        return JsonResponse({'status':'ok'},encoder=JSONEncoder)
+    except:
+        return JsonResponse({'status':'error'},encoder=JSONEncoder)
+
+@csrf_exempt
+def edit_hejab_shal(request):
+    try:
+        data = request.POST
+        this_kala = Hejab_shal.objects.filter(id=int(data['id']))
+        this_name = data['name']
+        this_text = data['text']
+        thi
