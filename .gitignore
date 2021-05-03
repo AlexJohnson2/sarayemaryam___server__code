@@ -8,7 +8,7 @@ db.sqlite3
 site/
 # C extensions
 *.so
-
+clinets/
 # Distribution / packaging
 .Python
 env/
