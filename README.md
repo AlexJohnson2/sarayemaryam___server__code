@@ -22,7 +22,7 @@
  پروژه در حال اجرا روی پورت 8000 سیستم لوکال شما می باشد.
  <br>
  ### Linux
-  <br>
+ <br>
  `git clone https://github.com/AlexJohnson2/sarayemaryam___server__code.git`
  <br>
  `cd sarayemaryam___server__code`
