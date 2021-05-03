@@ -1,9 +1,12 @@
-# TODO
-
-## Django
-
-this project is the complete (Temporary)
-
-## Ionic
-
-this project is the complete (Temporary)
+<div dir="rtl" style="text-align: right">
+  
+  
+ ## اجرای پروژه
+ 
+ #### Window
+  
+  
+  
+  
+  
+ </div>
