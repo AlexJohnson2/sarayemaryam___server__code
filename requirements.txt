@@ -30,3 +30,5 @@ texttable==1.6.3
 urllib3==1.26.3
 xlrd==2.0.1
 xlwt==1.3.0
+suds3==0.1
+persiantools==2.1.1
