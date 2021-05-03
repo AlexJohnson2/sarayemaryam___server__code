@@ -9,6 +9,7 @@ site/
 # C extensions
 *.so
 clinets/
+template/argon-dashboard-maste/r
 # Distribution / packaging
 .Python
 env/
